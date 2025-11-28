@@ -13,6 +13,33 @@ const mapRecord = (record) => {
     return data;
 };
 
+const mapProduct = (record) => {
+    const data = mapRecord(record);
+
+    // Map fields to match frontend expectations
+    data.sale_price = data.salePrice;
+    data.created_at = data.created;
+    data.updated_at = data.updated;
+
+    // Handle images
+    if (data.images && Array.isArray(data.images)) {
+        data.images = data.images.map((filename, index) => ({
+            id: index,
+            path: pb.files.getUrl(record, filename)
+        }));
+    } else {
+        data.images = [];
+    }
+
+    // Handle discount (ensure it's a string if needed, or keep as number if frontend handles it)
+    // Based on types/product.ts, discount is string | undefined.
+    if (data.discount !== undefined && data.discount !== null) {
+        data.discount = String(data.discount);
+    }
+
+    return data;
+};
+
 const createSizeService = () => ({
     getAll: async () => {
         const records = await pb.collection('sizes').getFullList({ requestKey: null });
@@ -52,14 +79,14 @@ const createProductService = () => ({
 
         const result = await pb.collection('products').getList(page, 30, {
             filter,
-            expand: 'category,sizes,colors,tags,images',
-            sort: '-created_at',
+            expand: 'category,sizes,colors,tags', // Removed images from expand
+            sort: '-created', // Changed from -created_at
             requestKey: null
         });
 
         return {
             data: {
-                results: result.items.map(mapRecord),
+                results: result.items.map(mapProduct),
                 count: result.totalItems,
                 next: result.page < result.totalPages ? 'next' : null
             }
@@ -67,10 +94,10 @@ const createProductService = () => ({
     },
     get: async (id) => {
         const record = await pb.collection('products').getOne(id, {
-            expand: 'category,sizes,colors,tags,images',
+            expand: 'category,sizes,colors,tags', // Removed images from expand
             requestKey: null
         });
-        return { data: mapRecord(record) };
+        return { data: mapProduct(record) };
     },
 })
 

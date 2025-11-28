@@ -1,4 +1,3 @@
-import Image from "./image";
 import Tag from "./tag";
 import Category from "./category";
 import Color from "./color";
@@ -13,7 +12,7 @@ export default interface Product {
     discount?: string;
     created_at: string;
     updated_at: string;
-    images: Image[];
+    images: string[];
     category?: Category;
     tags?: Tag[];
     colors?: Color[];
