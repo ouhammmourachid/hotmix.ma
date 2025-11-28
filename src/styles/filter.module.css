@@ -1,0 +1,35 @@
+
+
+.filter_radio {
+  @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692]
+  bg-transparent
+  relative
+  checked:bg-greny
+  checked:border-0
+  before:content-[''] before:w-2 before:h-2 before:rounded-full
+  before:absolute before:top-1/2 before:left-1/2
+  before:-translate-x-1/2 before:-translate-y-1/2
+  checked:before:bg-black
+  focus:outline-none focus:ring-0 focus:ring-offset-0
+  transition-all duration-150;
+}
+
+.filter_scroll_area {
+    @apply flex flex-col h-48 mt-5 mr-1;
+}
+
+.filter_checkbox {
+    @apply border border-[#014751] data-[state=checked]:bg-greny rounded-none w-5 h-5;
+}
+
+.filter_checkbox_label {
+    @apply flex items-center gap-3 mb-3 cursor-pointer;
+}
+
+.filter_color_ring {
+    @apply absolute inset-0 w-8 h-8 rounded-full border-[#014751];
+}
+
+.filter_color_circle {
+    @apply relative m-0.5 flex items-center justify-center w-7 h-7 rounded-full;
+}

@@ -1,0 +1,90 @@
+/* bottom nav */
+.bottom_nav {
+    @apply fixed bottom-0 left-0 right-0 bg-primary text-white py-2 z-40
+    lg:hidden max-w-screen-xl mx-auto sm:px-20 px-4 flex justify-between items-center;
+}
+
+.bottom_nav_button {
+    @apply flex flex-col items-center relative;
+}
+
+.bottom_nav_button_span {
+    @apply absolute bg-greny text-xs rounded-full h-4 w-4 flex items-center justify-center;
+}
+
+/* footer */
+
+.social_media {
+    @apply p-2 border border-gray-600 rounded-full transition-colors;
+}
+
+.footer_subscribe_input {
+    @apply border-none flex items-center focus:ring-0 focus-visible:ring-0
+    focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none
+    bg-white  text-[#527692] placeholder:text-[#527692];
+}
+
+.footer_subscribe_button {
+    @apply rounded-sm h-10 bg-secondary hover:bg-secondary/70;
+}
+
+.footer_copyright {
+    @apply border-t-2 mx-10 pb-16 lg:pb-0 border-secondary flex lg:flex-row flex-col justify-between items-center gap-4 pt-6;
+}
+
+/* hero section */
+
+.hero_section_button {
+    @apply bg-secondary hover:bg-secondary/90 px-8 py-6 text-lg border border-greny rounded-sm;
+}
+
+.hero_section_content {
+    @apply relative container mx-auto h-full flex items-center justify-center pt-36;
+}
+
+/* login form */
+
+.login_form {
+    @apply flex flex-col gap-6 bg-secondary w-full max-w-sm rounded-lg border-none;
+}
+
+.login_form_input {
+    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none
+    focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
+    focus-visible:outline-none focus-visible:ring-offset-greny;
+}
+
+/* navigation */
+
+.nav_link {
+    @apply relative;
+}
+
+.nav {
+    @apply bg-primary shadow-sm shadow-white/10 py-4 container mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-12 px-0;
+}
+
+.nav_logo {
+    @apply text-2xl font-bold text-greny flex items-center justify-center lg:justify-start;
+}
+
+.nav_span {
+    @apply absolute -top-2 -right-2 bg-greny text-white text-xs
+     rounded-full w-4 h-4 flex items-center justify-center;
+}
+
+/* sign-up form */
+
+.sign_up_form {
+    @apply flex flex-col gap-6 bg-secondary w-full max-w-sm rounded-lg border-none;
+}
+
+.sign_in_up_logo {
+    @apply text-6xl font-bold text-greny flex items-center justify-center;
+}
+
+.sign_up_input {
+    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none
+    focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
+    focus-visible:outline-none focus-visible:ring-offset-greny;
+}

@@ -1,0 +1,146 @@
+/* empty cart page */
+.empty_cart_page {
+    @apply text-center max-w-md mx-auto ;
+}
+
+.empty_cart_page h1 {
+    @apply text-4xl font-semibold mb-16;
+}
+
+.empty_cart_page p {
+    @apply text-teal-100/80 text-sm ;
+}
+
+.empty_cart_page_link {
+    @apply inline-flex items-center px-6 py-3 rounded border border-teal-600 hover:bg-teal-800 transition-colors duration-200 ;
+}
+
+.empty_cart_page h2 {
+    @apply text-2xl font-medium;
+}
+
+/* empy cart */
+.empty_cart {
+    @apply flex flex-col items-center justify-center h-[calc(100%-80px)] p-6;
+}
+
+.empty_cart h3 {
+    @apply text-2xl font-medium mb-4 ;
+}
+
+.empty_cart p {
+    @apply text-center text-gray-300 mb-8;
+}
+
+.empty_cart_link {
+    @apply inline-flex items-center px-6 py-3 bg-teal-800 hover:bg-teal-700 transition-colors rounded-md text-white font-medium ;
+}
+
+/* cart checkout */
+.cart_checkout {
+    @apply text-white p-6 rounded-lg max-w-md;
+}
+
+.cart_checkout_links {
+    @apply grid grid-cols-2 gap-4;
+}
+
+.cart_checkout_link {
+    @apply text-center py-3 px-4 bg-secondary rounded-sm
+    hover:bg-secondary/70 transition-colors border border-greny;
+}
+
+.cart_checkout_view_link {
+    @apply text-center py-3 px-4 border border-whity
+    rounded-sm  hover:text-greny hover:border-greny transition-colors;
+}
+
+/* cart item */
+.cart_item_remove {
+    @apply cursor-pointer text-sm underline hover:text-greny;
+}
+
+.cart_item_price {
+    @apply text-gray-400 line-through;
+}
+
+.cart_item_sale_price {
+    @apply text-greny font-bold;
+}
+
+.cart_item_img {
+    @apply w-20 object-cover rounded-sm;
+}
+
+.cart_item_name {
+    @apply text-lg font-medium hover:text-greny;
+}
+
+.cart_item_size {
+    @apply text-sm text-gray-300;
+}
+
+/* render cart items */
+.render_cart_items {
+    @apply flex flex-col h-full;
+}
+
+/* render cart item in cart page */
+.render_cart_item_page {
+    @apply flex justify-between md:grid md:grid-cols-4 md:gap-4 items-center border-b border-dashed border-secondary pb-4 mr-8 space-x-4;
+}
+
+.render_cart_item_page_img {
+    @apply w-28 sm:w-20 object-cover rounded-sm mx-0;
+}
+
+.render_cart_item_page_info {
+    @apply hidden md:flex flex-col items-start;
+}
+
+.rtl_cart_item {
+    @apply gap-4 mx-2;
+}
+
+.render_cart_item_page_info_remove{
+    @apply text-sm text-gray-400 underline mt-1 hover:text-greny;
+}
+
+.render_cart_item_page_info_prices {
+    @apply items-center gap-2 hidden md:flex;
+}
+
+.render_cart_item_page_info_quantity {
+    @apply flex flex-row justify-between border-b border-dashed border-gray-700 py-3;
+}
+
+.render_cart_item_page_info_total {
+    @apply flex flex-row justify-between py-3;
+}
+
+/* checkout subtotal in cart page */
+
+.checkout_subtotal_page {
+    @apply mt-8 w-full xl:w-fit bg-secondary rounded-sm p-6 h-fit sticky top-4 ;
+}
+
+.checkout_subtotal_page_link {
+    @apply w-full block border border-greny rounded-sm py-2 text-center;
+}
+
+/* shopping cart */
+.shopping_cart {
+    @apply mx-auto  text-whity px-4 xl:px-10 w-full;
+}
+
+.shopping_cart_table_header {
+    @apply grid-cols-4 hidden md:grid font-semibold gap-4 text-sm justify-between mb-4 border-b border-dashed border-secondary pb-4 mr-8;
+}
+
+.shopping_cart_textarea {
+    @apply w-full xl:w-1/2 bg-secondary rounded p-4 text-white placeholder-gray-400;
+}
+
+.shopping_cart_title {
+    @apply text-4xl text-center py-12 ;
+}

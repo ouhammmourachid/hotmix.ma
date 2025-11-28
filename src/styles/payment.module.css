@@ -1,0 +1,13 @@
+.payment_checkbox {
+    @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692]
+    bg-transparent
+    relative
+    checked:bg-[#86df0e]
+    checked:border-0
+    before:content-[''] before:w-2 before:h-2 before:rounded-full
+    before:absolute before:top-1/2 before:left-1/2
+    before:-translate-x-1/2 before:-translate-y-1/2
+    checked:before:bg-black
+    focus:outline-none focus:ring-0 focus:ring-offset-0
+    transition-all duration-150;
+}

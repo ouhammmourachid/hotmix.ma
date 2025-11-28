@@ -1,0 +1,119 @@
+
+/* horizontal product */
+.horizontal_product {
+    @apply p-4 sm:p-6 h-fit border-b-2 border-secondary;
+}
+
+.horizontal_product_button {
+    @apply p-2 bg-secondary rounded-sm hover:bg-whity hover:text-secondary transition-colors;
+}
+
+.horizontal_product_description {
+    @apply text-gray-300 w-3/4 hidden md:block;
+}
+
+.horizontal_product_prices {
+    @apply space-x-2 sm:space-x-4 flex flex-row items-center;
+}
+
+.horizontal_product_price {
+    @apply text-gray-400 text-sm sm:text-xl line-through whitespace-nowrap;
+}
+
+.horizontal_product_sale_price {
+    @apply text-greny text-sm sm:text-xl font-bold whitespace-nowrap;
+}
+
+.horizontal_product_header {
+    @apply text-sm sm:text-base lg:text-2xl font-bold hover:text-greny cursor-pointer truncate overflow-hidden text-ellipsis w-full;
+}
+
+/* product card */
+.product_card {
+    @apply relative overflow-hidden rounded-sm w-full bg-transparent shadow-none border-0;
+}
+
+
+
+.product_card_quick_add {
+    @apply w-full border-2 border-[#708885] text-xs font-semibold rounded-sm
+     bg-secondary hover:bg-whity hover:text-secondary hover:border-secondary
+    text-white my-2 opacity-100 transition-all duration-300 lg:opacity-0;
+}
+
+.product_card_prices {
+    @apply flex flex-row items-center gap-2;
+}
+
+.product_card_price {
+    @apply text-gray-500 line-through whitespace-nowrap text-base;
+}
+
+.product_card_sale_price {
+    @apply text-greny font-bold whitespace-nowrap text-base;
+}
+
+.product_card_sizes {
+    @apply flex justify-center bg-primary w-full h-8 opacity-80 rounded-b-lg gap-2 pt-2 shadow-none;
+}
+
+.product_card_quick_actions {
+    @apply absolute inset-0 flex flex-col justify-end items-center opacity-100
+    lg:opacity-0 transition-all duration-300;
+}
+
+.product_card_quick_actions_button {
+    @apply w-10 h-10 rounded-full bg-secondary hover:bg-whity hover:text-primary flex
+    items-center justify-center cursor-pointer transition-colors;
+}
+
+.product_card_name {
+    @apply text-lg font-medium text-white hover:text-greny truncate max-w-full;
+}
+
+/* sticky product footer */
+.sticky_product_footer {
+    @apply fixed mb-16 lg:mb-0 bottom-0 text-white left-0 right-0 bg-primary py-2 px-4 lg:pl-14 flex items-center justify-between shadow-inner z-40;
+}
+
+.sticky_product_footer_button {
+    @apply h-12 w-full md:w-fit px-4 md:px-14 rounded-sm font-semibold bg-secondary text-white border border-greny hover:bg-green-600 hover:text-white transition-colors flex items-center justify-center;
+}
+
+.sticky_product_footer_name {
+    @apply text-lg font-semibold hidden lg:block;
+}
+
+/* product details */
+
+.product_details {
+    @apply flex flex-col lg:flex-row px-7 text-white pt-9 gap-6 lg:gap-64;
+}
+
+.product_details_content {
+    @apply border-2 border-secondary rounded-md w-full;
+}
+
+.product_reviews_rating_bar {
+    @apply h-2 w-full bg-whity rounded-full overflow-hidden;
+}
+
+.product_reviews_title {
+    @apply text-2xl font-semibold text-white mb-8;
+}
+
+.product_reviews_button_write {
+    @apply px-4 py-2 border w-full bg-secondary border-greny rounded-sm  hover:bg-secondary/70 transition;
+}
+
+.product_reviews_button_filter {
+    @apply p-2 border bg-secondary border-greny rounded-sm transition hover:bg-secondary/70;
+}
+
+.product_review {
+    @apply flex flex-row items-center border-t-2 border-secondary py-6;
+}
+
+.product_review_avatar {
+    @apply w-10 h-10 rounded-full bg-secondary flex items-center justify-center;
+}

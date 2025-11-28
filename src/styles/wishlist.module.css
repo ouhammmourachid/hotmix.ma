@@ -1,0 +1,12 @@
+
+.empty_wishlist_link {
+    @apply mt-6 px-6 py-3 border border-greny bg-secondary hover:bg-secondary/80 transition-colors rounded-sm font-semibold;
+}
+
+.empty_wishlist {
+    @apply min-h-screen bg-primary ;
+}
+
+.wishlist_header {
+    @apply container mx-auto px-4 py-14 bg-secondary;
+}

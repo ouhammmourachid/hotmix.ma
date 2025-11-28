@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* RTL Support for Arabic language */
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+/* Utility classes for multi-language support */
+.rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Languages specific font adjustments */
+html[lang="ar"] {
+  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* RTL Support for Arabic language */
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+/* Utility classes for multi-language support */
+.rtl-flip {
+  @apply rtl:scale-x-[-1];
+}
+
+.rtl-mirror {
+  @apply ltr:ml-auto rtl:mr-auto;
+}
+
+/* Languages specific font adjustments */
+html[lang="ar"] {
+  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-primary text-whity;
+  }
+}
+
+.sign_in_up {
+  @apply flex min-h-svh w-full items-center justify-center p-6 md:p-10;
+}
+
+.filter_button {
+  @apply px-4 py-3 border text-xs font-semibold border-gray-600 hover:border-white rounded-sm flex items-center gap-2;
+}
+
+.product {
+  @apply flex flex-col lg:flex-row w-full mx-auto lg:px-12 p-4 gap-8 text-white min-h-screen;
+}
+
+.product_price {
+  @apply text-2xl text-gray-500 line-through;
+}
+
+.product_sale_price {
+  @apply text-3xl font-bold text-greny;
+}
+
+.product_image_skip {
+  @apply absolute -translate-y-1/2 bg-whity p-2 rounded-full hover:bg-greny;
+}
+
+
+/* checkout page */
+.complete_order_button {
+  @apply w-full h-14 bg-secondary hover:bg-secondary/100 text-white text-xl font-semibold rounded-sm;
+}
+
+.checkout_radio {
+  @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692]
+  bg-transparent relative checked:bg-greny checked:border-0
+  before:content-[''] before:w-2 before:h-2 before:rounded-full
+  before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2
+  checked:before:bg-black focus:outline-none focus:ring-0 focus:ring-offset-0
+  transition-all duration-150;
+}
+
+.checkout_title {
+  @apply text-xl font-semibold;
+}
+
+.checkout_subtitle {
+  @apply text-sm text-gray-400;
+}
+
+.checkout_input {
+  @apply w-full py-6 bg-transparent border-gray-500 focus:border-greny focus:border-none
+  focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
+  focus-visible:outline-none focus-visible:ring-offset-greny;
+}
+
+.checkout_input_with_icon {
+  @apply flex p-2 py-1 rounded-md border-gray-500 border-2 space-x-8 focus-within:border-greny transition-colors;
+}
+
+.checkout_input_with_icon_input {
+  @apply border-none flex items-center focus:ring-0 focus-visible:ring-0
+  focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none
+  bg-transparent text-white w-full;
+}
+
+.select_trigger {
+  @apply w-full py-6 border-gray-500 ring-1 ring-gray-500
+  focus:ring-1 focus-visible:ring-greny  focus:ring-greny ;
+}
+
+.select_content {
+  @apply bg-whity text-black;
+}
+
+.account_cancel_button {
+  @apply text-greny hover:text-greny/70 hover:bg-transparent underline underline-offset-2;
+}
+
+.account_save_button {
+  @apply bg-secondary hover:bg-secondary/70;
+}
+
+.account_save_cancel {
+  @apply flex justify-end gap-4 sm:justify-end
+}
+
+.account_modal {
+  @apply fixed inset-0 bg-black/50 flex flex-col items-center justify-center z-50;
+}
+
+.account_modal_content {
+  @apply bg-primary text-white rounded-sm max-w-lg w-full p-6 relative border border-whity;
+}
