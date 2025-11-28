@@ -103,7 +103,10 @@ const createProductService = () => ({
 
 const createOrderService = (axiosPrivate, axiosPublic) => ({
     create: async (orderData) => {
-        return await axiosPublic.post('/orders/', orderData);
+        return await pb.send('/api/orders/create-full', {
+            method: 'POST',
+            body: orderData
+        });
     }
 })
 

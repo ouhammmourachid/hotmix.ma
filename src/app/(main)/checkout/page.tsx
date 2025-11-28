@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
-        HoverInfo,
-        CustomInput
-      } from '@/components/small-pieces';
+  HoverInfo,
+  CustomInput
+} from '@/components/small-pieces';
 import CollapsibleBankTransfer from '@/components/payment/bank-transfer';
-import {OrderSummarySide,OrderSummary} from './checkout-item';
+import { OrderSummarySide, OrderSummary } from './checkout-item';
 import { useCart } from '@/contexts/cart-context';
 import CartItem from '@/types/cart-item';
 import { useApiService } from '@/services/api.service';
@@ -31,7 +31,7 @@ export default function CheckoutForm() {
     totalItems: 0,
     subtotal: 0
   });
-  const fetchProduct = async (productId:number) => {
+  const fetchProduct = async (productId: number) => {
     try {
       // Replace with your actual API endpoint
       const response = await api.product.get(productId);
@@ -52,7 +52,7 @@ export default function CheckoutForm() {
       if (productId) {
         try {
           const product = await fetchProduct(productId);
-          const size = product?.sizes?.find((size:Size) => size.id === sizeId);
+          const size = product?.sizes?.find((size: Size) => size.id === sizeId);
 
           if (product) {
             const price = product.sale_price || product.price;
@@ -89,16 +89,16 @@ export default function CheckoutForm() {
     phone_number: string;
     payment: {
       method: string;
-      status:"pending" | "completed" | "failed";
+      status: "pending" | "completed" | "failed";
     };
     items: { product: number; size?: number; quantity: number }[];
   }>({
     full_name: '',
     shipping_address: '',
     phone_number: '',
-    payment :{
-      method:"atdelivery",
-      status:"pending"
+    payment: {
+      method: "At Delivery",
+      status: "pending"
     },
     items: [] // Initialize as empty array
   });
@@ -117,11 +117,11 @@ export default function CheckoutForm() {
     }
   }, [checkoutState.items]);
 
-  const handleClickPaymentChoice = (e:any) => {
-    setFormData({...formData, payment: { ...formData.payment, method: "atdelivery" }});
+  const handleClickPaymentChoice = (e: any) => {
+    setFormData({ ...formData, payment: { ...formData.payment, method: "atdelivery" } });
     setIsCreditCardOpen(false)
   }
-  
+
   const handlesubmit = async () => {
     // Validate form data
     if (!formData.full_name.trim()) {
@@ -151,7 +151,7 @@ export default function CheckoutForm() {
       alert('There was a problem submitting your order. Please try again.');
     }
   }
-  
+
   const handleSuccessModalClose = () => {
     setIsSuccessModalOpen(false);
   }
@@ -159,14 +159,14 @@ export default function CheckoutForm() {
   const navigateToHome = () => {
     window.location.href = '/';
   }
-  
+
   return (
     <div className="min-h-screen bg-primary">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         <OrderSummary
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
-          items={checkoutState.items}/>
+          items={checkoutState.items} />
         <div className="lg:col-span-2 space-y-6 lg:sticky lg:top-4 lg:h-fit p-6 pt-0 lg:pt-6 lg:border-r-2 lg:border-secondary lg:pr-12">
           {/* Delivery Section */}
           <div className="space-y-4">
@@ -176,20 +176,20 @@ export default function CheckoutForm() {
             <CustomInput
               placeholder={t('checkout_full_name')}
               value={formData.full_name}
-              onChange={(e) => setFormData({...formData, full_name: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               type="text"
             />
             <CustomInput
               placeholder={t('checkout_address')}
               value={formData.shipping_address}
-              onChange={(e) => setFormData({...formData, shipping_address: e.target.value})}
-              type="text"/>
+              onChange={(e) => setFormData({ ...formData, shipping_address: e.target.value })}
+              type="text" />
             <CustomInput
               placeholder={t('checkout_phone')}
               value={formData.phone_number}
-              onChange={(e) => setFormData({...formData, phone_number: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
               type="text">
-                <HoverInfo message={t('checkout_phone_info')}/>
+              <HoverInfo message={t('checkout_phone_info')} />
             </CustomInput>
           </div>
           {/* Payment Section */}
@@ -201,26 +201,26 @@ export default function CheckoutForm() {
               {t('checkout_payment_secure')}
             </p>
             <div>
-                <CollapsibleBankTransfer
-                    isOpen={formData.payment.method === 'bank_transfer'}
-                    formData={formData}
-                    setFormData={setFormData}
-                    first
-                />
-                <div
-                    onClick={handleClickPaymentChoice}
-                    className={`flex pr-4 gap-3 p-4 rounded-b-md cursor-pointer border-2 border-${formData.payment.method=='atdelivery' ? 'greny' : 'secondary' }`}>
-                    <input
-                        className="checkout_radio"
-                        checked={formData.payment.method === 'atdelivery'}
-                        type="radio"
-                        name="payment"
-                        value="atdelivery"
-                        readOnly/>
-                    <span>{t('checkout_cash_on_delivery')}</span>
-                </div>
+              <CollapsibleBankTransfer
+                isOpen={formData.payment.method === 'Bank Transfer'}
+                formData={formData}
+                setFormData={setFormData}
+                first
+              />
+              <div
+                onClick={handleClickPaymentChoice}
+                className={`flex pr-4 gap-3 p-4 rounded-b-md cursor-pointer border-2 border-${formData.payment.method == 'atdelivery' ? 'greny' : 'secondary'}`}>
+                <input
+                  className="checkout_radio"
+                  checked={formData.payment.method === 'At Delivery'}
+                  type="radio"
+                  name="payment"
+                  value="At Delivery"
+                  readOnly />
+                <span>{t('checkout_cash_on_delivery')}</span>
+              </div>
             </div>
-            <Button 
+            <Button
               onClick={handlesubmit}
               className="complete_order_button">
               {t('checkout_complete_order')}
@@ -231,9 +231,9 @@ export default function CheckoutForm() {
         <OrderSummarySide
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
-          items={checkoutState.items}/>
+          items={checkoutState.items} />
       </div>
-      
+
       {/* Success Modal */}
       <SuccessModal
         isOpen={isSuccessModalOpen}

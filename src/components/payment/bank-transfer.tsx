@@ -19,21 +19,21 @@ export default function CollapsibleBankTransfer({
     const { t } = useTranslation();
 
     const handleClickPaymentChoice = (e:any) => {
-        setFormData({...formData, payment: { ...formData.payment, method: "bank_transfer" }});
+        setFormData({...formData, payment: { ...formData.payment, method: "Bank Transfer" }});
     }
     return (
         <div>
             <div
-                className={`flex gap-3 p-4 pr-8 ${first? 'rounded-t-md':''} border-2  border-${formData.payment.method=='bank_transfer' ? 'greny' : 'secondary border-b-0' }`}>
+                className={`flex gap-3 p-4 pr-8 ${first? 'rounded-t-md':''} border-2  border-${formData.payment.method=='Bank Transfer' ? 'greny' : 'secondary border-b-0' }`}>
                 <div
                     onClick={handleClickPaymentChoice}
                     className="flex items-center gap-2 cursor-pointer w-full" >
                         <input
                         className={styles.payment_checkbox}
-                        checked={formData.payment.method === 'bank_transfer'}
+                        checked={formData.payment.method === 'Bank Transfer'}
                         type="radio"
                         name="payment"
-                        value="bank_transfer"
+                        value="Bank Transfer"
                         readOnly/>
                     <span>{t('checkout_bank_transfer')}</span>
                 </div>
