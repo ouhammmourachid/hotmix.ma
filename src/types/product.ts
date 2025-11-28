@@ -4,7 +4,7 @@ import Category from "./category";
 import Color from "./color";
 import Size from "./size";
 export default interface Product {
-    id: number;
+    id: string | number;
     name: string;
     description: string;
     price: number;

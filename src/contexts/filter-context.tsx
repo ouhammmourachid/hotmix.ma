@@ -7,7 +7,7 @@ type FilterContextType = {
   setFilterState: (state: any) => void;
   toString: () => string;
   isFilterEmpty: () => boolean;
-  setFilterStateWithUrl: (searchParams:any) => void;
+  setFilterStateWithUrl: (searchParams: any) => void;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -15,10 +15,10 @@ const FilterContext = createContext<FilterContextType | undefined>(undefined);
 export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterState, setFilterState] = useState<{
-    sizes: number[];
-    colors: number[];
-    tags: number[];
-    category: number | null;
+    sizes: string[];
+    colors: string[];
+    tags: string[];
+    category: string | null;
     searchQuery: string | null;
   }>({
     sizes: [],
@@ -49,21 +49,21 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
   const isFilterEmpty = () => {
     return filterState.sizes.length === 0 && filterState.colors.length === 0 && filterState.tags.length === 0 && !filterState.category;
   }
-  const setFilterStateWithUrl = (searchParams:any) => {
+  const setFilterStateWithUrl = (searchParams: any) => {
     const sizesParam = searchParams.getAll('sizes')[0];
-    const sizes = sizesParam ? sizesParam.split(',').map((num:string) => parseInt(num, 10)) : [];
+    const sizes = sizesParam ? sizesParam.split(',') : [];
 
     // Handle colors parameter
     const colorsParam = searchParams.getAll('colors')[0];
-    const colors = colorsParam ? colorsParam.split(',').map((num:string) => parseInt(num, 10)) : [];
+    const colors = colorsParam ? colorsParam.split(',') : [];
 
     // Handle tags parameter
     const tagsParam = searchParams.getAll('tags')[0];
-    const tags = tagsParam ? tagsParam.split(',').map((num:string) => parseInt(num, 10)) : [];
+    const tags = tagsParam ? tagsParam.split(',') : [];
 
     // Handle category parameter
     const categoryParam = searchParams.get('category');
-    const category = categoryParam ? parseInt(categoryParam, 10) : null;
+    const category = categoryParam ? categoryParam : null;
 
     // Handle search query parameter
     const searchQueryParam = searchParams.get('q');
@@ -79,14 +79,14 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <FilterContext.Provider value={{
-                      isFilterOpen,
-                      filterState,
-                      setIsFilterOpen,
-                      setFilterState,
-                      toString,
-                      isFilterEmpty,
-                      setFilterStateWithUrl
-                      }}>
+      isFilterOpen,
+      filterState,
+      setIsFilterOpen,
+      setFilterState,
+      toString,
+      isFilterEmpty,
+      setFilterStateWithUrl
+    }}>
       {children}
     </FilterContext.Provider>
   );

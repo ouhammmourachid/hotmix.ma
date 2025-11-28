@@ -1,36 +1,76 @@
-import { axiosPublic} from '@/api/axios';
+import { axiosPublic } from '@/api/axios';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import pb from '@/lib/pocketbase';
+import { convertToPocketBaseFilter } from '@/lib/utils';
 
-const createSizeService = (axiosPublic) => ({
+const mapRecord = (record) => {
+    const data = { ...record };
+    if (record.expand) {
+        Object.keys(record.expand).forEach(key => {
+            data[key] = record.expand[key];
+        });
+    }
+    return data;
+};
+
+const createSizeService = () => ({
     getAll: async () => {
-        return await axiosPublic.get('/sizes/');
+        const records = await pb.collection('sizes').getFullList({ requestKey: null });
+        return { data: records.map(mapRecord) };
     },
 })
 
-const createColorService = (axiosPublic) => ({
+const createColorService = () => ({
     getAll: async () => {
-        return await axiosPublic.get('/colors/');
+        const records = await pb.collection('colors').getFullList({ requestKey: null });
+        return { data: records.map(mapRecord) };
     },
 })
 
-const createTagService = (axiosPublic) => ({
+const createTagService = () => ({
     getAll: async () => {
-        return await axiosPublic.get('/tags/');
+        const records = await pb.collection('tags').getFullList({ requestKey: null });
+        return { data: records.map(mapRecord) };
     },
 })
 
-const createCategoryService = (axiosPublic) => ({
+const createCategoryService = () => ({
     getAll: async () => {
-        return await axiosPublic.get('/categories/');
+        const records = await pb.collection('categories').getFullList({ requestKey: null });
+        return { data: records.map(mapRecord) };
     },
 })
 
-const createProductService = (axiosPublic) => ({
-    getAll: async (filter)=>{
-        return await axiosPublic.get('/products/'+'?status=published&'+filter);
+const createProductService = () => ({
+    getAll: async (filterStr) => {
+        const params = new URLSearchParams(filterStr);
+        const page = parseInt(params.get('page') || '1');
+        let filter = convertToPocketBaseFilter(filterStr);
+
+        const statusFilter = "status='published'";
+        filter = filter ? `${statusFilter} && (${filter})` : statusFilter;
+
+        const result = await pb.collection('products').getList(page, 30, {
+            filter,
+            expand: 'category,sizes,colors,tags,images',
+            sort: '-created_at',
+            requestKey: null
+        });
+
+        return {
+            data: {
+                results: result.items.map(mapRecord),
+                count: result.totalItems,
+                next: result.page < result.totalPages ? 'next' : null
+            }
+        };
     },
     get: async (id) => {
-        return await axiosPublic.get('/products/'+id);
+        const record = await pb.collection('products').getOne(id, {
+            expand: 'category,sizes,colors,tags,images',
+            requestKey: null
+        });
+        return { data: mapRecord(record) };
     },
 })
 
@@ -40,7 +80,7 @@ const createOrderService = (axiosPrivate, axiosPublic) => ({
     }
 })
 
-const createCustomerService = (axiosPublic,axiosPrivate) => ({
+const createCustomerService = (axiosPublic, axiosPrivate) => ({
     signUp: async (data) => {
         return await axiosPublic.post('/users/', data);
     },
@@ -52,12 +92,12 @@ const createCustomerService = (axiosPublic,axiosPrivate) => ({
 export const useApiService = () => {
     const axiosPrivate = useAxiosPrivate();
     return {
-        size: createSizeService(axiosPublic),
-        color: createColorService(axiosPublic),
-        tag: createTagService(axiosPublic),
-        category: createCategoryService(axiosPublic),
-        auth: createCustomerService(axiosPublic,axiosPrivate),
-        product: createProductService(axiosPublic),
+        size: createSizeService(),
+        color: createColorService(),
+        tag: createTagService(),
+        category: createCategoryService(),
+        auth: createCustomerService(axiosPublic, axiosPrivate),
+        product: createProductService(),
         order: createOrderService(axiosPrivate, axiosPublic),
     };
 };

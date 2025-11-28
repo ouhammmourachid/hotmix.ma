@@ -1,4 +1,4 @@
-export default interface ImageType{
-    id: number
+export default interface ImageType {
+    id: string | number
     path: string
 }
