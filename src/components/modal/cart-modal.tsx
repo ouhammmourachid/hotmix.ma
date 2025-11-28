@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRef } from 'react';
-import {XButton } from '@/components/small-pieces';
+import { XButton } from '@/components/small-pieces';
 import ModalLayout from '@/components/modal/modal-layout';
-import { RenderCartItems} from '@/components/cart/render-cart-items';
+import { RenderCartItems } from '@/components/cart/render-cart-items';
 import { useCart } from '@/contexts/cart-context'
 import styles from '@/styles/modal.module.css';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ import { useTranslation } from '@/lib/i18n-utils';
 
 export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolean, onClose: () => void }>) {
   const modalRef = useRef(null);
-  const { cartItems, removeFromCart, updateQuantity} = useCart()
+  const { cartItems, removeFromCart, updateQuantity } = useCart()
   const { t, language } = useTranslation();
   const isRTL = language === 'ar';
 
@@ -29,7 +29,7 @@ export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolea
       duration: 0.5
     },
     exit: {
-      duration: 1
+      duration: 0.5
     }
   };
   return (
@@ -50,14 +50,14 @@ export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolea
           <h2 className="text-2xl font-medium">{t('cart_modal_title')}</h2>
           <XButton
             onClick={onClose}
-            className='top-6'/>
+            className='top-6' />
         </div>
 
         <RenderCartItems
-           onClose={onClose}
-           cartItems={cartItems}
-           onRemove={removeFromCart}
-           onQuantityChange={updateQuantity}/>
+          onClose={onClose}
+          cartItems={cartItems}
+          onRemove={removeFromCart}
+          onQuantityChange={updateQuantity} />
       </motion.div>
     </ModalLayout>
   );

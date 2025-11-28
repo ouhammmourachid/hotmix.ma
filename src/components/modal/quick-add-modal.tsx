@@ -1,34 +1,34 @@
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Discount } from '@/components/ui/discount';
-import {Size,ThreeButtons,XButton,QuantityChanger} from '@/components/small-pieces';
+import { Size, ThreeButtons, XButton, QuantityChanger } from '@/components/small-pieces';
 import ModalLayout from '@/components/modal/modal-layout';
 import Product from '@/types/product';
 import SizeType from '@/types/size';
-import {useCart} from '@/contexts/cart-context';
+import { useCart } from '@/contexts/cart-context';
 import styles from '@/styles/modal.module.css';
 import Link from 'next/link';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import { formatPrice } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
 
 export default function QuickAddModal({
-          product,
-          isOpen,
-          onClose,
-          onCartOpen
-        }:{
-            product:Product,
-            isOpen:boolean,
-            onClose:()=>any,
-            onCartOpen?:()=>void,
-          }) {
+  product,
+  isOpen,
+  onClose,
+  onCartOpen
+}: {
+  product: Product,
+  isOpen: boolean,
+  onClose: () => any,
+  onCartOpen?: () => void,
+}) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState<SizeType|undefined>(product.sizes?.[0]);
+  const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(product.sizes?.[0]);
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
-  const { addToCart,totalItems } = useCart();
+  const { addToCart, totalItems } = useCart();
   const [isMobile, setIsMobile] = useState(false);
-  
+
   // Initialize translation hook
   const { t, language } = useTranslation();
 
@@ -45,23 +45,33 @@ export default function QuickAddModal({
 
   const animationConfig = isMobile
     ? {
-        initial: { y: 100, opacity: 0 },
-        animate: { y: 0, opacity: 1 },
-        exit: { y: 100, opacity: 0 },
-        transition: { duration: 0.5 }
-      }
+      initial: { y: 100, opacity: 0 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: 100, opacity: 0 },
+    }
     : {
-        initial: { x: -100, opacity: 1 },
-        animate: { x: 0, opacity: 1 },
-        exit: { x: 100, opacity: 1 },
-        transition: { duration: 0.5 }
-      };  
+      initial: { x: -100, opacity: 1 },
+      animate: { x: 0, opacity: 1 },
+      exit: { x: 100, opacity: 1 },
+    };
+
+  const transitionConfig = {
+    enter: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      duration: 0.5
+    },
+    exit: {
+      duration: 0.5
+    }
+  };
   const handleClickAddToCart = () => {
     addToCart({
-      id:0,
+      id: 0,
       product: product,
       size: selectedSize,
-      quantity:quantity,
+      quantity: quantity,
       price: price
     })
     setQuantity(1);
@@ -76,6 +86,7 @@ export default function QuickAddModal({
       modalId="quick-add-modal">
       <motion.div
         {...animationConfig}
+        transition={isOpen ? transitionConfig.enter : transitionConfig.exit}
         ref={modalRef}
         className={styles.quick_add}>
         {/* Close Button */}
@@ -104,13 +115,13 @@ export default function QuickAddModal({
             <div className={styles.quick_add_prices}>
               <span
                 className={styles.quick_add_sale_price}>
-                  {formatPrice(product.sale_price && product.sale_price !== product.price ? product.sale_price : product.price)} DH
+                {formatPrice(product.sale_price && product.sale_price !== product.price ? product.sale_price : product.price)} DH
               </span>
               {product.sale_price && product.sale_price !== product.price && (
-                  <span
-                    className={styles.quick_add_price}>
-                      {formatPrice(product.price)} DH
-                  </span>
+                <span
+                  className={styles.quick_add_price}>
+                  {formatPrice(product.price)} DH
+                </span>
               )}
               <Discount
                 discount={product.discount}
@@ -118,7 +129,7 @@ export default function QuickAddModal({
                 className={styles.quick_add_discount}
                 size='sm'
                 variant='default' />
-                
+
             </div>
           </div>
         </div>
@@ -129,7 +140,7 @@ export default function QuickAddModal({
             <div className="flex flex-col gap-4">
               <span>{t('size')}: {selectedSize?.name}</span>
               <div className="flex gap-2">
-                {product.sizes.map((size:SizeType) => (
+                {product.sizes.map((size: SizeType) => (
                   <Size
                     key={size.id}
                     size={size}
@@ -142,18 +153,18 @@ export default function QuickAddModal({
           )}
           {/* Quantity */}
           <div className="flex flex-col gap-4">
-              <span>{t('quantity')}</span>
-              <QuantityChanger quantity={quantity} setQuantity={setQuantity} />
+            <span>{t('quantity')}</span>
+            <QuantityChanger quantity={quantity} setQuantity={setQuantity} />
           </div>
           {/* Buttons */}
           <ThreeButtons
             quantity={quantity}
             productId={product.id}
-            price={price*quantity}
+            price={price * quantity}
             selectedSize={selectedSize}
             onClickAddToCart={handleClickAddToCart}
             onCartOpen={onCartOpen}
-            />
+          />
         </div>
       </motion.div>
     </ModalLayout>

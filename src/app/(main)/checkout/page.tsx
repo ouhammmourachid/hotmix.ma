@@ -31,7 +31,7 @@ export default function CheckoutForm() {
     totalItems: 0,
     subtotal: 0
   });
-  const fetchProduct = async (productId: number) => {
+  const fetchProduct = async (productId: string) => {
     try {
       // Replace with your actual API endpoint
       const response = await api.product.get(productId);
@@ -45,8 +45,8 @@ export default function CheckoutForm() {
   useEffect(() => {
     const loadProductData = async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const productId = parseInt(urlParams.get('productId') || '');
-      const sizeId = parseInt(urlParams.get('sizeId') || '');
+      const productId = urlParams.get('productId') || '';
+      const sizeId = urlParams.get('sizeId') || '';
       const quantity = parseInt(urlParams.get('quantity') || '1');
 
       if (productId) {
@@ -91,7 +91,7 @@ export default function CheckoutForm() {
       method: string;
       status: "pending" | "completed" | "failed";
     };
-    items: { product: number; size?: number; quantity: number }[];
+    items: { product: string; size?: string; quantity: number }[];
   }>({
     full_name: '',
     shipping_address: '',
@@ -109,8 +109,8 @@ export default function CheckoutForm() {
       setFormData(prevFormData => ({
         ...prevFormData,
         items: checkoutState.items.map(item => ({
-          product: item.product.id,
-          size: item.size?.id,
+          product: String(item.product.id),
+          size: item.size?.id ? String(item.size.id) : undefined,
           quantity: item.quantity
         }))
       }));

@@ -32,7 +32,7 @@ export default function FilterModal() {
       duration: 0.5
     },
     exit: {
-      duration: 1
+      duration: 0.5
     }
   };
 

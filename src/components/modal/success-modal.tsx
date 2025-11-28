@@ -38,31 +38,31 @@ export default function SuccessModal({
         <div className="flex flex-col items-center text-center">
           {/* Success Icon */}
           <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className="h-10 w-10 text-greny" 
-              fill="none" 
-              viewBox="0 0 24 24" 
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 text-greny"
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M5 13l4 4L19 7" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
               />
             </svg>
           </div>
-            {/* Content */}
+          {/* Content */}
           <h3 className="text-2xl font-bold text-whity mb-2">
             {t(title)}
           </h3>
           <p className="text-whity/80 mb-6">
             {t(message)}
           </p>
-          
+
           {/* Action Button */}
-          <Button 
+          <Button
             onClick={onButtonClick}
             className="w-full bg-greny hover:bg-greny/90 text-primary font-medium py-2 px-4 rounded-md"
           >

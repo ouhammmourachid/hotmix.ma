@@ -1,10 +1,10 @@
-import React,{useState,useRef,useEffect} from "react";
-import {Search } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Search } from "lucide-react";
 import { XButton } from "@/components/small-pieces";
 import ModalLayout from '@/components/modal/modal-layout';
 import styles from '@/styles/modal.module.css';
-import {motion} from "framer-motion";
-import {X} from "lucide-react";
+import { motion } from "framer-motion";
+import { X } from "lucide-react";
 import { useApiService } from '@/services/api.service';
 import SearchResults from "@/components/search/search-results";
 import SearchResultsLoading from "@/components/search/search-loading";
@@ -17,7 +17,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string|null>(null);
+  const [error, setError] = useState<string | null>(null);
   const api = useApiService();
   const animationConfig = {
     initial: { y: -600, opacity: 1 },
@@ -33,7 +33,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
       duration: 0.5
     },
     exit: {
-      duration: 1
+      duration: 0.5
     }
   };
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
     }
   }, [searchQuery]);
 
-  const performSearch = async (query:string) => {
+  const performSearch = async (query: string) => {
     try {
       setIsLoading(true);
       setError(null);
@@ -106,17 +106,17 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
                 onKeyPress={handleKeyPress}
               />
               {searchQuery &&
-              <X
-                size={16}
-                onClick={() => setSearchQuery("")}
-                className='absolute right-2 top-1/3 text-black/80 '/>}
+                <X
+                  size={16}
+                  onClick={() => setSearchQuery("")}
+                  className='absolute right-2 top-1/3 text-black/80 ' />}
             </div>
             {isLoading && (
-             <SearchResultsLoading />
+              <SearchResultsLoading />
             )}
             {!isLoading && !error && searchQuery.trim().length > 2 && searchResults.length === 0 && (
-                <SearchResultsEmpty />
-              )}
+              <SearchResultsEmpty />
+            )}
             {!isLoading && !error && searchResults.length > 0 && (
               <SearchResults
                 query={searchQuery}
