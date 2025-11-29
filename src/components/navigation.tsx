@@ -35,7 +35,7 @@ export default function Navigation({
   }>) {
   const { totalItems } = useCart()
   const { totalWishList } = useWishlist()
-  const { auth } = useAuth(); // Access authentication state
+  // const { auth } = useAuth(); // Access authentication state
   const { t } = useTranslation(); // Translation hook
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const clickAccount = () => {

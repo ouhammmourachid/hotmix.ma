@@ -13,7 +13,6 @@ import Link from "next/link"
 import styles from "@/styles/main.module.css"
 import { useState, useEffect } from "react"
 import useAuth from "@/hooks/useAuth"
-import { useApiService } from "@/services/api.service"
 
 export function SignUpForm() {
   const [formState, setFormState] = useState({
@@ -26,21 +25,22 @@ export function SignUpForm() {
     password: "",
     confirmPassword: "",
   })
-  const { setAuth } = useAuth();
-  const api = useApiService();
+  const { signup } = useAuth();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const response = await api.auth.signUp(JSON.stringify({
+      await signup({
         email: formState.email,
         password: formState.password,
-        username: formState.email,
-      }));
-      window.location.href = "/login";
+        confirmPassword: formState.confirmPassword,
+        username: formState.email.split('@')[0],
+      });
+      // Redirect is handled in signup -> login -> router.push
     } catch (error: any) {
       setError({
         ...formError,
-        email: error.response?.data?.email?.[0] || "An error occurred during signup",
+        email: error.data?.data?.email?.message || error.message || "An error occurred during signup",
       })
       setFormState({
         ...formState,

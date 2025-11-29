@@ -15,16 +15,13 @@ import styles from "@/styles/main.module.css"
 import useAuth from "@/hooks/useAuth"
 import { useRouter } from 'next/navigation'
 import { useRef, useState, useEffect } from 'react'
-import axios from '@/api/axios';
-
-const LOGIN_URL = '/token/';
 
 export function LoginForm() {
   const router = useRouter();
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
-  const { setAuth } = useAuth();
-  const [username, setUsername] = useState('');
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -35,45 +32,22 @@ export function LoginForm() {
 
   useEffect(() => {
     setErrMsg('');
-  }, [username, password]);
+  }, [email, password]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post(LOGIN_URL,
-        JSON.stringify({ username, password }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
-
-      const access = response?.data?.access;
-
-      const authData = {
-        username,
-        access,
-        isAuthenticated: true
-      };
-
-      setAuth(authData);
-
-      // Clear form
-      setUsername('');
-      setPassword('');
-
-      // Use Next.js router push with replace to prevent back navigation
-      router.push('/account', { scroll: false });
-      router.refresh();
-
+      await login({ email, password });
+      // Router push is handled in login function, but we can do it here too if needed.
+      // The context login function handles redirection.
     } catch (err: any) {
-      if (!err?.response) {
+      if (!err?.status) {
         setErrMsg('No Server Response');
-      } else if (err.response?.status === 400) {
-        setErrMsg('Missing Username or Password');
-      } else if (err.response?.status === 401) {
+      } else if (err.status === 400) {
+        setErrMsg('Missing Email or Password');
+      } else if (err.status === 401) {
         setErrMsg('Unauthorized');
       } else {
         setErrMsg('Login Failed');
@@ -111,8 +85,8 @@ export function LoginForm() {
                 type="email"
                 placeholder="m@example.com"
                 className={styles.login_form_input}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 ref={userRef}
                 required
                 disabled={isLoading}

@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import useRefreshToken from "@/hooks/useRefreshToken";
 import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import {Skeleton} from "@/components/ui/skeleton";
-
+import { Skeleton } from "@/components/ui/skeleton";
+import pb from "@/lib/pocketbase";
 
 const AuthLoading = () => {
   return (
@@ -29,29 +28,34 @@ const AuthLoading = () => {
 
 const PersistLogin = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const refresh = useRefreshToken();
-  const { auth} = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    let isMounted = true;
-
-    const verifyRefreshToken = async () => {
-        try {
-            await refresh();
-        } catch (err) {
-            // Redirect to login if refresh fails
-            router.push('/login');
-        } finally {
-            isMounted && setIsLoading(false);
+    const verifyUser = async () => {
+      try {
+        if (pb.authStore.isValid) {
+          await pb.collection('users').authRefresh();
         }
-    }
+      } catch (err: any) {
+        // Ignore auto-cancellation errors
+        if (err.isAbort) {
+          return;
+        }
+        console.error("Auth refresh failed:", err);
+        // Token invalid
+        logout();
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    // Only verify if we don't have a valid access token
-    !auth?.access ? verifyRefreshToken() : setIsLoading(false);
-
-    return () => {
-        isMounted = false;
+    if (!pb.authStore.isValid) {
+      // If not authenticated, redirect to login
+      router.push('/login');
+      setIsLoading(false);
+    } else {
+      verifyUser();
     }
   }, []);
 

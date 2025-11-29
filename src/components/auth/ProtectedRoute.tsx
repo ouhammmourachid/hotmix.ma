@@ -4,17 +4,17 @@ import { useEffect } from "react";
 import useAuth from "@/hooks/useAuth";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { auth } = useAuth(); // Access authentication state
+  const { isAuthenticated } = useAuth(); // Access authentication state
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect if no access token
-    if (!auth?.access) {
+    // Redirect if not authenticated
+    if (!isAuthenticated) {
       router.push("/login");
     }
-  }, [auth, router]);
+  }, [isAuthenticated, router]);
 
-  return auth?.isAuthenticated ? children : null;
+  return isAuthenticated ? children : null;
 };
 
 export default ProtectedRoute;

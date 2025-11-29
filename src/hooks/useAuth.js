@@ -8,7 +8,7 @@ const useAuth = () => {
         throw new Error("useAuth must be used within an AuthProvider");
     }
 
-    useDebugValue(context.auth, auth => auth?.isAuthenticated ? "Logged In" : "Logged Out");
+    useDebugValue(context.isAuthenticated ? "Logged In" : "Logged Out");
 
     return context;
 }
