@@ -89,7 +89,7 @@ export function LoginForm() {
       <CardHeader>      <Link
         href="/"
         className={styles.sign_in_up_logo}>
-          MISSJANNAT
+        HOTMIX
       </Link>
         <CardTitle className="text-2xl">Log in</CardTitle>
         <CardDescription>

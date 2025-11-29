@@ -37,7 +37,7 @@ export function SignUpForm() {
         username: formState.email,
       }));
       window.location.href = "/login";
-    } catch (error:any) {
+    } catch (error: any) {
       setError({
         ...formError,
         email: error.response?.data?.email?.[0] || "An error occurred during signup",
@@ -63,87 +63,87 @@ export function SignUpForm() {
     }
   }, [formState])
 
-  const handleEmailChange = (e:any ) => {
+  const handleEmailChange = (e: any) => {
     setFormState(prev => ({ ...prev, email: e.target.value }))
     setError(prev => ({ ...prev, email: "" }))
   }
 
   return (
-  <Card className={styles.sign_up_form}>
-    <CardHeader>
-      <Link
-        href="/"
-        className={styles.sign_in_up_logo}>
-          MISSJANNAT
-      </Link>
-      <CardTitle className="text-2xl">Sign up</CardTitle>
-      <CardDescription>
-        Enter your email below to create an account
-      </CardDescription>
-    </CardHeader>
-    <CardContent>
-      <form
-        onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-6">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formState.email}
-              placeholder="m@example.com"
-              className={styles.sign_up_input}
-              onChange={handleEmailChange}
-              required
-            />
-            <span
-              className="text-red-300 text-sm">
-              {formError.email}
-            </span>
-          </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
+    <Card className={styles.sign_up_form}>
+      <CardHeader>
+        <Link
+          href="/"
+          className={styles.sign_in_up_logo}>
+          HOTMIX
+        </Link>
+        <CardTitle className="text-2xl">Sign up</CardTitle>
+        <CardDescription>
+          Enter your email below to create an account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form
+          onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-6">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={formState.email}
+                placeholder="m@example.com"
+                className={styles.sign_up_input}
+                onChange={handleEmailChange}
+                required
+              />
+              <span
+                className="text-red-300 text-sm">
+                {formError.email}
+              </span>
             </div>
-            <Input
-              id="password"
-              type="password"
-              value={formState.password}
-              className={styles.sign_up_input}
-              onChange={(e) => setFormState({ ...formState, password: e.target.value })}
-              required />
-          </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="confirmPassword">Confirm password</Label>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+              </div>
+              <Input
+                id="password"
+                type="password"
+                value={formState.password}
+                className={styles.sign_up_input}
+                onChange={(e) => setFormState({ ...formState, password: e.target.value })}
+                required />
             </div>
-            <Input
-              id="confirmPassword"
-              className={styles.sign_up_input}
-              value={formState.confirmPassword}
-              type="password"
-              onChange={(e) => setFormState({ ...formState, confirmPassword: e.target.value })}
-              required />
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="confirmPassword">Confirm password</Label>
+              </div>
+              <Input
+                id="confirmPassword"
+                className={styles.sign_up_input}
+                value={formState.confirmPassword}
+                type="password"
+                onChange={(e) => setFormState({ ...formState, confirmPassword: e.target.value })}
+                required />
               <span
                 className="text-red-300 text-sm">
                 {formError.confirmPassword}
               </span>
+            </div>
+            <Button
+              type="submit"
+              disabled={formError.confirmPassword !== ""}
+              className="w-full bg-primary">
+              Sign up
+            </Button>
           </div>
-          <Button
-            type="submit"
-            disabled={formError.confirmPassword !== ""}
-            className="w-full bg-primary">
-            Sign up
-          </Button>
-        </div>
-        <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-          <a href="/login" className="underline underline-offset-4 hover:text-greny">
-            Login
-          </a>
-        </div>
-      </form>
-    </CardContent>
-  </Card>
+            <a href="/login" className="underline underline-offset-4 hover:text-greny">
+              Login
+            </a>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   )
 }

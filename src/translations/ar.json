@@ -1,5 +1,5 @@
 {
-  "welcome": "مرحبًا بكم في متجر MISSJANNAT",
+  "welcome": "مرحبًا بكم في متجر HOTMIX",
   "promo": "اشتري قطعتين واحصل على شحن مجاني!",
   "product_details": "عرض التفاصيل الكاملة",
   "size": "المقاس",
@@ -7,13 +7,10 @@
   "add_to_cart": "أضف إلى السلة",
   "buy_now": "اشتر الآن",
   "add_to_wishlist": "أضف إلى المفضلة",
-  
   "hero_title": "بسّطي أسلوبك",
   "hero_shop_now": "تسوقي الآن",
-
   "new_collection_title": "تشكيلة جديدة",
-  "new_collection_subtitle": "اكتشفي أحدث تشكيلة أزياء مِس جنات",
-
+  "new_collection_subtitle": "اكتشفي أحدث تشكيلة أزياء هوت ميكس",
   "product_tab_description": "الوصف",
   "product_tab_details": "التفاصيل",
   "product_tab_reviews": "التقييمات",
@@ -38,16 +35,14 @@
   "side_menu_account": "الحساب",
   "currency_code": "درهم",
   "morocco_flag_alt": "المغرب",
-  
   "bottom_nav_shop": "المتجر",
   "bottom_nav_filter": "تصفية",
   "bottom_nav_account": "الحساب",
-  "bottom_nav_wishlist": "المفضلة",  "bottom_nav_cart": "السلة",
-
+  "bottom_nav_wishlist": "المفضلة",
+  "bottom_nav_cart": "السلة",
   "select_language": "اختر اللغة",
-  
-  "footer_about_title": "عن مِس جنات",
-  "footer_about_description": "اكتشفي مِس جنات، علامة تجارية للملابس النسائية تتبنى الأناقة والبساطة. استكشفي مجموعتنا من القطع البسيطة والمريحة المصممة لتمكين المرأة العصرية بأسلوب خالد.",
+  "footer_about_title": "عن هوت ميكس",
+  "footer_about_description": "اكتشفي هوت ميكس، علامة تجارية للملابس النسائية تتبنى الأناقة والبساطة. استكشفي مجموعتنا من القطع البسيطة والمريحة المصممة لتمكين المرأة العصرية بأسلوب خالد.",
   "footer_discover_products": "اكتشفي المنتجات",
   "footer_quick_links": "روابط سريعة",
   "footer_about_us": "من نحن",
@@ -60,7 +55,6 @@
   "footer_newsletter_description": "أدخلي بريدك الإلكتروني لتلقي أحدث العروض والمنتجات الجديدة.",
   "footer_email_placeholder": "أدخل عنوان البريد الإلكتروني",
   "footer_subscribe": "اشترك",
-
   "sale_page_title": "تخفيضات",
   "sale_page_description": "عروض وخصومات خاصة",
   "sale_price": "سعر التخفيض",
@@ -69,7 +63,6 @@
   "loading_sale_products": "جاري تحميل المنتجات المخفضة...",
   "no_sale_products": "لا توجد منتجات مخفضة حالياً",
   "no_more_products": "لا يوجد المزيد من المنتجات للتحميل",
-  
   "filter": "تصفية",
   "filter_colors": "الألوان",
   "filter_tags": "العلامات",
@@ -77,18 +70,15 @@
   "filter_categories": "الفئات",
   "products_found": "منتج تم العثور عليه",
   "remove_all_filters": "إزالة الكل",
-
   "filter_button": "تصفية",
   "grid_button": "شبكة",
-
   "wishlist_title": "قائمة رغباتك",
   "wishlist_empty_title": "قائمة الرغبات فارغة",
   "wishlist_empty_description": "ليس لديك أي منتجات في قائمة الرغبات حتى الآن. ستجدين الكثير من المنتجات المثيرة للاهتمام في \"صفحة المتجر\".",
   "wishlist_return_to_shop": "العودة إلى المتجر",
   "wishlist_loading": "جاري تحميل قائمة رغباتك...",
   "wishlist_error": "فشل في تحميل منتجات قائمة الرغبات. يرجى المحاولة مرة أخرى لاحقاً.",
-
-  "footer_copyright": "© 2025 مِس جنات. جميع الحقوق محفوظة.",
+  "footer_copyright": "© 2025 هوت ميكس. جميع الحقوق محفوظة.",
   "search_modal_title": "البحث في موقعنا",
   "search_input_placeholder": "بحث",
   "search_empty_state": "لم يتم العثور على منتجات تطابق اختيارك.",
@@ -96,7 +86,6 @@
   "search_view_all": "عرض الكل",
   "search_results_for": "نتائج البحث عن:",
   "search_no_more_products": "لا يوجد المزيد من المنتجات للتحميل",
-
   "cart_modal_title": "سلة التسوق",
   "cart_empty_title": "سلة التسوق فارغة",
   "cart_empty_description": "يمكنك تصفح جميع المنتجات المتاحة والشراء من المتجر",
@@ -110,12 +99,10 @@
   "cart_view": "عرض السلة",
   "cart_tax_included": "شامل الضريبة",
   "cart_calculate_shipping": "حساب تكلفة الشحن",
-  
   "cart_product": "المنتج",
   "cart_price": "السعر",
   "cart_add_note": "إضافة ملاحظة للطلب",
   "cart_note_placeholder": "كيف يمكننا مساعدتك؟",
-
   "checkout_delivery_title": "التوصيل",
   "checkout_full_name": "الاسم الكامل",
   "checkout_address": "العنوان",
@@ -132,16 +119,13 @@
   "checkout_hide": "إخفاء",
   "checkout_show": "عرض",
   "checkout_items": "منتجات",
-
   "recommended_products_title": "المنتجات الموصى بها",
   "loading_product": "جاري تحميل المنتج...",
   "checkout_bank_transfer": "تحويل بنكي",
   "checkout_bank_transfer_instructions": "يمكنكم الدفع مباشرة عبر حسابنا البنكي. يرجى استخدام رقم الطلب كمرجع عند إرسال إيصال الدفع عبر رقم الواتساب %(whatsappNumber)s. لن يتم شحن طلبكم حتى يتم استلام المبلغ في حسابنا.",
-  
   "order_success_title": "تم تقديم الطلب بنجاح!",
   "order_success_message": "شكراً لك على الشراء. تم استلام طلبك وجاري معالجته.",
   "order_continue_shopping": "مواصلة التسوق",
-  
   "generic_success_title": "نجاح!",
   "generic_success_message": "تمت العملية بنجاح.",
   "generic_continue": "متابعة"

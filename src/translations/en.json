@@ -1,5 +1,5 @@
 {
-  "welcome": "WELCOME TO MISSJANNAT STORE",
+  "welcome": "WELCOME TO HOTMIX STORE",
   "promo": "BUY 2 & GET FREE SHIPPING!",
   "product_details": "View full details",
   "size": "Size",
@@ -7,13 +7,10 @@
   "add_to_cart": "Add to Cart",
   "buy_now": "Buy Now",
   "add_to_wishlist": "Add to Wishlist",
-  
   "hero_title": "Simplify Your Style",
   "hero_shop_now": "Shop Now",
-
   "new_collection_title": "New Collection",
-  "new_collection_subtitle": "Discover MissJannat's Latest Fashion Collection",
-
+  "new_collection_subtitle": "Discover HotMix's Latest Fashion Collection",
   "product_tab_description": "Description",
   "product_tab_details": "Details",
   "product_tab_reviews": "Reviews",
@@ -38,16 +35,14 @@
   "side_menu_account": "Account",
   "currency_code": "MAD",
   "morocco_flag_alt": "Morocco",
-  
   "bottom_nav_shop": "Shop",
   "bottom_nav_filter": "Filter",
   "bottom_nav_account": "Account",
-  "bottom_nav_wishlist": "Wishlist",  "bottom_nav_cart": "Cart",
-
+  "bottom_nav_wishlist": "Wishlist",
+  "bottom_nav_cart": "Cart",
   "select_language": "Select Language",
-  
-  "footer_about_title": "ABOUT MISSJANNAT",
-  "footer_about_description": "Discover Missjannat, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
+  "footer_about_title": "ABOUT HOTMIX",
+  "footer_about_description": "Discover HotMix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
   "footer_discover_products": "Discover Products",
   "footer_quick_links": "Quick Links",
   "footer_about_us": "About us",
@@ -60,7 +55,6 @@
   "footer_newsletter_description": "Enter your email to receive the latest offers and new products.",
   "footer_email_placeholder": "Enter email address",
   "footer_subscribe": "Subscribe",
-
   "sale_page_title": "Sale",
   "sale_page_description": "Special Offers & Discounts",
   "sale_price": "Sale Price",
@@ -69,7 +63,6 @@
   "loading_sale_products": "Loading sale products...",
   "no_sale_products": "No sale products available at the moment",
   "no_more_products": "No more products to load",
-  
   "filter": "FILTER",
   "filter_colors": "Colors",
   "filter_tags": "Tags",
@@ -77,18 +70,15 @@
   "filter_categories": "Categories",
   "products_found": "Products found",
   "remove_all_filters": "Remove all",
-
   "filter_button": "FILTER",
   "grid_button": "GRID",
-
   "wishlist_title": "Your Wishlist",
   "wishlist_empty_title": "Wishlist is empty",
   "wishlist_empty_description": "You don't have any products in the wishlist yet. You will find a lot of interesting products on our \"Shop page\".",
   "wishlist_return_to_shop": "Return to shop",
   "wishlist_loading": "Loading your wishlist...",
   "wishlist_error": "Failed to load wishlist products. Please try again later.",
-
-  "footer_copyright": "© 2025 MissJannat. All rights reserved.",
+  "footer_copyright": "© 2025 HotMix. All rights reserved.",
   "search_modal_title": "Search our site",
   "search_input_placeholder": "search",
   "search_empty_state": "No products were found matching your selection.",
@@ -96,8 +86,7 @@
   "search_view_all": "View all",
   "search_results_for": "Search Results for:",
   "search_no_more_products": "No more products to load",
-
-  "cart_modal_title": "Shopping cart", 
+  "cart_modal_title": "Shopping cart",
   "cart_empty_title": "Your cart is empty",
   "cart_empty_description": "You may check out all the available products and buy some in the shop",
   "cart_return_to_shop": "Return to shop",
@@ -110,12 +99,10 @@
   "cart_view": "View cart",
   "cart_tax_included": "Tax included",
   "cart_calculate_shipping": "Calculate shipping",
-  
   "cart_product": "Product",
   "cart_price": "Price",
   "cart_add_note": "Add Order Note",
   "cart_note_placeholder": "How can we help you?",
-  
   "checkout_delivery_title": "Delivery",
   "checkout_full_name": "Full Name",
   "checkout_address": "Address",
@@ -132,16 +119,13 @@
   "checkout_hide": "Hide",
   "checkout_show": "Show",
   "checkout_items": "items",
-
   "recommended_products_title": "Recommended Products",
   "loading_product": "Loading product...",
   "checkout_bank_transfer": "Bank Transfer",
   "checkout_bank_transfer_instructions": "Make your payment directly into our bank account. Please use your Order ID as the payment reference when sending the receipt via WhatsApp number %(whatsappNumber)s. Your order will not be shipped until the funds have been received in our account.",
-  
   "order_success_title": "Order Placed Successfully!",
   "order_success_message": "Thank you for your purchase. Your order has been received and is being processed.",
   "order_continue_shopping": "Continue Shopping",
-  
   "generic_success_title": "Success!",
   "generic_success_message": "The operation has been completed successfully.",
   "generic_continue": "Continue"

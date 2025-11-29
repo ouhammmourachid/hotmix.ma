@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Missjannat - Elegant and Minimalist Clothing for Modern Women",
-  description: "Discover Missjannat, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
+  title: "HotMix - Elegant and Minimalist Clothing for Modern Women",
+  description: "Discover HotMix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
 };
 
 

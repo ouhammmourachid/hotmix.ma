@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Rating} from '@/components/small-pieces';
+import { Rating } from '@/components/small-pieces';
 import { ThreeButtons, Size, QuantityChanger } from '@/components/small-pieces';
 import ImageMagnifier from '@/components/image-magnifier';
 import ProductDetails from '@/components/product/product-details';
@@ -26,15 +26,15 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { t } = useTranslation();
   const { openCart } = useCartModal();
 
-  const [product, setProduct] = useState<Product|null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string|null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addToCart, totalItems } = useCart();
   const api = useApiService();
-  const [selectedSize, setSelectedSize] = useState<SizeType |undefined>(undefined);
-  const [price,setPrice] = useState<number>(0);
+  const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(undefined);
+  const [price, setPrice] = useState<number>(0);
   // Fetch product data from API
   useEffect(() => {
     const fetchProduct = async () => {
@@ -43,11 +43,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         const response = await api.product.get(productId);
         setProduct(response.data);
         setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
-        
+
         // Update document title and metadata
         const productName = response.data.name;
-        document.title = `${productName} | Missjannat - Elegant Clothing`;
-        
+        document.title = `${productName} | HotMix - Elegant Clothing`;
+
         // Initialize selected size with the first available size
         if (response.data.sizes && response.data.sizes.length > 0) {
           setSelectedSize(response.data.sizes[0]);
@@ -99,34 +99,34 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   // Show error state
   if (error || !product) {
-    return (      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center p-6 max-w-md bg-red-100 rounded-lg">
-          <h2 className="text-xl font-bold text-red-800 mb-2">{t('error_loading_product')}</h2>
-          <p className="text-red-700">{t('product_not_found')}</p>
-          <button
-            onClick={() => window.location.href = '/'}
-            className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
-          >
-            {t('return_to_homepage')}
-          </button>
-        </div>
+    return (<div className="flex items-center justify-center min-h-screen">
+      <div className="text-center p-6 max-w-md bg-red-100 rounded-lg">
+        <h2 className="text-xl font-bold text-red-800 mb-2">{t('error_loading_product')}</h2>
+        <p className="text-red-700">{t('product_not_found')}</p>
+        <button
+          onClick={() => window.location.href = '/'}
+          className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+        >
+          {t('return_to_homepage')}
+        </button>
       </div>
+    </div>
     );
   }  // Prepare meta description from product description
-  const metaDescription = product.description 
+  const metaDescription = product.description
     ? `${product.description.substring(0, 150)}${product.description.length > 150 ? '...' : ''}`
-    : `Explore ${product.name} from Missjannat's elegant clothing collection. Minimalist design with exceptional comfort.`;
-  
+    : `Explore ${product.name} from HotMix's elegant clothing collection. Minimalist design with exceptional comfort.`;
+
   // Prepare main image URL for meta tags
-  const mainImage = product.images && product.images.length > 0 
-    ? product.images[0].path 
+  const mainImage = product.images && product.images.length > 0
+    ? product.images[0].path
     : '/images/default-product.jpg';
 
   // Check product availability based on status
   const isAvailable = product.status === "published";
 
   return (
-    <div>      
+    <div>
       <div className="product">
         {/* Left side - Image gallery */}
         <div className="flex gap-4 lg:w-1/2 ml-0 flex-col-reverse md:flex-row">
@@ -146,12 +146,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 }}
                 transition={{
                   duration: 0.3,
-                  delay: (index+1) * 0.4
+                  delay: (index + 1) * 0.4
                 }}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-20 h-fit rounded-lg overflow-hidden ${
-                  currentImageIndex === index ? 'ring-2 ring-greny' : ''
-                }`}
+                className={`w-20 h-fit rounded-lg overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-greny' : ''
+                  }`}
               >
                 <img
                   src={img.path}
@@ -186,7 +185,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-white">{product.name}</h1>
-              <Rating rating={5} withNumber/>
+              <Rating rating={5} withNumber />
             </div>
 
             <div className="flex items-center gap-4">
@@ -194,10 +193,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 {formatPrice(product.sale_price ? product.sale_price : product.price)} DH
               </span>
               {product.sale_price && product.sale_price !== product.price && (
-                  <span
-                    className='product_price'>
-                      {formatPrice(product.price)} DH
-                  </span>
+                <span
+                  className='product_price'>
+                  {formatPrice(product.price)} DH
+                </span>
               )}
               <Discount
                 discount={product.discount}
@@ -224,27 +223,27 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 ))}
               </div>
             </div>
-            <QuantityChanger quantity={quantity} setQuantity={setQuantity} withLabel/>
+            <QuantityChanger quantity={quantity} setQuantity={setQuantity} withLabel />
             <ThreeButtons
-                quantity={quantity}
-                productId={product.id}
-                price={price * quantity}
-                selectedSize={selectedSize}
-                className="w-full"
-                onClickAddToCart={handleClickAddToCart}
-                onCartOpen={openCart} />
+              quantity={quantity}
+              productId={product.id}
+              price={price * quantity}
+              selectedSize={selectedSize}
+              className="w-full"
+              onClickAddToCart={handleClickAddToCart}
+              onCartOpen={openCart} />
           </div>
         </div>
       </div>
-      <ProductDetails product={product}/>
+      <ProductDetails product={product} />
       <RecommendedProducts />
       <StickyProductFooter
-          product={product}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          onClickAddToCart={handleClickAddToCart}
-          onCartOpen={openCart}
-        />
+        product={product}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        onClickAddToCart={handleClickAddToCart}
+        onCartOpen={openCart}
+      />
     </div>
   );
 }

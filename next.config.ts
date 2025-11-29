@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     domains: [
-      'files.missjannat.com',
+      'files.hotmix.ma',
     ],
   },
   // Allow importing JSON files for translations

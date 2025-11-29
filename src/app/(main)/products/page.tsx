@@ -1,15 +1,15 @@
 "use client";
 import React, { use } from 'react'; // Explicitly import React
-import {Grid,FilterSummary,FilterButton} from '@/components/small-pieces';
+import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
 import { useFilter } from '@/contexts/filter-context';
 import RenderProducts from '@/components/product/render-products';
-import { useState,useEffect,useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
 import { useTranslation } from '@/lib/i18n-utils';
 
 const ProductsPage: React.FC = () => {
-  const { filterState, setIsFilterOpen, toString,setFilterStateWithUrl } = useFilter();
+  const { filterState, setIsFilterOpen, toString, setFilterStateWithUrl } = useFilter();
   const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [count, setCount] = useState(0);
@@ -48,7 +48,7 @@ const ProductsPage: React.FC = () => {
     const url = new URL(window.location.href);
     const searchParams = url.searchParams;
     setFilterStateWithUrl(searchParams);
-  },[] );
+  }, []);
   // Reset when filter changes
   useEffect(() => {
     setProducts([]);
@@ -83,20 +83,19 @@ const ProductsPage: React.FC = () => {
     observer.current.observe(node);
   };
 
-  // Set document title for products page
   useEffect(() => {
-    document.title = "Shop Our Collection | Missjannat";
+    document.title = "Shop Our Collection | Hotmix";
   }, []);
 
   return (
     <div className="min-h-screen sm:p-8 p-2">
-      
+
       {/* Header */}
       <div className="flex flex-col justify-between items-center mb-8">
         <h1 className="text-4xl font-semibold">{t('nav_all_products')}</h1>
         <div className="flex justify-between items-center mt-16 w-full">
           <FilterButton onClick={() => setIsFilterOpen(true)} />
-          <Grid/>
+          <Grid />
         </div>
       </div>
 
