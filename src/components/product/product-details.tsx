@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Star } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
 import ProductReviews from '@/components/product/product-reviews';
 import Product from '@/types/product';
-import {reviews} from '@/dumy-data';
+import { reviews } from '@/dumy-data';
 import styles from '@/styles/product.module.css';
 import { useTranslation } from '@/lib/i18n-utils';
 
@@ -13,19 +12,19 @@ const tabs = [
   { id: 'reviews', translationKey: 'product_tab_reviews' }
 ];
 
-export default function ProductDetails({product}: {product: Product}) {  const [activeTab, setActiveTab] = useState('description');
+export default function ProductDetails({ product }: { product: Product }) {
+  const [activeTab, setActiveTab] = useState('description');
   const { t, language } = useTranslation();
   const isRTL = language === 'ar';
 
-  const renderContent = (product:Product) => {
+  const renderContent = (product: Product) => {
     switch (activeTab) {
       case 'description':
         return (
-          <div className="p-6 space-y-4">
-            <ReactMarkdown>
-              {product.description}
-            </ReactMarkdown>
-          </div>
+          <div
+            className="p-6 space-y-4 prose prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          />
         );
       case 'details':
         return (
@@ -55,25 +54,24 @@ export default function ProductDetails({product}: {product: Product}) {  const [
 
   return (
     <div className={styles.product_details}>
-        <div className="flex flex-row lg:flex-col items-start gap-6 lg:gap-0">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}              className={`lg:px-6 py-4 text-lg font-semibold relative
-                ${isRTL 
-                  ? 'lg:border-r-2 lg:border-l-0' 
-                  : 'lg:border-l-2 lg:border-r-0'
-                } lg:border-b-0 border-secondary
-                hover:text-greny ${
-                activeTab === tab.id
+      <div className="flex flex-row lg:flex-col items-start gap-6 lg:gap-0">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)} className={`lg:px-6 py-4 text-lg font-semibold relative
+                ${isRTL
+                ? 'lg:border-r-2 lg:border-l-0'
+                : 'lg:border-l-2 lg:border-r-0'
+              } lg:border-b-0 border-secondary
+                hover:text-greny ${activeTab === tab.id
                 ? 'border-white border-b-2'
                 : ''
               }`}
-            >
-              {t(tab.translationKey)}
-            </button>
-          ))}
-        </div>
+          >
+            {t(tab.translationKey)}
+          </button>
+        ))}
+      </div>
       <div className={styles.product_details_content}>
         {renderContent(product)}
       </div>
