@@ -1,7 +1,6 @@
 /* bottom nav */
 .bottom_nav {
-    @apply fixed bottom-0 left-0 right-0 bg-primary text-white py-2 z-40
-    lg:hidden max-w-screen-xl mx-auto sm:px-20 px-4 flex justify-between items-center;
+    @apply fixed bottom-0 left-0 right-0 bg-primary text-white py-2 z-40 lg:hidden max-w-screen-xl mx-auto px-4 flex justify-between items-center;
 }
 
 .bottom_nav_button {
@@ -19,9 +18,7 @@
 }
 
 .footer_subscribe_input {
-    @apply border-none flex items-center focus:ring-0 focus-visible:ring-0
-    focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none
-    bg-white  text-[#527692] placeholder:text-[#527692];
+    @apply border-none flex items-center focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none bg-white text-[#527692] placeholder:text-[#527692];
 }
 
 .footer_subscribe_button {
@@ -49,9 +46,7 @@
 }
 
 .login_form_input {
-    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none
-    focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
-    focus-visible:outline-none focus-visible:ring-offset-greny;
+    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-offset-greny;
 }
 
 /* navigation */
@@ -61,7 +56,7 @@
 }
 
 .nav {
-    @apply bg-primary shadow-sm shadow-white/10 py-4 container mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-12 px-0;
+    @apply bg-primary shadow-sm shadow-white/10 py-4 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between;
 }
 
 .nav_logo {
@@ -69,8 +64,7 @@
 }
 
 .nav_span {
-    @apply absolute -top-2 -right-2 bg-greny text-white text-xs
-     rounded-full w-4 h-4 flex items-center justify-center;
+    @apply absolute -top-2 -right-2 bg-greny text-white text-xs rounded-full w-4 h-4 flex items-center justify-center;
 }
 
 /* sign-up form */
@@ -84,7 +78,5 @@
 }
 
 .sign_up_input {
-    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none
-    focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
-    focus-visible:outline-none focus-visible:ring-offset-greny;
+    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-offset-greny;
 }

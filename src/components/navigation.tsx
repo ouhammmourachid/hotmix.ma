@@ -48,7 +48,7 @@ export default function Navigation({
   return (
     <nav
       className={styles.nav + " navigation"}>
-      <div className="flex items-center justify-between w-full px-4 lg:px-0">
+      <div className="container mx-auto flex items-center justify-between w-full px-4 md:px-6 lg:px-12">
         {/* Mobile menu button - only visible on small screens */}
         <div className="flex items-center lg:hidden">
           <Menu
