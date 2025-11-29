@@ -1,23 +1,47 @@
 "use client";
-import React,{useState,useRef} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { CustomInput } from '@/components/small-pieces';
 import ModalLayout from '@/components/modal/modal-layout';
-import {XButton } from '@/components/small-pieces';
+import { XButton } from '@/components/small-pieces';
+import useAuth from "@/hooks/useAuth";
+import pb from "@/lib/pocketbase";
 
 export default function UpdateProfile({
-                                        isOpen,
-                                        onClose
-                                      }: Readonly<{
-                                        isOpen: boolean,
-                                        onClose: () => void
-                                      }>) {
+  isOpen,
+  onClose
+}: Readonly<{
+  isOpen: boolean,
+  onClose: () => void
+}>) {
   const modalRef = useRef(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
+  const { user } = useAuth();
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name || "");
+    }
+  }, [user, isOpen]);
+
+  const handleSave = async () => {
+    if (!user) return;
+    setIsLoading(true);
+    try {
+      await pb.collection('users').update(user.id, {
+        name: name
+      });
+      // Refresh auth store to update UI
+      await pb.collection('users').authRefresh();
+      onClose();
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <ModalLayout
       isOpen={isOpen}
@@ -30,59 +54,36 @@ export default function UpdateProfile({
         className="account_modal_content">
         <XButton
           onClick={onClose}
-          className='top-6 text-secondary hover:text-greny'/>
+          className='top-6 text-secondary hover:text-greny' />
         <h1 className="text-xl font-semibold">
           Edit profile
         </h1>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-2 gap-4">
-            <CustomInput
-              placeholder="First name"
-              value={formData.firstName}
-              onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
-              }
-              type='text'
-            />
-            <CustomInput
-              placeholder="Last name"
-              value={formData.lastName}
-              onChange={(e) =>
-                setFormData({ ...formData, lastName: e.target.value })
-              }
-              type='text'
-            />
-          </div>
-
           <div className="space-y-2">
-            <label className="text-gray-400 text-sm">Email</label>
+            <label className="text-gray-400 text-sm">Full Name</label>
             <CustomInput
-              placeholder="Email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              type='email'
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type='text'
             />
-            <p className="text-gray-400 text-sm">
-              Email used for login can't be changed
-            </p>
           </div>
         </div>
         {/* Save and Cancel buttons */}
         <div className="account_save_cancel">
           <Button
-              onClick={onClose}
-              type="button"
-              variant="ghost"
-              className="account_cancel_button">
-              Cancel
+            onClick={onClose}
+            type="button"
+            variant="ghost"
+            className="account_cancel_button">
+            Cancel
           </Button>
           <Button
-            type="submit"
+            onClick={handleSave}
+            disabled={isLoading}
             className="account_save_button"
           >
-            Save
+            {isLoading ? "Saving..." : "Save"}
           </Button>
         </div>
       </div>
