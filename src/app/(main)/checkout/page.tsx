@@ -103,6 +103,45 @@ export default function CheckoutForm() {
     items: [] // Initialize as empty array
   });
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load saved data from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('checkoutFormData');
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setFormData(prev => ({
+          ...prev,
+          full_name: parsedData.full_name || '',
+          shipping_address: parsedData.shipping_address || '',
+          phone_number: parsedData.phone_number || '',
+          // We don't restore payment method as it might be sensitive or context-dependent, 
+          // but user asked for payment data too. Let's restore method if available.
+          payment: {
+            ...prev.payment,
+            method: parsedData.paymentMethod || "At Delivery"
+          }
+        }));
+      } catch (e) {
+        console.error("Failed to parse saved checkout data", e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Save data to localStorage whenever relevant fields change
+  useEffect(() => {
+    if (!isLoaded) return;
+    const dataToSave = {
+      full_name: formData.full_name,
+      shipping_address: formData.shipping_address,
+      phone_number: formData.phone_number,
+      paymentMethod: formData.payment.method
+    };
+    localStorage.setItem('checkoutFormData', JSON.stringify(dataToSave));
+  }, [formData.full_name, formData.shipping_address, formData.phone_number, formData.payment.method, isLoaded]);
+
   // Update formData.items whenever checkoutState.items changes
   useEffect(() => {
     if (checkoutState.items.length > 0) {
@@ -118,7 +157,7 @@ export default function CheckoutForm() {
   }, [checkoutState.items]);
 
   const handleClickPaymentChoice = (e: any) => {
-    setFormData({ ...formData, payment: { ...formData.payment, method: "atdelivery" } });
+    setFormData({ ...formData, payment: { ...formData.payment, method: "At Delivery" } });
     setIsCreditCardOpen(false)
   }
 
@@ -209,7 +248,7 @@ export default function CheckoutForm() {
               />
               <div
                 onClick={handleClickPaymentChoice}
-                className={`flex pr-4 gap-3 p-4 rounded-b-md cursor-pointer border-2 border-${formData.payment.method == 'atdelivery' ? 'greny' : 'secondary'}`}>
+                className={`flex pr-4 gap-3 p-4 rounded-b-md cursor-pointer border-2 border-${formData.payment.method == 'At Delivery' ? 'greny' : 'secondary'}`}>
                 <input
                   className="checkout_radio"
                   checked={formData.payment.method === 'At Delivery'}
