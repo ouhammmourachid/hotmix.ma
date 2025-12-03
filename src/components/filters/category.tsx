@@ -10,7 +10,7 @@ export default function CategoryFilter({onClick}:{onClick:()=>void}) {
     const {filterState,setFilterState} = useFilter();
     const [categories, setCategories] = useState<Category[]>([]);
     const api = useApiService();
-    const handleClick = (id:number) => {
+    const handleClick = (id:string) => {
         setFilterState((prev:any) => ({
             ...prev,
             category: prev.category === id ? null : id

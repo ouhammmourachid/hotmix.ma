@@ -19,11 +19,11 @@ export default function TagFilter({onClick}:{onClick:()=>void}) {
             console.log(err);
           }
       };
-    const handleClick = (id:number) => {
+    const handleClick = (id:string) => {
         if(filterState.tags.includes(id)){
             setFilterState((prev:any) => ({
                 ...prev,
-                tags: prev.tags.filter((tagId:number) => tagId !== id)
+                tags: prev.tags.filter((tagId:string) => tagId !== id)
             }))
         } else {
             setFilterState((prev:any) => ({

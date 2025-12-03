@@ -10,11 +10,11 @@ export default function SizeFilter({onClick}:{onClick:()=>void}) {
     const {filterState,setFilterState} = useFilter();
     const [sizes, setSizes] = useState<Size[]>([]);
     const api = useApiService();
-    const handleClick = (id:number) => {
+    const handleClick = (id:string) => {
         if(filterState.sizes.includes(id)){
             setFilterState((prev:any) => ({
                 ...prev,
-                sizes: prev.sizes.filter((sizeId:number) => sizeId !== id)
+                sizes: prev.sizes.filter((sizeId:string) => sizeId !== id)
             }))
         } else {
             setFilterState((prev:any) => ({

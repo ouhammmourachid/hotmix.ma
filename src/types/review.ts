@@ -1,7 +1,7 @@
 import User from './user'
 import Product from './product'
 export default interface Review {
-    id: number
+    id: string
     customer: User
     product: Product|number
     rating: number

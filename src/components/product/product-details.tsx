@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Star } from 'lucide-react';
 import ProductReviews from '@/components/product/product-reviews';
 import Product from '@/types/product';
-import { reviews } from '@/dumy-data';
 import styles from '@/styles/product.module.css';
 import { useTranslation } from '@/lib/i18n-utils';
 
@@ -45,7 +44,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         );
       case 'reviews':
         return (
-          <ProductReviews reviews={reviews} />
+          <ProductReviews reviews={[]} />
         );
       default:
         return null;

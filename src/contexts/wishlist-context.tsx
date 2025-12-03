@@ -3,10 +3,10 @@
 import React, { createContext, useContext, useState,useEffect } from 'react'
 
 interface WishListContextType {
-  wishListItems: number[]
-  addToWithList: (id:number) => void
-  removeFromWithList: (id: number) => void
-  isInWithList: (id: number) => boolean
+  wishListItems: string[]
+  addToWithList: (id:string) => void
+  removeFromWithList: (id: string) => void
+  isInWithList: (id: string) => boolean
   totalWishList: number
   isInitialized: boolean
 }
@@ -15,7 +15,7 @@ const WishListContext = createContext<WishListContextType | undefined>(undefined
 
 export function WishListProvider({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false)
-  const [wishListItems, setWishListItems] = useState<number[]>([])
+  const [wishListItems, setWishListItems] = useState<string[]>([])
 
   useEffect(() => {
     // Only run on client after mount
@@ -30,7 +30,7 @@ export function WishListProvider({ children }: { children: React.ReactNode }) {
     }
   }, [wishListItems, isInitialized])
 
-  const addToWithList = (id: number) => {
+  const addToWithList = (id: string) => {
     setWishListItems(prev => {
       const existingItem = prev.find(i => i === id)
       if (existingItem) {
@@ -39,10 +39,10 @@ export function WishListProvider({ children }: { children: React.ReactNode }) {
       return [...prev, id]
     })
   }
-  const removeFromWithList = (id: number) => {
+  const removeFromWithList = (id: string) => {
     setWishListItems(prev => prev.filter(item => item !== id))
   }
-  const isInWithList = (id: number) => wishListItems.includes(id)
+  const isInWithList = (id: string) => wishListItems.includes(id)
   const totalWishList = wishListItems.length
 
   return (

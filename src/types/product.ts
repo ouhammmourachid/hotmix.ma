@@ -2,8 +2,10 @@ import Tag from "./tag";
 import Category from "./category";
 import Color from "./color";
 import Size from "./size";
+import ImageType from "./image";
+
 export default interface Product {
-    id: string | number;
+    id: string ;
     name: string;
     description: string;
     price: number;
@@ -12,7 +14,7 @@ export default interface Product {
     discount?: string;
     created_at: string;
     updated_at: string;
-    images: string[];
+    images: ImageType[];
     category?: Category;
     tags?: Tag[];
     colors?: Color[];
