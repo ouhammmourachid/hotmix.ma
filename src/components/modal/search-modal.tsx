@@ -10,12 +10,13 @@ import SearchResults from "@/components/search/search-results";
 import SearchResultsLoading from "@/components/search/search-loading";
 import SearchResultsEmpty from "@/components/search/search-result-empty";
 import { useTranslation } from '@/lib/i18n-utils';
+import Product from "@/types/product";
 
 export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: boolean, onClose: () => void }>) {
   const { t } = useTranslation();
   const modalRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const api = useApiService();
@@ -51,7 +52,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
 
       // Make API call to your backend
       const response = await api.product.getAll(`q=${query}&page_size=30`);
-      setSearchResults(response.data.results || []);
+      setSearchResults((response.data.results || []) as Product[]);
     } catch (err) {
       console.error('Search error:', err);
       setError('An error occurred while searching. Please try again.');
