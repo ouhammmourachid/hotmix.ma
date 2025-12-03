@@ -1,5 +1,5 @@
 export default interface Color {
-  id?: string | number
+  id: string
   name: string
   code: string
 }

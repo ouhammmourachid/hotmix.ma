@@ -18,11 +18,11 @@ export default function ColorFilter({onClick}:{onClick:()=>void}) {
             console.log(err);
           }
       };
-    const handleClick = (id:any) => {
+    const handleClick = (id:string) => {
         if(filterState.colors.includes(id)){
             setFilterState((prev:any) => ({
                 ...prev,
-                colors: prev.colors.filter((colorId:number) => colorId !== id)
+                colors: prev.colors.filter((colorId:string) => colorId !== id)
             }))
         } else {
             setFilterState((prev:any) => ({

@@ -5,7 +5,7 @@ import Size from "./size";
 import ImageType from "./image";
 
 export default interface Product {
-    id: string | number;
+    id: string ;
     name: string;
     description: string;
     price: number;

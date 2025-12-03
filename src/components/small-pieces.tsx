@@ -58,7 +58,7 @@ export function ThreeButtons({
                         className?:string,
                         onClickAddToCart?:()=>void,
                         onCartOpen?:()=>void,
-                        productId:number,
+                        productId:string,
                         selectedSize?:SizeType,
                         quantity:number
                       }) {
