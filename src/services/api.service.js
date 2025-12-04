@@ -21,11 +21,11 @@ const mapProduct = (record) => {
     data.created_at = data.created;
     data.updated_at = data.updated;
 
-    // Handle images
+    // Handle images - using direct S3 links
     if (data.images && Array.isArray(data.images)) {
         data.images = data.images.map((filename, index) => ({
             id: index,
-            path: pb.files.getUrl(record, filename)
+            path: `https://hotmix-files.s3.eu-north-1.amazonaws.com/${record.collectionId}/${record.id}/${filename}`
         }));
     } else {
         data.images = [];

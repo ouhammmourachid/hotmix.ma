@@ -343,7 +343,7 @@ export function FilterFeature({
   return (
     <div className="flex flex-col gap-2 mx-6 py-5 border-b border-[#014751]">
       <div
-        className='flex items-center justify-between w-full gap-2 cursor-pointer '
+        className='flex items-center justify-between w-full gap-2 cursor-pointer pr-1'
         onClick={() => setShowFilter(!showFilter)}>
         <span>{title}</span>
         <motion.div
