@@ -5,7 +5,11 @@ import { useApiService } from "@/services/api.service";
 import Product from "@/types/product";
 import { useTranslation } from '@/lib/i18n-utils';
 
-export default function RecommendedProducts() {
+interface RecommendedProductsProps {
+  category?: string;
+}
+
+export default function RecommendedProducts({ category }: RecommendedProductsProps) {
   const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -14,8 +18,15 @@ export default function RecommendedProducts() {
   useEffect(() => {
     const fetchRecommendedProducts = async () => {
       try {
-        const response = await api.product.getAll('page=1&page_size=3');
-        setProducts(response.data.results);
+        // Build filter string with category if provided
+        let filterStr = 'page=1&page_size=4';
+        if (category) {
+          filterStr += `&category=${category}`;
+        }
+
+        const response = await api.product.getAll(filterStr);
+        // Ensure only first 4 products are used
+        setProducts(response.data.results.slice(0, 4));
       } catch (error) {
         console.error("Error fetching recommended products:", error);
       } finally {
@@ -24,7 +35,7 @@ export default function RecommendedProducts() {
     };
 
     fetchRecommendedProducts();
-  }, []);
+  }, [category]);
 
   return (
     <section className="py-10 md:py-16">

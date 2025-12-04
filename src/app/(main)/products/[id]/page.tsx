@@ -236,7 +236,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         </div>
       </div>
       <ProductDetails product={product} />
-      <RecommendedProducts />
+      <RecommendedProducts category={product.category?.id} />
       <StickyProductFooter
         product={product}
         quantity={quantity}
