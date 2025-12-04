@@ -15,7 +15,7 @@
 }
 
 .filter_scroll_area {
-    @apply flex flex-col h-48 mt-5 mr-1;
+    @apply flex flex-col h-48 mt-5 mr-3 pr-2;
 }
 
 .filter_checkbox {
