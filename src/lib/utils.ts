@@ -71,5 +71,9 @@ export function convertToPocketBaseFilter(filterStr: string): string {
     }
   }
 
+  if (params.has('sale') && params.get('sale') === 'true') {
+    filters.push(`discount > 0`);
+  }
+
   return filters.join(' && ');
 }
