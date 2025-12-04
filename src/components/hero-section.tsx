@@ -12,7 +12,7 @@ export default function HeroSection() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://dxlr-eg.com/cdn/shop/files/DSC04279.jpg?v=1734952029&width=3504"
+            src="banner-2.jpg"
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
