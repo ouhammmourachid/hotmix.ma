@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@/components/header';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SearchModal from '@/components/modal/search-modal';
 import CartModal from '@/components/modal/cart-modal';
 import BottomNavigation from '@/components/bottom-navigation';
@@ -15,7 +15,7 @@ import { FilterProvider } from '@/contexts/filter-context';
 import { GridProvider } from '@/contexts/grid-context';
 import { CartModalProvider, useCartModal } from '@/contexts/cart-modal-context';
 
-export default function MainLayout({ children }: Readonly<{ children: React.ReactNode}>) {
+export default function MainLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <CartModalProvider>
             <GridProvider>
@@ -31,10 +31,11 @@ export default function MainLayout({ children }: Readonly<{ children: React.Reac
     )
 }
 
-function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode}>) {
-    const [showHeader, setShowHeader] = useState(true);
-    const [showNav, setShowNav] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
+const HEADER_HEIGHT = 40;
+
+function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
+    const [showFixedNav, setShowFixedNav] = useState(false);
+    const lastScrollY = useRef(0);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const { isCartOpen, setIsCartOpen } = useCartModal();
@@ -42,22 +43,16 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode}>)
     useEffect(() => {
         const controlNavbar = () => {
             const currentScrollY = window.scrollY;
+            const isScrollingUp = currentScrollY < lastScrollY.current;
 
-            // Show header only when scrolled to top
-            if (currentScrollY === 0) {
-                setShowHeader(true);
+            // Show fixed nav ONLY if we are scrolled past the header AND scrolling up
+            if (currentScrollY > HEADER_HEIGHT && isScrollingUp) {
+                setShowFixedNav(true);
             } else {
-                setShowHeader(false);
+                setShowFixedNav(false);
             }
 
-            // Show navigation when scrolling up
-            if (currentScrollY < lastScrollY) {
-                setShowNav(true);
-            } else {
-                setShowNav(false);
-            }
-
-            setLastScrollY(currentScrollY);
+            lastScrollY.current = currentScrollY;
         };
 
         window.addEventListener('scroll', controlNavbar);
@@ -66,19 +61,17 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode}>)
         return () => {
             window.removeEventListener('scroll', controlNavbar);
         };
-    }, [lastScrollY]);
+    }, []);
 
     return (
         <>
-            <div className={`fixed top-0 left-0 right-0 transition-transform duration-0 z-50 ${
-                showHeader ? 'translate-y-0' : '-translate-y-full'
-            }`}>
+            {/* Header: Relative positioning so it scrolls away naturally */}
+            <div className="relative z-50">
                 <Header />
             </div>
 
-            <div className={`fixed top-0 left-0 right-0 transition-transform duration-300 z-40 ${
-                showNav ? 'translate-y-0' : '-translate-y-full'
-            }`} style={{ top: showHeader ? '40px' : '0' }}>
+            {/* Original Navigation: Relative, scrolls away naturally */}
+            <div className="relative z-40">
                 <Navigation
                     onCartClick={() => setIsCartOpen(true)}
                     onSearchClick={() => setIsSearchOpen(true)}
@@ -86,13 +79,24 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode}>)
                 />
             </div>
 
-            <div style={{ paddingTop: '104px' }}>
+            {/* Fixed Navigation: Slides in when scrolling up past header */}
+            <div className={`fixed top-0 left-0 right-0 transition-transform duration-300 z-50 ${showFixedNav ? 'translate-y-0' : '-translate-y-full'
+                }`}>
+                <Navigation
+                    onCartClick={() => setIsCartOpen(true)}
+                    onSearchClick={() => setIsSearchOpen(true)}
+                    onMenuClick={() => setIsSideNavOpen(true)}
+                />
+            </div>
+
+            {/* Main Content */}
+            <div>
                 {children}
             </div>
 
             <SearchModal
                 isOpen={isSearchOpen}
-                onClose={() => setIsSearchOpen(false)}/>
+                onClose={() => setIsSearchOpen(false)} />
             <CartModal
                 isOpen={isCartOpen}
                 onClose={() => setIsCartOpen(false)} />
@@ -100,11 +104,11 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode}>)
                 isOpen={isSideNavOpen}
                 onClose={() => setIsSideNavOpen(false)}
                 onSearchClick={() => setIsSearchOpen(true)} />
-            <FilterModal/>
+            <FilterModal />
             <Footer />
             <BottomNavigation
                 isCartOpen={isCartOpen}
-                onCartClick={() => setIsCartOpen(true)}/>
+                onCartClick={() => setIsCartOpen(true)} />
         </>
     )
 }
