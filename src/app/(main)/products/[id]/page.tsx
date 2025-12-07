@@ -113,17 +113,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     </div>
     );
   }  // Prepare meta description from product description
-  const metaDescription = product.description
-    ? `${product.description.substring(0, 150)}${product.description.length > 150 ? '...' : ''}`
-    : `Explore ${product.name} from HotMix's elegant clothing collection. Minimalist design with exceptional comfort.`;
 
-  // Prepare main image URL for meta tags
-  const mainImage = product.images && product.images.length > 0
-    ? product.images[0].path
-    : '/images/default-product.jpg';
-
-  // Check product availability based on status
-  const isAvailable = product.status === "published";
 
   return (
     <div>

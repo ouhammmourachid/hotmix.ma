@@ -9,16 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
 import Link from "next/link"
 import styles from "@/styles/main.module.css"
 import useAuth from "@/hooks/useAuth"
-import { useRouter } from 'next/navigation'
+
 import { useRef, useState, useEffect } from 'react'
 import { Loader2 } from "lucide-react"
 
 export function LoginForm() {
-  const router = useRouter();
+
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
   const { requestOtp, verifyOtp } = useAuth();

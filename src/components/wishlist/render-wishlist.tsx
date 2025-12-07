@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import emptyWishList from "@/components/wishlist/empty-wishlist";
+
 import { useWishlist } from "@/contexts/wishlist-context";
 import { Grid } from "@/components/small-pieces";
 import Product from "@/types/product";
@@ -10,15 +10,15 @@ import styles from '@/styles/wishlist.module.css';
 import { useApiService } from '@/services/api.service';
 import { useTranslation } from '@/lib/i18n-utils';
 
-function WishListItem({ item, grid }:{item:Product, grid:number}){
+function WishListItem({ item, grid }: { item: Product, grid: number }) {
     return grid === 1 ? (
-        <HorizontalProductCard product={item}/>
+        <HorizontalProductCard product={item} />
     ) : (
-        <ProductCard product={item}/>
+        <ProductCard product={item} />
     );
 }
 
-export default function RenderWishList(){
+export default function RenderWishList() {
     const { t } = useTranslation();
     const { wishListItems } = useWishlist();
     const { gridSize } = useGrid();
@@ -65,7 +65,7 @@ export default function RenderWishList(){
     useEffect(() => {
         setWishlistProducts(wishlistProducts.filter(product => wishListItems.includes(product.id)));
     }
-    , [wishListItems]);
+        , [wishListItems]);
 
     if (loading) {
         return <div className="text-center py-12">{t('wishlist_loading')}</div>;
@@ -92,7 +92,7 @@ export default function RenderWishList(){
                 }}
                 className={`gap-8 items-center justify-center w-full px-4`}>
                 {wishlistProducts.map((product) => (
-                    <WishListItem item={product} key={product.id} grid={gridSize}/>
+                    <WishListItem item={product} key={product.id} grid={gridSize} />
                 ))}
             </div>
         </div>

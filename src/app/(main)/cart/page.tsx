@@ -5,13 +5,13 @@ import ShoppingCart from '@/components/cart/render-cart-items-page';
 import { useCart } from '@/contexts/cart-context';
 
 export default function Page() {
-  const { cartItems, removeFromCart, updateQuantity} = useCart()
+  const { cartItems } = useCart()
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       {cartItems.length === 0 ? (
         <EmptyCartPage />
       ) : (
-        <ShoppingCart/>
+        <ShoppingCart />
       )}
     </div>
   );

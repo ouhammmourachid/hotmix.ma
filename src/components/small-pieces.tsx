@@ -1,9 +1,9 @@
 import {
   Heart, X, Plus,
   Minus, Star,
-  ChevronUp, SearchX,
+  ChevronUp,
   ChevronDown, Trash2,
-  Info, Lock,
+  Info,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect, useRef } from 'react';
@@ -47,7 +47,7 @@ export function Size({ size, selectedSize, onClick, className }: { size: SizeTyp
 
 export function ThreeButtons({
   price,
-  className,
+
   onClickAddToCart,
   onCartOpen,
   productId,
@@ -235,7 +235,7 @@ export function Rating({ rating, withNumber }: { rating: number, withNumber?: bo
 
 export function ScrollArrow() {
   const [isVisible, setIsVisible] = useState(false);
-  let timeoutId = null;
+
   useEffect(() => {
     const toggleVisibility = () => {
       // Show button when page is scrolled up 200px
@@ -265,22 +265,10 @@ export function ScrollArrow() {
 };
 
 export function Grid() {
-  const { gridSize, setGridSize, getResponsiveGridSize } = useGrid();
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const { gridSize, setGridSize } = useGrid();
 
   // Check screen size on mount and window resize
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 640);
-    };
 
-    // Check on initial load
-    checkScreenSize();
-
-    // Add resize listener
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
 
   return (
     <div className={styles.grid_group}>

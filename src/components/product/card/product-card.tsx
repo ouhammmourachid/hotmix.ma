@@ -13,29 +13,29 @@ import { formatPrice } from "@/lib/utils";
 import { Discount } from "@/components/ui/discount";
 
 export default function ProductCard({
-                                      product,
-                                      delay,
-                                      grid,
-                                      ref
-                                    }: {
-                                      product: Product,
-                                      delay?: number,
-                                      grid?: number,
-                                      ref?: any
-                                    }) {
+  product,
+  delay,
+
+  ref
+}: {
+  product: Product,
+  delay?: number,
+  ref?: any
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [zoomActive, setZoomActive] = useState(false);  const [firstTransitionDone, setFirstTransitionDone] = useState(false);
+  const [zoomActive, setZoomActive] = useState(false); 
+  const [firstTransitionDone, setFirstTransitionDone] = useState(false);
   const { addToWithList, removeFromWithList, isInWithList } = useWishlist();
   const { openCart } = useCartModal();
-  
+
   // Transition timing in ms (2000ms = 2 seconds)
   const transitionTime = 2000;
   const zoomDelay = 100; // Delay before changing image after zoom (in ms)
   const imageChangeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const handleClickHeart = () => {
     if (isInWithList(product.id)) {
       removeFromWithList(product.id);
@@ -56,29 +56,29 @@ export default function ProductCard({
   useEffect(() => {
     // Only handle image transitions if the product has multiple images and card is hovered
     if (!isHovered || !product.images || product.images.length <= 1) return;
-    
+
     // First transition happens immediately to index 1
     if (!firstTransitionDone && currentImageIndex === 0) {
       setCurrentImageIndex(1);
       setFirstTransitionDone(true);
       return;
     }
-    
+
     // Create an interval to cycle through images when hovering
     const intervalId = setInterval(() => {
       const nextIndex = (currentImageIndex === product.images.length - 1) ? 0 : currentImageIndex + 1;
-      
+
       // Apply zoom to all images (already set by the isHovered effect)
       if (imageChangeTimeoutRef.current) {
         clearTimeout(imageChangeTimeoutRef.current);
       }
-      
+
       imageChangeTimeoutRef.current = setTimeout(() => {
         setCurrentImageIndex(nextIndex);
       }, zoomDelay);
-      
+
     }, transitionTime);
-    
+
     return () => {
       clearInterval(intervalId);
       if (imageChangeTimeoutRef.current) {
@@ -91,13 +91,13 @@ export default function ProductCard({
   const handleImageChange = (index: number, e: React.MouseEvent) => {
     // Stop event propagation to prevent navigating to product page
     e.stopPropagation();
-    
+
     if (currentImageIndex !== index) {
       // Clear any existing transition timeouts
       if (imageChangeTimeoutRef.current) {
         clearTimeout(imageChangeTimeoutRef.current);
       }
-      
+
       // Apply zoom effect first then change the image
       imageChangeTimeoutRef.current = setTimeout(() => {
         setCurrentImageIndex(index);
@@ -134,11 +134,11 @@ export default function ProductCard({
 
       {/* Product Image */}
       <div className="p-0 relative overflow-hidden"
-           onMouseEnter={() => setIsHovered(true)}
-           onMouseLeave={() => setIsHovered(false)}>
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}>
         <div className="relative">
-          <Link 
-            href={`/products/${product.id}`} 
+          <Link
+            href={`/products/${product.id}`}
             className="cursor-pointer block relative z-10"
           >
             {/* Image with zoom effect for all images */}
@@ -156,7 +156,7 @@ export default function ProductCard({
           {product.images && product.images.length > 1 && isHovered && (
             <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
               {product.images.map((_, index) => (
-                <div 
+                <div
                   key={index}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${currentImageIndex === index ? 'bg-white scale-110' : 'bg-gray-400/70'}`}
                   onClick={(e) => handleImageChange(index, e)}
@@ -176,7 +176,7 @@ export default function ProductCard({
               onClick={handleClickHeart}
               className={styles.product_card_quick_actions_button}>
               {!isInWithList(product.id) ? (
-                <Heart  size={20} />
+                <Heart size={20} />
               ) : (
                 <Trash2 size={20} />
               )}
@@ -184,7 +184,7 @@ export default function ProductCard({
             <motion.div
               whileHover={{ scale: 1.1 }}
               className={styles.product_card_quick_actions_button}
-              onClick={()=>setIsModalOpen(true)}>
+              onClick={() => setIsModalOpen(true)}>
               <Eye size={20} />
             </motion.div>
           </div>
@@ -225,19 +225,19 @@ export default function ProductCard({
       {/* Quick Add Button */}
       <Button
         className={styles.product_card_quick_add + " group-hover:opacity-100"}
-        onClick={()=>setIsQuickAddOpen(true)}>
-            QUICK ADD
+        onClick={() => setIsQuickAddOpen(true)}>
+        QUICK ADD
       </Button>
       <ProductModal
         product={product}
-        onClose={()=>setIsModalOpen(false)}
+        onClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
-        onCartOpen={openCart}/>
+        onCartOpen={openCart} />
       <QuickAddModal
         isOpen={isQuickAddOpen}
-        onClose={()=>setIsQuickAddOpen(false)}
+        onClose={() => setIsQuickAddOpen(false)}
         product={product}
-        onCartOpen={openCart}/>
+        onCartOpen={openCart} />
     </motion.div>
   );
 }

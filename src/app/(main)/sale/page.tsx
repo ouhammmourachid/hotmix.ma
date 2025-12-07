@@ -14,13 +14,13 @@ export default function Page() {
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+
   const observer = useRef<IntersectionObserver | null>(null);
   const api = useApiService();
 
   const fetchData = async (filter: string, currentPage: number) => {
     try {
-      setIsLoading(true);
+
       const response = await api.product.getAll('sale=true&' + filter + `&page=${page}`);
 
       // If it's the first page, replace products, otherwise append
@@ -34,9 +34,8 @@ export default function Page() {
       setHasMore(!!response.data.next);
     } catch (error) {
       console.error('Error fetching sale products:', error);
-    } finally {
-      setIsLoading(false);
     }
+
   }
 
   useEffect(() => {
@@ -85,8 +84,8 @@ export default function Page() {
       <div className="flex flex-col justify-between items-center mb-8">
         <h1 className="text-4xl font-semibold">{t('sale_page_title')}</h1>
         <div className="flex justify-between items-center mt-16 w-full">
-          <FilterButton onClick={()=>setIsFilterOpen(true)}/>
-          <Grid/>
+          <FilterButton onClick={() => setIsFilterOpen(true)} />
+          <Grid />
         </div>
       </div>
       {/* Filter Summary */}
@@ -96,7 +95,7 @@ export default function Page() {
       {/* Products */}
       <RenderProducts
         ref={lastProductRef}
-        products={products}/>
+        products={products} />
 
       {/* Optional: No more products indicator */}
       {!hasMore && products.length > 0 && (

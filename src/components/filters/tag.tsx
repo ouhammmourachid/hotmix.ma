@@ -1,32 +1,32 @@
 "use client"
 import { Checkbox } from "@/components/ui/checkbox";
-import {ScrollArea} from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useFilter } from '@/contexts/filter-context';
 import styles from '@/styles/filter.module.css';
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useApiService } from '@/services/api.service';
 import Tag from '@/types/tag';
 
-export default function TagFilter({onClick}:{onClick:()=>void}) {
-    const {filterState,setFilterState,toString} = useFilter();
+export default function TagFilter({ onClick }: { onClick: () => void }) {
+    const { filterState, setFilterState } = useFilter();
     const [tags, setTags] = useState<Tag[]>([]);
     const api = useApiService();
     const fetchData = async () => {
         try {
-          const response = await api.tag.getAll();
+            const response = await api.tag.getAll();
             setTags(response.data);
-          } catch (err ) {
+        } catch (err) {
             console.log(err);
-          }
-      };
-    const handleClick = (id:string) => {
-        if(filterState.tags.includes(id)){
-            setFilterState((prev:any) => ({
+        }
+    };
+    const handleClick = (id: string) => {
+        if (filterState.tags.includes(id)) {
+            setFilterState((prev: any) => ({
                 ...prev,
-                tags: prev.tags.filter((tagId:string) => tagId !== id)
+                tags: prev.tags.filter((tagId: string) => tagId !== id)
             }))
         } else {
-            setFilterState((prev:any) => ({
+            setFilterState((prev: any) => ({
                 ...prev,
                 tags: [...prev.tags, id]
             }))

@@ -4,10 +4,10 @@ import { useCart } from '@/contexts/cart-context'
 import { useWishlist } from '@/contexts/wishlist-context'
 import styles from '@/styles/main.module.css'
 import Link from 'next/link'
-import useAuth from "@/hooks/useAuth";
+
 import { useState } from 'react'
 import LogoutButton from '@/components/auth/LogoutButton';
-import LanguageSwitcher from './language-switcher';
+
 import { useTranslation } from '@/lib/i18n-utils';
 
 function NavLink({

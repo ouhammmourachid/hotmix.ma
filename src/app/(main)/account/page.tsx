@@ -8,17 +8,14 @@ import useAuth from "@/hooks/useAuth";
 
 export default function ProfilePage() {
   const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
-  const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
+
   const { user } = useAuth();
 
   const handleClickPensil = () => {
     setIsModalInfoOpen(!isModalInfoOpen);
-    setIsModalAddressOpen(false);
+
   }
-  const handleClickAdress = () => {
-    setIsModalAddressOpen(!isModalAddressOpen);
-    setIsModalInfoOpen(false);
-  }
+
   return (
     <div className="min-h-screen p-8 space-y-8 px-44">
       <h1 className="text-2xl font-semibold mb-6">Profile</h1>

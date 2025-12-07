@@ -3,10 +3,10 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from '@/lib/i18n-utils';
 
-export default function CheckoutItem({item}: {item: CartItemType}) {
+export default function CheckoutItem({ item }: { item: CartItemType }) {
     const price = item.price * item.quantity;
-    const { t } = useTranslation();
-    
+
+
     return (
         <div className="flex gap-4 items-center">
             <div className="relative w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
@@ -19,7 +19,7 @@ export default function CheckoutItem({item}: {item: CartItemType}) {
             <div className="flex-1">
                 <h3 className="font-medium">{item.product.name}</h3>
                 <p className="text-sm text-gray-400">{item.size?.name}</p>
-            </div>            
+            </div>
             <div className="text-right">
                 <p>{Number(price).toFixed(0)} DH</p>
             </div>
@@ -28,13 +28,13 @@ export default function CheckoutItem({item}: {item: CartItemType}) {
 }
 
 
-export function CheckoutTotal({totalItems, subtotal}: {totalItems: number, subtotal: number}) {
+export function CheckoutTotal({ totalItems, subtotal }: { totalItems: number, subtotal: number }) {
     const { t } = useTranslation();
     // Convert to number to ensure proper calculation
     const subtotalValue = Number(subtotal);
     const shippingCost = 20;
     const totalValue = subtotalValue + shippingCost;
-    
+
     return (
         <div className="space-y-4">
             <div className="flex justify-between text-sm">
@@ -54,7 +54,7 @@ export function CheckoutTotal({totalItems, subtotal}: {totalItems: number, subto
 }
 
 
-export function OrderItems({items}: {items: CartItemType[]}) {
+export function OrderItems({ items }: { items: CartItemType[] }) {
     return (
         <div className="pb-4 space-y-4">
             {items.map((item, index) => (
@@ -66,18 +66,18 @@ export function OrderItems({items}: {items: CartItemType[]}) {
 
 
 export function OrderSummary({
-                            items,
-                            totalItems,
-                            subtotal
-                        }: {
-                            items: CartItemType[],
-                            totalItems: number,
-                            subtotal: number
-                        }) {
+    items,
+    totalItems,
+    subtotal
+}: {
+    items: CartItemType[],
+    totalItems: number,
+    subtotal: number
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const subtotalValue = Number(subtotal) + 20;
     const { t } = useTranslation();
-    
+
     return (
         <div className='lg:hidden'>
             <div
@@ -85,7 +85,7 @@ export function OrderSummary({
                 className="text-xl p-6 font-semibold flex justify-between cursor-pointer bg-secondary">
                 <div
                     className='flex text-greny'>
-                        {t('checkout_order_summary')} {isOpen ? <ChevronUp className='mt-1'/> : <ChevronDown className='mt-1'/>}
+                    {t('checkout_order_summary')} {isOpen ? <ChevronUp className='mt-1' /> : <ChevronDown className='mt-1' />}
                 </div>
                 <div>{subtotalValue.toFixed(0)} DH</div>
             </div>
@@ -94,7 +94,7 @@ export function OrderSummary({
                     <OrderItems items={items} />
                     <CheckoutTotal
                         totalItems={totalItems}
-                        subtotal={subtotal}/>
+                        subtotal={subtotal} />
                 </div>
             }
         </div>
@@ -103,18 +103,18 @@ export function OrderSummary({
 
 
 export function OrderSummarySide({
-                                items,
-                                totalItems,
-                                subtotal
-                            }: {
-                                items: CartItemType[],
-                                totalItems: number,
-                                subtotal: number
-                            }) {
+    items,
+    totalItems,
+    subtotal
+}: {
+    items: CartItemType[],
+    totalItems: number,
+    subtotal: number
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const subtotalValue = Number(subtotal);
     const { t } = useTranslation();
-    
+
     return (
         <div className="space-y-6 lg:sticky lg:top-4 lg:h-fit p-6">
             <div
@@ -124,27 +124,27 @@ export function OrderSummarySide({
                 <div className='flex text-greny'>
                     {isOpen ?
                         <>
-                        {t('checkout_hide')} <ChevronUp/>
+                            {t('checkout_hide')} <ChevronUp />
                         </>
                         :
                         <>
-                        {t('checkout_show')} <ChevronDown/>
+                            {t('checkout_show')} <ChevronDown />
                         </>
                     }
                 </div>
             </div>
             {isOpen &&
                 <div className='lg:hidden'>
-                    <OrderItems items={items}/>
+                    <OrderItems items={items} />
                 </div>
             }
             <div className='hidden lg:block'>
-                <OrderItems items={items}/>
+                <OrderItems items={items} />
             </div>
 
             <CheckoutTotal
                 subtotal={subtotalValue}
-                totalItems={totalItems}/>
+                totalItems={totalItems} />
         </div>
     )
 }

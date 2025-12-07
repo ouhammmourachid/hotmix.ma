@@ -15,7 +15,7 @@ import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 
 export default function CheckoutForm() {
-  const [isCreditCardOpen, setIsCreditCardOpen] = useState(true);
+
   const { cartItems, totalItems, subtotal, clearCart } = useCart();
   const api = useApiService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -156,9 +156,8 @@ export default function CheckoutForm() {
     }
   }, [checkoutState.items]);
 
-  const handleClickPaymentChoice = (e: any) => {
+  const handleClickPaymentChoice = () => {
     setFormData({ ...formData, payment: { ...formData.payment, method: "At Delivery" } });
-    setIsCreditCardOpen(false)
   }
 
   const handlesubmit = async () => {
@@ -181,7 +180,7 @@ export default function CheckoutForm() {
     }
 
     try {
-      const response = await api.order.create(formData);
+      await api.order.create(formData);
       // Clear cart and redirect to home page with success parameter
       clearCart();
       // Redirect to home page with success parameter

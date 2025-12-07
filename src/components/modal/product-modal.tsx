@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, MoveUpRight } from 'lucide-react';
+import { MoveUpRight } from 'lucide-react';
 import { Rating } from '@/components/small-pieces';
 import { XButton } from '@/components/small-pieces';
 import { Size, ThreeButtons } from '@/components/small-pieces';

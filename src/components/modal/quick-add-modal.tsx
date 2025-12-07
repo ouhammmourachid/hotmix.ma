@@ -26,11 +26,11 @@ export default function QuickAddModal({
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(product.sizes?.[0]);
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
-  const { addToCart, totalItems } = useCart();
+  const { addToCart } = useCart();
   const [isMobile, setIsMobile] = useState(false);
 
   // Initialize translation hook
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {

@@ -1,17 +1,17 @@
 import { useFilter } from '@/contexts/filter-context';
-import {ScrollArea} from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import styles from '@/styles/filter.module.css';
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useApiService } from '@/services/api.service';
 import Category from '@/types/category';
-import { on } from 'events';
 
-export default function CategoryFilter({onClick}:{onClick:()=>void}) {
-    const {filterState,setFilterState} = useFilter();
+
+export default function CategoryFilter({ onClick }: { onClick: () => void }) {
+    const { filterState, setFilterState } = useFilter();
     const [categories, setCategories] = useState<Category[]>([]);
     const api = useApiService();
-    const handleClick = (id:string) => {
-        setFilterState((prev:any) => ({
+    const handleClick = (id: string) => {
+        setFilterState((prev: any) => ({
             ...prev,
             category: prev.category === id ? null : id
         }))
@@ -19,12 +19,12 @@ export default function CategoryFilter({onClick}:{onClick:()=>void}) {
     }
     const fetchData = async () => {
         try {
-          const response = await api.category.getAll();
+            const response = await api.category.getAll();
             setCategories(response.data);
-          } catch (err ) {
+        } catch (err) {
             console.log(err);
-          }
-      };
+        }
+    };
     useEffect(() => {
         fetchData();
     }, []);
@@ -39,7 +39,7 @@ export default function CategoryFilter({onClick}:{onClick:()=>void}) {
                     <input
                         checked={filterState.category === category.id}
                         className={styles.filter_radio}
-                        type="radio" readOnly/>
+                        type="radio" readOnly />
                     <label
                         className='text-md cursor-pointer'>
                         {category.name}

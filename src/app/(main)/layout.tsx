@@ -107,7 +107,6 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>
             <FilterModal />
             <Footer />
             <BottomNavigation
-                isCartOpen={isCartOpen}
                 onCartClick={() => setIsCartOpen(true)} />
         </>
     )

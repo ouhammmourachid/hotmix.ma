@@ -28,7 +28,7 @@ const AuthLoading = () => {
 
 const PersistLogin = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { isAuthenticated, logout } = useAuth();
+  const { logout } = useAuth();
 
 
   useEffect(() => {

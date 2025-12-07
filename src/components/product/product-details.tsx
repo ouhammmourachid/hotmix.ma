@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star } from 'lucide-react';
+
 import ProductReviews from '@/components/product/product-reviews';
 import Product from '@/types/product';
 import styles from '@/styles/product.module.css';

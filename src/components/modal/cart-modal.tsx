@@ -12,8 +12,8 @@ import { useTranslation } from '@/lib/i18n-utils';
 export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolean, onClose: () => void }>) {
   const modalRef = useRef(null);
   const { cartItems, removeFromCart, updateQuantity } = useCart()
-  const { t, language } = useTranslation();
-  const isRTL = language === 'ar';
+  const { t } = useTranslation();
+
 
   const animationConfig = {
     initial: { x: 1700, opacity: 1 },
