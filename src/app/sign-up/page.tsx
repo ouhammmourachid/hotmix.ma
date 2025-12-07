@@ -1,10 +1,10 @@
 "use client"
-import { SignUpForm } from "@/components/sign-up-form";
+import { LoginForm } from "@/components/login-form";
 
-export default function SignUpPage(){
+export default function SignUpPage() {
   return (
     <div className="sign_in_up">
-      <SignUpForm />
+      <LoginForm />
     </div>
   );
 };
