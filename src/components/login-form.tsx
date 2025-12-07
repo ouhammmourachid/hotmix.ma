@@ -15,6 +15,7 @@ import styles from "@/styles/main.module.css"
 import useAuth from "@/hooks/useAuth"
 import { useRouter } from 'next/navigation'
 import { useRef, useState, useEffect } from 'react'
+import { Loader2 } from "lucide-react"
 
 export function LoginForm() {
   const router = useRouter();
@@ -69,37 +70,39 @@ export function LoginForm() {
 
   return (
     <Card className={styles.login_form}>
-      <CardHeader>
-        <Link
-          href="/"
-          className={styles.sign_in_up_logo}>
-          HOTMIX
-        </Link>
+      <CardHeader className="space-y-1">
+        <div className="flex justify-center mb-4">
+          <Link
+            href="/"
+            className={styles.sign_in_up_logo}>
+            HOTMIX
+          </Link>
+        </div>
         <CardTitle className="text-2xl">
-          {step === 'email' ? 'Log in / Sign up' : 'Enter Code'}
+          {step === 'email' ? 'Sign in' : 'Enter Code'}
         </CardTitle>
-        <CardDescription>
+        <CardDescription >
           {step === 'email'
-            ? 'Enter your email to continue'
-            : `We sent a code to ${email}`}
+            ? "Choose how you'd like to sign in"
+            : `Sent to ${email}`}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
           {errorMessage && (
-            <div className="text-red-500 mb-4" ref={errRef} role="alert">
+            <div className="text-red-500 mb-4 text-center" ref={errRef} role="alert">
               {errorMessage}
             </div>
           )}
           <div className="flex flex-col gap-6">
             {step === 'email' ? (
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                {/* <Label htmlFor="email">Email</Label> */}
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
-                  className={styles.login_form_input}
+                  placeholder="Email"
+                  className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   ref={userRef}
@@ -109,12 +112,11 @@ export function LoginForm() {
               </div>
             ) : (
               <div className="grid gap-2">
-                <Label htmlFor="otp">Verification Code / Token</Label>
                 <Input
                   id="otp"
                   type="text"
-                  placeholder="Paste the code from email"
-                  className={styles.login_form_input}
+                  placeholder="4-digit code"
+                  className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                   required
@@ -126,21 +128,22 @@ export function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full bg-primary"
+              className="w-full bg-secondary border border-gray-600 hover:bg-secondary/80 h-12 text-lg font-normal"
               disabled={isLoading}>
               {isLoading
-                ? 'Processing...'
-                : (step === 'email' ? 'Send Code' : 'Verify & Login')}
+                ? <Loader2 className="h-6 w-6 animate-spin" />
+                : (step === 'email' ? 'Continue' : 'Submit')}
             </Button>
 
             {step === 'otp' && (
               <Button
                 type="button"
-                variant="ghost"
+                variant="link"
+                className="text-greny hover:text-greny/80 p-0 h-auto font-normal justify-start"
                 onClick={() => setStep('email')}
                 disabled={isLoading}
               >
-                Back to Email
+                Sign in with a different email
               </Button>
             )}
           </div>
