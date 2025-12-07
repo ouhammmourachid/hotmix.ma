@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from 'react'; // Explicitly import React
+import React from 'react'; // Explicitly import React
 import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
 import { useFilter } from '@/contexts/filter-context';
 import RenderProducts from '@/components/product/render-products';
@@ -16,11 +16,16 @@ const ProductsPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
+  const lastRequestId = useRef(0);
   const api = useApiService();
 
   const fetchData = async (filter: string, currentPage: number) => {
+    const requestId = ++lastRequestId.current;
     try {
       const response = await api.product.getAll(filter + `&page=${currentPage}`);
+
+      // Ignore if a newer request has started
+      if (requestId !== lastRequestId.current) return;
 
       // If it's the first page, replace products, otherwise append
       setProducts(prev =>
@@ -38,6 +43,9 @@ const ProductsPage: React.FC = () => {
         hasMore: !!response.data.next
       });
     } catch (error) {
+      // Ignore errors from stale requests (optional, but good practice)
+      if (requestId !== lastRequestId.current) return;
+
       console.error("Fetch error:", error);
       setHasMore(false);
     }
