@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
-    domains: [
-      'files.hotmix.ma',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'files.hotmix.ma',
+      },
     ],
   },
   // Allow importing JSON files for translations
@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  // Empty turbopack config to silence the warning
+  turbopack: {},
 };
 
 export default nextConfig;
