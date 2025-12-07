@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import pb from "@/lib/pocketbase";
 
@@ -29,7 +29,7 @@ const AuthLoading = () => {
 const PersistLogin = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated, logout } = useAuth();
-  const router = useRouter();
+
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -37,6 +37,7 @@ const PersistLogin = ({ children }: { children: React.ReactNode }) => {
         if (pb.authStore.isValid) {
           await pb.collection('users').authRefresh();
         }
+        setIsLoading(false);
       } catch (err: any) {
         // Ignore auto-cancellation errors
         if (err.isAbort) {
@@ -45,15 +46,12 @@ const PersistLogin = ({ children }: { children: React.ReactNode }) => {
         console.error("Auth refresh failed:", err);
         // Token invalid
         logout();
-      } finally {
-        setIsLoading(false);
       }
     };
 
     if (!pb.authStore.isValid) {
       // If not authenticated, redirect to login
-      router.push('/login');
-      setIsLoading(false);
+      window.location.replace('/login');
     } else {
       verifyUser();
     }

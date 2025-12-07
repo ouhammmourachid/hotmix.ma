@@ -75,8 +75,6 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
         try {
             await pb.collection("users").create({
                 email,
-                password: "Password123!",
-                passwordConfirm: "Password123!",
                 emailVisibility: true,
             });
             console.log("User created successfully (new account).");
