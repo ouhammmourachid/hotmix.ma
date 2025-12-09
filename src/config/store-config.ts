@@ -3,5 +3,5 @@
  */
 export const storeConfig = {
   // Contact information
-  whatsappNumber: '0770109540',
+  whatsappNumber: '0659190626',
 } as const;
