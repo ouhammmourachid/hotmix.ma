@@ -6,7 +6,7 @@ import Script from 'next/script';
 declare global {
   interface Window {
     gtag: (
-      command: 'config' | 'event' | 'js', 
+      command: 'config' | 'event' | 'js',
       targetId: string | Date,
       config?: Record<string, any>
     ) => void;
@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-const GA_MEASUREMENT_ID = 'G-GWJE58K82B';
+const GA_MEASUREMENT_ID = 'G-XRSSH5QYBD';
 
 export default function GoogleAnalytics() {
   // No need for pathname tracking here since PageViewTracker handles that

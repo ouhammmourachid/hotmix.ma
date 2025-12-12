@@ -1,9 +1,10 @@
-import { Heart, Search, User, Menu } from 'lucide-react'
+import { Heart, Search, User, Menu, ChevronDown } from 'lucide-react'
 import Basket from '@/components/icon/basket'
 import { useCart } from '@/contexts/cart-context'
 import { useWishlist } from '@/contexts/wishlist-context'
 import styles from '@/styles/main.module.css'
 import Link from 'next/link'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 import { useState } from 'react'
 import LogoutButton from '@/components/auth/LogoutButton';
@@ -38,6 +39,7 @@ export default function Navigation({
   // const { auth } = useAuth(); // Access authentication state
   const { t } = useTranslation(); // Translation hook
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+
   const clickAccount = () => {
     if (window.location.pathname === '/account') {
       setIsAccountMenuOpen(!isAccountMenuOpen);
@@ -45,6 +47,15 @@ export default function Navigation({
       window.location.href = '/account';
     }
   }
+
+  const collectionItems = [
+    { name: 'Track Suits', href: '/collections/track-suits' },
+    { name: 'Sets', href: '/collections/sets' },
+    { name: 'Sweatpants', href: '/collections/sweatpants' },
+    { name: 'Blanket', href: '/collections/blanket' },
+    { name: 'Hoodies', href: '/collections/hoodies' },
+    { name: 'Quarter Zippers', href: '/collections/quarter-zippers' },
+  ];
   return (
     <nav
       className={styles.nav + " navigation"}>
@@ -62,13 +73,73 @@ export default function Navigation({
           className={styles.nav_logo}>
           HOTMIX
         </Link>            {/* Desktop navigation links - centered on large screens */}
-        <div className="hidden lg:flex gap-8 text-white justify-center">
-          <NavLink href="/" name={t('nav_home')} />
-          <NavLink href="/products" name={t('nav_all_products')} />
-          <NavLink href="/collections" name={t('nav_collections')} />
-          <NavLink href="/new-collection" name={t('nav_new_collection')} />
-          <NavLink href="/sale" name={t('nav_sale')} />
-        </div>
+        <NavigationMenu.Root className="hidden lg:flex">
+          <NavigationMenu.List className="flex gap-8 text-white items-center">
+            {/* Home Link */}
+            <NavigationMenu.Item>
+              <NavigationMenu.Link asChild>
+                <a href="/" className={styles.nav_link + " group"}>
+                  {t('nav_home')}
+                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+                </a>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+
+            {/* All Products Link */}
+            <NavigationMenu.Item>
+              <NavigationMenu.Link asChild>
+                <a href="/products" className={styles.nav_link + " group"}>
+                  {t('nav_all_products')}
+                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+                </a>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+
+            {/* Winter Collection Dropdown */}
+            <NavigationMenu.Item>
+              <NavigationMenu.Trigger className={styles.nav_link + " group flex items-center gap-1 cursor-pointer bg-transparent border-0 text-white"}>
+                Winter Collection
+                <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]:rotate-180" aria-hidden />
+                <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+              </NavigationMenu.Trigger>
+
+              <NavigationMenu.Content className="absolute left-0 top-0 w-56 data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
+                <div className="bg-[#1a3d3d] shadow-lg rounded-sm py-4 px-6 mt-2">
+                  {collectionItems.map((item, index) => (
+                    <NavigationMenu.Link key={index} asChild>
+                      <a
+                        href={item.href}
+                        className="block py-2 text-white hover:text-greny transition-colors duration-200"
+                      >
+                        {item.name}
+                      </a>
+                    </NavigationMenu.Link>
+                  ))}
+                </div>
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+
+            {/* New Collection Link */}
+            <NavigationMenu.Item>
+              <NavigationMenu.Link asChild>
+                <a href="/new-collection" className={styles.nav_link + " group"}>
+                  {t('nav_new_collection')}
+                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+                </a>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+
+            {/* Sale Link */}
+            <NavigationMenu.Item>
+              <NavigationMenu.Link asChild>
+                <a href="/sale" className={styles.nav_link + " group"}>
+                  {t('nav_sale')}
+                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+                </a>
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
 
         {/* Right section with icons */}
         <div className="flex items-center gap-4">
