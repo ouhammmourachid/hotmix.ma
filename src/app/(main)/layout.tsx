@@ -80,7 +80,7 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>
             </div>
 
             {/* Fixed Navigation: Slides in when scrolling up past header */}
-            <div className={`fixed top-0 left-0 right-0 transition-transform duration-300 z-50 ${showFixedNav ? 'translate-y-0' : '-translate-y-full'
+            <div className={`fixed top-0 left-0 right-0 z-50 ${showFixedNav ? 'translate-y-0' : '-translate-y-full'
                 }`}>
                 <Navigation
                     onCartClick={() => setIsCartOpen(true)}

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* RTL Support for Arabic language */
@@ -18,7 +18,7 @@ html[dir="rtl"] body {
 
 /* Languages specific font adjustments */
 html[lang="ar"] {
-  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* RTL Support for Arabic language */
@@ -37,7 +37,7 @@ html[dir="rtl"] body {
 
 /* Languages specific font adjustments */
 html[lang="ar"] {
-  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -68,6 +68,7 @@ html[lang="ar"] {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -133,12 +134,7 @@ html[lang="ar"] {
 }
 
 .checkout_radio {
-  @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692]
-  bg-transparent relative checked:bg-greny checked:border-0
-  before:content-[''] before:w-2 before:h-2 before:rounded-full
-  before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2
-  checked:before:bg-black focus:outline-none focus:ring-0 focus:ring-offset-0
-  transition-all duration-150;
+  @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692] bg-transparent relative checked:bg-greny checked:border-0 before:content-[''] before:w-2 before:h-2 before:rounded-full before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 checked:before:bg-black focus:outline-none focus:ring-0 focus:ring-offset-0 transition-all duration-150;
 }
 
 .checkout_title {
@@ -150,9 +146,7 @@ html[lang="ar"] {
 }
 
 .checkout_input {
-  @apply w-full py-6 bg-transparent border-gray-500 focus:border-greny focus:border-none
-  focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2
-  focus-visible:outline-none focus-visible:ring-offset-greny;
+  @apply w-full py-6 bg-transparent border-gray-500 focus:border-greny focus:border-none focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-offset-greny;
 }
 
 .checkout_input_with_icon {
@@ -160,14 +154,11 @@ html[lang="ar"] {
 }
 
 .checkout_input_with_icon_input {
-  @apply border-none flex items-center focus:ring-0 focus-visible:ring-0
-  focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none
-  bg-transparent text-white w-full;
+  @apply border-none flex items-center focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none bg-transparent text-white w-full;
 }
 
 .select_trigger {
-  @apply w-full py-6 border-gray-500 ring-1 ring-gray-500
-  focus:ring-1 focus-visible:ring-greny  focus:ring-greny ;
+  @apply w-full py-6 border-gray-500 ring-1 ring-gray-500 focus:ring-1 focus-visible:ring-greny focus:ring-greny;
 }
 
 .select_content {
