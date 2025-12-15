@@ -67,7 +67,7 @@
     .quick_add_modal {
         @apply justify-end p-0;
     }
-    
+
     .quick_add {
         @apply max-w-full rounded-t-lg rounded-b-none;
     }
@@ -95,7 +95,7 @@
 }
 
 .side_menu {
-    @apply fixed left-0 top-0 p-4 h-full w-full max-w-md bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+    @apply fixed left-0 top-0 p-4 h-full w-[85%] max-w-md bg-primary text-white shadow-lg flex flex-col overflow-hidden;
 }
 
 .side_menu_button {
@@ -112,7 +112,7 @@
 
 /* search modal */
 .search_modal {
-    @apply fixed inset-0  flex items-center justify-center z-50;
+    @apply fixed inset-0 flex items-center justify-center z-50;
 }
 
 .search {
@@ -124,7 +124,5 @@
 }
 
 .search_input {
-    @apply h-11 bg-teal-800/50 text-white placeholder-gray-400 py-4 px-12 rounded-sm
-    border border-teal-700 focus:outline-none focus:border-teal-600
-    text-lg w-full max-w-md;
+    @apply h-11 bg-teal-800/50 text-white placeholder-gray-400 py-4 px-12 rounded-sm border border-teal-700 focus:outline-none focus:border-teal-600 text-lg w-full max-w-md;
 }
