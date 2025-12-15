@@ -115,7 +115,7 @@ export default function Navigation({
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
-                        href={`/products?category=${item.id}`}
+                        href={`/collections/${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block py-2 text-white hover:text-greny transition-colors duration-200"
                       >
                         {item.name}

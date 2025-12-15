@@ -121,7 +121,7 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
                           <li key={cat.id}>
                             <Link
                               onClick={onClose}
-                              href={`/products?category=${cat.id}`}
+                              href={`/collections/${cat.name.toLowerCase().replace(/\s+/g, '-')}`}
                               className="block text-whity hover:text-greny transition-colors"
                             >
                               {cat.name}
