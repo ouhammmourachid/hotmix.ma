@@ -45,7 +45,7 @@ export default function CollectionPage() {
                 if (match) {
                     setCurrentCategory(match);
                     // Update filter state to include this category
-                    setFilterState(prev => ({ ...prev, category: match.id }));
+                    setFilterState((prev: any) => ({ ...prev, category: match.id }));
                 } else {
                     console.error("Category not found");
                     // Handle 404 behavior if needed
