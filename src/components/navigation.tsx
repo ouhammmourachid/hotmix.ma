@@ -105,12 +105,12 @@ export default function Navigation({
             {/* Winter Collection Dropdown */}
             <NavigationMenu.Item>
               <NavigationMenu.Trigger className={styles.nav_link + " group flex items-center gap-1 cursor-pointer bg-transparent border-0 text-white"}>
-                Winter Collection
+                Our Collection
                 <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]:rotate-180" aria-hidden />
                 <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
               </NavigationMenu.Trigger>
 
-              <NavigationMenu.Content className="absolute top-11 w-72  data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
+              <NavigationMenu.Content className="absolute top-11 w-72 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:slide-out-to-bottom-2 data-[state=open]:slide-in-from-bottom-2">
                 <div className="bg-primary shadow-lg  py-4 px-6 ">
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
@@ -126,15 +126,7 @@ export default function Navigation({
               </NavigationMenu.Content>
             </NavigationMenu.Item>
 
-            {/* New Collection Link */}
-            <NavigationMenu.Item>
-              <NavigationMenu.Link asChild>
-                <a href="/new-collection" className={styles.nav_link + " group"}>
-                  {t('nav_new_collection')}
-                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
-                </a>
-              </NavigationMenu.Link>
-            </NavigationMenu.Item>
+
 
             {/* Sale Link */}
             <NavigationMenu.Item>

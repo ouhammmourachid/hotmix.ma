@@ -30,7 +30,7 @@ const Homepage = () => {
     <>
       <HeroSection />
       <NewCollection />
-      
+
       {/* Success Modal */}
       <SuccessModal
         isOpen={isSuccessModalOpen}
