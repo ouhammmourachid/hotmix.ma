@@ -103,8 +103,8 @@ export default function Navigation({
                 <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
               </NavigationMenu.Trigger>
 
-              <NavigationMenu.Content className="absolute left-0 top-0 w-56 data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
-                <div className="bg-[#1a3d3d] shadow-lg rounded-sm py-4 px-6 mt-2">
+              <NavigationMenu.Content className="absolute top-11 w-72  data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
+                <div className="bg-primary shadow-lg  py-4 px-6 ">
                   {collectionItems.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
