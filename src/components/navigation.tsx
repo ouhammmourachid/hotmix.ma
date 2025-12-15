@@ -6,10 +6,12 @@ import styles from '@/styles/main.module.css'
 import Link from 'next/link'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LogoutButton from '@/components/auth/LogoutButton';
 
 import { useTranslation } from '@/lib/i18n-utils';
+import { useApiService } from '@/services/api.service';
+import Category from '@/types/category';
 
 function NavLink({
   href,
@@ -39,6 +41,20 @@ export default function Navigation({
   // const { auth } = useAuth(); // Access authentication state
   const { t } = useTranslation(); // Translation hook
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const api = useApiService();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.category.getAll();
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const clickAccount = () => {
     if (window.location.pathname === '/account') {
@@ -47,15 +63,6 @@ export default function Navigation({
       window.location.href = '/account';
     }
   }
-
-  const collectionItems = [
-    { name: 'Track Suits', href: '/collections/track-suits' },
-    { name: 'Sets', href: '/collections/sets' },
-    { name: 'Sweatpants', href: '/collections/sweatpants' },
-    { name: 'Blanket', href: '/collections/blanket' },
-    { name: 'Hoodies', href: '/collections/hoodies' },
-    { name: 'Quarter Zippers', href: '/collections/quarter-zippers' },
-  ];
   return (
     <nav
       className={styles.nav + " navigation"}>
@@ -105,10 +112,10 @@ export default function Navigation({
 
               <NavigationMenu.Content className="absolute top-11 w-72  data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
                 <div className="bg-primary shadow-lg  py-4 px-6 ">
-                  {collectionItems.map((item, index) => (
+                  {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
-                        href={item.href}
+                        href={`/products?category=${item.id}`}
                         className="block py-2 text-white hover:text-greny transition-colors duration-200"
                       >
                         {item.name}
