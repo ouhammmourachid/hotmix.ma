@@ -72,12 +72,13 @@ const createProductService = () => ({
     getAll: async (filterStr) => {
         const params = new URLSearchParams(filterStr);
         const page = parseInt(params.get('page') || '1');
+        const perPage = parseInt(params.get('perPage') || '30');
         let filter = convertToPocketBaseFilter(filterStr);
 
         const statusFilter = "status='published'";
         filter = filter ? `${statusFilter} && (${filter})` : statusFilter;
 
-        const result = await pb.collection('products').getList(page, 30, {
+        const result = await pb.collection('products').getList(page, perPage, {
             filter,
             expand: 'category,sizes,colors,tags', // Removed images from expand
             sort: '-created', // Changed from -created_at

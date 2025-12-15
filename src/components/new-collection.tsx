@@ -1,74 +1,29 @@
 "use client";
 import ProductCard from "@/components/product/card/product-card";
-import {motion} from "framer-motion";
-import {useState, useEffect, useRef} from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { useApiService } from "@/services/api.service";
 import Product from "@/types/product";
 import { useTranslation } from '@/lib/i18n-utils';
 
 
-export default function NewCollection(){
-        const { t } = useTranslation();
-        const [products, setProducts] = useState<Product[]>([]);
-        const [page, setPage] = useState(1);
-        const [hasMore, setHasMore] = useState(true);
-        const observer = useRef<IntersectionObserver | null>(null);
-        const api = useApiService();
+export default function NewCollection() {
+  const { t } = useTranslation();
+  const [products, setProducts] = useState<Product[]>([]);
+  const api = useApiService();
 
-        const fetchData = async (currentPage: number) => {
-          try {
-            const response = await api.product.getAll(`page=${currentPage}`);
+  const fetchData = async () => {
+    try {
+      const response = await api.product.getAll('page=1&perPage=10');
+      setProducts(response.data.results);
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
 
-            // If it's the first page, replace products, otherwise append
-            setProducts(prev =>
-              currentPage === 1
-                ? response.data.results
-                : [...prev, ...response.data.results]
-            );
-            setHasMore(!!response.data.next);
-
-            console.log("Fetch details:", {
-              page: currentPage,
-              resultsCount: response.data.results.length,
-              hasMore: !!response.data.next
-            });
-          } catch (error) {
-            console.error("Fetch error:", error);
-            setHasMore(false);
-          }
-        };
-        useEffect(() => {
-          setProducts([]);
-          setPage(1);
-          setHasMore(true);
-          fetchData(1); // Immediately fetch first page
-        }, []);
-
-        // Fetch more products when page changes (and hasMore is true)
-        useEffect(() => {
-          if (hasMore && page > 1) {
-            fetchData(page);
-          }
-        }, [page]);
-
-        const lastProductRef = (node: HTMLDivElement | null) => {
-          if (!node || !hasMore) return;
-
-          // Disconnect previous observer
-          if (observer.current) observer.current.disconnect();
-
-          // Create new observer
-          observer.current = new IntersectionObserver(
-            (entries) => {
-              if (entries[0].isIntersecting && hasMore) {
-                setPage((prev) => prev + 1);
-              }
-            },
-            { threshold: 0.01 } // Trigger when 10% of the element is visible
-          );
-
-          observer.current.observe(node);
-        };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <section className="py-16">
@@ -83,12 +38,11 @@ export default function NewCollection(){
           <p className="text-xl">{t('new_collection_subtitle')}</p>
         </motion.div>
         <div className="gap-7 items-center justify-center grid lg:grid-cols-3 grid-cols-2">
-          {products.map((product,index) => (
+          {products.map((product, index) => (
             <ProductCard
-                key={product.id}
-                product={product}
-                ref = {products.length === index + 1 ? lastProductRef : null}
-                delay={0.4*(index+1)} />
+              key={product.id}
+              product={product}
+              delay={0.4 * (index + 1)} />
           ))}
         </div>
       </div>
