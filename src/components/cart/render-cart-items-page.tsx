@@ -32,7 +32,9 @@ function RenderItem({ item }: { item: CartItemType }) {
         </Link>
         <div className={styles.render_cart_item_page_info}>
           <h3 className="font-medium">{item.product.name}</h3>
-          <p className="text-sm text-gray-400">{item.size?.name}</p>
+          <p className="text-sm text-gray-400">
+            {item.size?.name} {item.color ? `| ${item.color.name}` : ''}
+          </p>
           <button
             onClick={() => (removeFromCart(item.id))}
             className={styles.render_cart_item_page_info_remove}>
@@ -62,7 +64,9 @@ function RenderItem({ item }: { item: CartItemType }) {
       <div className='w-full md:hidden'>
         <div className='flex flex-col items-start border-b border-dashed border-gray-700 py-3'>
           <h3 className="font-medium">{item.product.name}</h3>
-          <p className="text-sm text-gray-400">{item.size?.name}</p>
+          <p className="text-sm text-gray-400">
+            {item.size?.name} {item.color ? `| ${item.color.name}` : ''}
+          </p>
           <button
             onClick={() => (removeFromCart(item.id))}
             className={styles.render_cart_item_page_info_remove}>

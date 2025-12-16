@@ -18,7 +18,9 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
             </div>
             <div className="flex-1">
                 <h3 className="font-medium">{item.product.name}</h3>
-                <p className="text-sm text-gray-400">{item.size?.name}</p>
+                <p className="text-sm text-gray-400">
+                    {item.size?.name} {item.color ? `| ${item.color.name}` : ''}
+                </p>
             </div>
             <div className="text-right">
                 <p>{Number(price).toFixed(0)} DH</p>
