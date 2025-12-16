@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hotmix.ma Store
 
-## Getting Started
+A modern e-commerce web application built with [Next.js 16](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/). This project features a dynamic shopping experience with [PocketBase](https://pocketbase.io/) as the backend.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS, Radix UI Primitives, Framer Motion
+- **Backend:** PocketBase (Authentication, Database, Realtime)
+- **Icons:** Lucide React
+- **Internationalization:** next-intl
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Dynamic Product Catalog:** Browse collections and products with real-time data from PocketBase.
+- **Rich Product Details:** Detailed views with image galleries, variants, and recommendations.
+- **Shopping Cart & Wishlist:** Seamless cart management and wishlist functionality.
+- **User Authentication:** Secure login and registration flows (OTP support).
+- **Responsive Design:** Optimized for all devices using Tailwind CSS and mobile-first principles.
+- **Smooth Animations:** Enhanced user experience with Framer Motion transitions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v18 or later recommended)
+- A running instance of [PocketBase](https://pocketbase.io/) with the appropriate schema.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
 
-## Deploy on Vercel
+   ```bash
+   git clone <repository-url>
+   cd hotmix.ma
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. **Configure Environment Variables:**
+
+   Create a `.env.local` file in the root directory. You typically need to configure your PocketBase URL:
+
+   ```env
+   NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
+   ```
+
+4. **Run the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 📜 Scripts
+
+- `npm run dev`: Starts the development server with Turbopack.
+- `npm run build`: Builds the application for production.
+- `npm run start`: Starts the production server.
+- `npm run lint`: Runs ESLint to check for code quality.
+
+## 📂 Project Structure
+
+Key directories in `src/`:
+
+- `app`: Next.js App Router pages and layouts.
+- `components`: Reusable UI components, including Shadcn/Radix primitives and feature-specific components.
+- `lib` / `utils`: Utility functions and helpers.
+- `hooks`: Custom React hooks.
