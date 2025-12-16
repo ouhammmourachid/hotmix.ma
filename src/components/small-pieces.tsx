@@ -45,6 +45,8 @@ export function Size({ size, selectedSize, onClick, className }: { size: SizeTyp
   )
 }
 
+
+
 export function ThreeButtons({
   price,
 
@@ -52,6 +54,7 @@ export function ThreeButtons({
   onCartOpen,
   productId,
   selectedSize,
+  selectedColor,
   quantity,
 }: {
   price: number,
@@ -60,6 +63,7 @@ export function ThreeButtons({
   onCartOpen?: () => void,
   productId: string,
   selectedSize?: SizeType,
+  selectedColor?: Color,
   quantity: number
 }) {
   const { addToWithList, isInWithList, removeFromWithList } = useWishlist();
@@ -95,7 +99,7 @@ export function ThreeButtons({
         </Button>
       </div>
       <Link
-        href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&quantity=${quantity}`}
+        href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
         data-button-tracker
         className={styles.three_buttons_quick_buy}
       >

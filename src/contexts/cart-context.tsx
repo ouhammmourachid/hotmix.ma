@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState,useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import CartItem from '@/types/cart-item'
 
 interface CartContextType {
@@ -35,7 +35,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (item: CartItem) => {
     setCartItems(prev => {
-      const existingItem = prev.find(i => (i.size?.id === item.size?.id && i.product.id === item.product.id))
+      const existingItem = prev.find(i => (
+        i.size?.id === item.size?.id &&
+        i.product.id === item.product.id &&
+        i.color?.id === item.color?.id
+      ))
       if (existingItem) {
         return prev.map(i =>
           i.id === existingItem.id ? { ...i, quantity: i.quantity + item.quantity } : i

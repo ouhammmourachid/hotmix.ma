@@ -11,6 +11,7 @@ import { useCart } from '@/contexts/cart-context';
 import CartItem from '@/types/cart-item';
 import { useApiService } from '@/services/api.service';
 import Size from '@/types/size';
+import Color from '@/types/color';
 import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 
@@ -47,13 +48,14 @@ export default function CheckoutForm() {
       const urlParams = new URLSearchParams(window.location.search);
       const productId = urlParams.get('productId') || '';
       const sizeId = urlParams.get('sizeId') || '';
+      const colorId = urlParams.get('colorId') || '';
       const quantity = parseInt(urlParams.get('quantity') || '1');
 
       if (productId) {
         try {
           const product = await fetchProduct(productId);
           const size = product?.sizes?.find((size: Size) => size.id === sizeId);
-
+          const color = product?.colors?.find((color: Color) => color.id === colorId);
           if (product) {
             const price = product.sale_price || product.price;
             setCheckoutState({
@@ -61,6 +63,7 @@ export default function CheckoutForm() {
                 id: Date.now(),
                 product,
                 size,
+                color,
                 quantity: quantity,
                 price
               }],
@@ -150,6 +153,7 @@ export default function CheckoutForm() {
         items: checkoutState.items.map(item => ({
           product: String(item.product.id),
           size: item.size?.id ? String(item.size.id) : undefined,
+          color: item.color?.id ? String(item.color.id) : undefined,
           quantity: item.quantity
         }))
       }));

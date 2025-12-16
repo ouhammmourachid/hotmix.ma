@@ -7,6 +7,7 @@ import Product from "@/types/product";
 import { useWishlist } from "@/contexts/wishlist-context";
 import { useCartModal } from "@/contexts/cart-modal-context";
 import styles from "@/styles/product.module.css";
+import filterStyles from "@/styles/filter.module.css";
 import { motion } from "framer-motion";
 import Size from "@/types/size";
 import { formatPrice } from "@/lib/utils";
@@ -209,6 +210,20 @@ export default function HorizontalProductCard({
                 </div>
               )}
 
+              {/* Colors for small screens */}
+              {product.colors && product.colors.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {product.colors.map((color) => (
+                    <div
+                      key={color.id}
+                      className={filterStyles.filter_color_circle}
+                      style={{ backgroundColor: color.code, width: '1.25rem', height: '1.25rem' }}
+                      title={color.name}
+                    />
+                  ))}
+                </div>
+              )}
+
               {/* Action Buttons for small screens */}
               <div className="flex gap-2">
                 <button
@@ -234,6 +249,20 @@ export default function HorizontalProductCard({
                       key={size.id}
                       size={size}
                       className="border-none lg:px-1" />
+                  ))}
+                </div>
+              )}
+
+              {/* Colors for larger screens */}
+              {product.colors && product.colors.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {product.colors.map((color) => (
+                    <div
+                      key={color.id}
+                      className={filterStyles.filter_color_circle}
+                      style={{ backgroundColor: color.code, width: '1.25rem', height: '1.25rem' }}
+                      title={color.name}
+                    />
                   ))}
                 </div>
               )}

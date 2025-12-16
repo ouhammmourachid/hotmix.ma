@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoveUpRight } from 'lucide-react';
+import { MoveUpRight, Check } from 'lucide-react';
 import { Rating } from '@/components/small-pieces';
 import { XButton } from '@/components/small-pieces';
 import { Size, ThreeButtons } from '@/components/small-pieces';
@@ -7,10 +7,12 @@ import { useState, useRef } from 'react';
 import ModalLayout from '@/components/modal/modal-layout';
 import Product from '@/types/product';
 import SizeType from '@/types/size';
+import Color from '@/types/color';
 import { useCart } from '@/contexts/cart-context'
 import Link from 'next/link';
 import styles from '@/styles/modal.module.css';
 import { motion } from 'framer-motion';
+import filterStyles from '@/styles/filter.module.css';
 import { formatPrice } from '@/lib/utils';
 import { Discount } from '@/components/ui/discount';
 // Import for translation support - will be used later
@@ -28,6 +30,7 @@ const ProductModal = ({
   onCartOpen?: () => void
 }) => {
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0]);
+  const [selectedColor, setSelectedColor] = useState<Color | undefined>(product.colors?.[0]);
   const { addToCart } = useCart()
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
@@ -107,7 +110,36 @@ const ProductModal = ({
               className={styles.product_discount}
               size='sm'
               variant='default' />
-          </div>          {/* Size selector */}
+          </div>
+          {/* Color selector */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="mb-6">
+              <div className="flex justify-between mb-2">
+                <span>
+                  {t('color')}: {selectedColor?.name}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                {product.colors.map((color: Color) => (
+                  <div
+                    key={color.id}
+                    onClick={() => setSelectedColor(color)}
+                    className="relative cursor-pointer w-8 h-8"
+                    title={color.name}
+                  >
+                    <div className={`${filterStyles.filter_color_ring} ${selectedColor?.id === color.id ? 'border-2' : ''}`} />
+                    <div
+                      style={{ backgroundColor: color.code }}
+                      className={filterStyles.filter_color_circle}
+                    >
+                      {selectedColor?.id === color.id && <Check size={15} />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Size selector */}
           <div className="mb-6">
             <div className="flex justify-between mb-2">              <span>
               {t('size')}: {selectedSize?.name}
@@ -130,11 +162,13 @@ const ProductModal = ({
               productId={product.id}
               price={price}
               selectedSize={selectedSize}
+              selectedColor={selectedColor}
               onClickAddToCart={() => addToCart({
                 id: 0,
                 product: product,
                 price: product.sale_price ? product.sale_price : product.price,
                 size: selectedSize,
+                color: selectedColor,
                 quantity: 1
               })}
               onCartOpen={onCartOpen} />

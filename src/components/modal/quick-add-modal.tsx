@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Discount } from '@/components/ui/discount';
+import { Check } from 'lucide-react';
+import filterStyles from '@/styles/filter.module.css';
+import Color from '@/types/color';
 import { Size, ThreeButtons, XButton, QuantityChanger } from '@/components/small-pieces';
 import ModalLayout from '@/components/modal/modal-layout';
 import Product from '@/types/product';
@@ -24,6 +27,7 @@ export default function QuickAddModal({
 }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(product.sizes?.[0]);
+  const [selectedColor, setSelectedColor] = useState<Color | undefined>(product.colors?.[0]);
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
   const { addToCart } = useCart();
@@ -71,6 +75,7 @@ export default function QuickAddModal({
       id: 0,
       product: product,
       size: selectedSize,
+      color: selectedColor,
       quantity: quantity,
       price: price
     })
@@ -135,6 +140,30 @@ export default function QuickAddModal({
         </div>
         {/* Sizes  and quantity and buttons */}
         <div className='mt-4 flex flex-col gap-4'>
+          {/* colors */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <span>{t('color')}: {selectedColor?.name}</span>
+              <div className="flex gap-2">
+                {product.colors.map((color: Color) => (
+                  <div
+                    key={color.id}
+                    onClick={() => setSelectedColor(color)}
+                    className="relative cursor-pointer w-8 h-8"
+                    title={color.name}
+                  >
+                    <div className={`${filterStyles.filter_color_ring} ${selectedColor?.id === color.id ? 'border-2' : ''}`} />
+                    <div
+                      style={{ backgroundColor: color.code }}
+                      className={filterStyles.filter_color_circle}
+                    >
+                      {selectedColor?.id === color.id && <Check size={15} />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {/* sizes */}
           {product.sizes && product.sizes.length > 0 && (
             <div className="flex flex-col gap-4">
@@ -162,6 +191,7 @@ export default function QuickAddModal({
             productId={product.id}
             price={price * quantity}
             selectedSize={selectedSize}
+            selectedColor={selectedColor}
             onClickAddToCart={handleClickAddToCart}
             onCartOpen={onCartOpen}
           />

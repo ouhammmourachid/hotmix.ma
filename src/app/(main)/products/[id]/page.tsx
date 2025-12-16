@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Rating } from '@/components/small-pieces';
 import { ThreeButtons, Size, QuantityChanger } from '@/components/small-pieces';
 import ImageMagnifier from '@/components/image-magnifier';
@@ -17,6 +17,8 @@ import { formatPrice } from '@/lib/utils';
 import { Discount } from '@/components/ui/discount';
 import { useTranslation } from '@/lib/i18n-utils';
 import { useCartModal } from '@/contexts/cart-modal-context';
+import filterStyles from '@/styles/filter.module.css';
+import Color from '@/types/color';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // Unwrap the params promise using React.use()
@@ -34,6 +36,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { addToCart, totalItems } = useCart();
   const api = useApiService();
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(undefined);
+  const [selectedColor, setSelectedColor] = useState<Color | undefined>(undefined);
   const [price, setPrice] = useState<number>(0);
   // Fetch product data from API
   useEffect(() => {
@@ -51,6 +54,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         // Initialize selected size with the first available size
         if (response.data.sizes && response.data.sizes.length > 0) {
           setSelectedSize(response.data.sizes[0]);
+        }
+        if (response.data.colors && response.data.colors.length > 0) {
+          setSelectedColor(response.data.colors[0]);
         }
 
         setError(null);
@@ -77,6 +83,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         id: totalItems,
         product: product,
         size: selectedSize,
+        color: selectedColor,
         quantity: quantity,
         price: price
       });
@@ -197,6 +204,33 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             </div>
 
             <div>
+              {product.colors && product.colors.length > 0 && (
+                <div className="mb-4">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-medium">
+                      {t('color')}: {selectedColor?.name}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    {product.colors.map(color => (
+                      <div
+                        key={color.id}
+                        onClick={() => setSelectedColor(color)}
+                        className="relative cursor-pointer w-8 h-8"
+                        title={color.name}
+                      >
+                        <div className={`${filterStyles.filter_color_ring} ${selectedColor?.id === color.id ? 'border-2' : ''}`} />
+                        <div
+                          style={{ backgroundColor: color.code }}
+                          className={filterStyles.filter_color_circle}
+                        >
+                          {selectedColor?.id === color.id && <Check size={15} />}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="flex justify-between mb-2">
                 <span className="font-medium">
                   {t('size')}: {selectedSize?.name}
@@ -219,6 +253,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               productId={product.id}
               price={price * quantity}
               selectedSize={selectedSize}
+              selectedColor={selectedColor}
               className="w-full"
               onClickAddToCart={handleClickAddToCart}
               onCartOpen={openCart} />
