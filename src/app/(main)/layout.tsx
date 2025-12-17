@@ -14,6 +14,7 @@ import { WishListProvider } from '@/contexts/wishlist-context';
 import { FilterProvider } from '@/contexts/filter-context';
 import { GridProvider } from '@/contexts/grid-context';
 import { CartModalProvider, useCartModal } from '@/contexts/cart-modal-context';
+import { RecentlyViewedProvider } from '@/contexts/recently-viewed-context';
 
 export default function MainLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
@@ -22,7 +23,9 @@ export default function MainLayout({ children }: Readonly<{ children: React.Reac
                 <FilterProvider>
                     <CartProvider>
                         <WishListProvider>
-                            <MainLayoutContent>{children}</MainLayoutContent>
+                            <RecentlyViewedProvider>
+                                <MainLayoutContent>{children}</MainLayoutContent>
+                            </RecentlyViewedProvider>
                         </WishListProvider>
                     </CartProvider>
                 </FilterProvider>

@@ -126,6 +126,7 @@
   "order_success_title": "Order Placed Successfully!",
   "order_success_message": "Thank you for your purchase. Your order has been received and is being processed.",
   "order_continue_shopping": "Continue Shopping",
+  "recently_viewed_title": "Recently Viewed",
   "generic_success_title": "Success!",
   "generic_success_message": "The operation has been completed successfully.",
   "generic_continue": "Continue"

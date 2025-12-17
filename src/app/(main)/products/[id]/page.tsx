@@ -19,6 +19,8 @@ import { useTranslation } from '@/lib/i18n-utils';
 import { useCartModal } from '@/contexts/cart-modal-context';
 import filterStyles from '@/styles/filter.module.css';
 import Color from '@/types/color';
+import { useRecentlyViewed } from '@/contexts/recently-viewed-context';
+import RecentlyViewedProducts from '@/components/product/recently-viewed-products';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // Unwrap the params promise using React.use()
@@ -38,6 +40,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(undefined);
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(undefined);
   const [price, setPrice] = useState<number>(0);
+  const { addToRecentlyViewed } = useRecentlyViewed();
   // Fetch product data from API
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,6 +48,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         setLoading(true);        // Replace with your actual API endpoint
         const response = await api.product.get(productId);
         setProduct(response.data);
+        addToRecentlyViewed(response.data);
         setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
 
         // Update document title and metadata
@@ -262,6 +266,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       </div>
       <ProductDetails product={product} />
       <RecommendedProducts category={product.category?.id} />
+      <RecentlyViewedProducts />
       <StickyProductFooter
         product={product}
         quantity={quantity}
