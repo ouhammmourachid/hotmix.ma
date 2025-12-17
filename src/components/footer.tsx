@@ -1,6 +1,5 @@
 import React from 'react';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import NewsletterForm from "@/components/newsletter-form";
 import { FacebookIcon, Instagram, Youtube, ArrowUpRight } from 'lucide-react';
 import Tiktok from "@/components/icon/tiktok";
 import { ScrollArrow } from '@/components/small-pieces';
@@ -61,24 +60,7 @@ const Footer = () => {
             ))}
           </ul>
         </div>          {/* Newsletter */}
-        <div className="space-y-6">
-          <h3 className="text-2xl font-semibold">
-            {t('footer_newsletter_title')}
-          </h3>
-          <p className="text-gray-300">
-            {t('footer_newsletter_description')}
-          </p>
-          <div className="flex bg-white p-2 rounded-sm">
-            <Input
-              type="email"
-              placeholder={t('footer_email_placeholder')}
-              className={styles.footer_subscribe_input}
-            />
-            <Button className={styles.footer_subscribe_button}>
-              {t('footer_subscribe')} <ArrowUpRight className="ml-2 w-4 h-4" />
-            </Button>
-          </div>
-        </div>
+        <NewsletterForm />
       </div>
       {/* Scroll Arrow */}
       <ScrollArrow />        {/* Bottom Section */}

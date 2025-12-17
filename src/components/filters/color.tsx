@@ -39,7 +39,7 @@ export default function ColorFilter({onClick}:{onClick:()=>void}) {
 
     return (
         <ScrollArea
-            className={styles.filter_scroll_area + ' border-r border-[#014751]'}>
+            className={styles.filter_scroll_area}>
             {colors.map((color) => (
                 <div
                     onClick={() => handleClick(color.id)}
