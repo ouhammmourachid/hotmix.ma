@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import Product from "@/types/product";
+import { useApiService } from "@/services/api.service";
 
 interface RecentlyViewedContextType {
     recentlyViewed: Product[];
@@ -11,27 +12,60 @@ interface RecentlyViewedContextType {
 const RecentlyViewedContext = createContext<RecentlyViewedContextType | undefined>(undefined);
 
 export function RecentlyViewedProvider({ children }: { children: React.ReactNode }) {
+    const [recentlyViewedIds, setRecentlyViewedIds] = useState<string[]>([]);
     const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+    const api = useApiService();
 
+    // Load IDs from local storage (client-side only)
     useEffect(() => {
-        const stored = localStorage.getItem("recently_viewed");
+        const stored = localStorage.getItem("recently_viewed_ids");
         if (stored) {
             try {
-                setRecentlyViewed(JSON.parse(stored));
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed)) {
+                    // Basic validation to ensure it's an array of strings
+                    setRecentlyViewedIds(parsed);
+                }
             } catch (e) {
                 console.error("Failed to parse recently viewed products", e);
             }
         }
     }, []);
 
-    const addToRecentlyViewed = useCallback((product: Product) => {
-        setRecentlyViewed((prev) => {
-            // Remove current product if it exists to avoid duplicates and move it to the front
-            const filtered = prev.filter((p) => p.id !== product.id);
-            // Add to front and limit to 3
-            const updated = [product, ...filtered].slice(0, 3);
+    // Fetch products when IDs change
+    useEffect(() => {
+        if (recentlyViewedIds.length === 0) {
+            setRecentlyViewed([]);
+            return;
+        }
 
-            localStorage.setItem("recently_viewed", JSON.stringify(updated));
+        const fetchProducts = async () => {
+            try {
+                const { data } = await api.product.getByIds(recentlyViewedIds);
+
+                // Sort the fetched products to match the order of recentlyViewedIds (most recent first)
+                const sorted = recentlyViewedIds
+                    .map(id => data.find((p: Product) => p.id === id))
+                    .filter((p): p is Product => p !== undefined);
+
+                setRecentlyViewed(sorted);
+            } catch (error) {
+                console.error("Failed to fetch recently viewed products", error);
+            }
+        };
+
+        fetchProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [recentlyViewedIds]);
+
+    const addToRecentlyViewed = useCallback((product: Product) => {
+        setRecentlyViewedIds((prev) => {
+            // Remove current product id if it exists
+            const filtered = prev.filter((id) => id !== product.id);
+            // Add to front and limit to 10
+            const updated = [product.id, ...filtered].slice(0, 10);
+
+            localStorage.setItem("recently_viewed_ids", JSON.stringify(updated));
             return updated;
         });
     }, []);

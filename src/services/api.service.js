@@ -100,6 +100,26 @@ const createProductService = () => ({
         });
         return { data: mapProduct(record) };
     },
+    getByIds: async (ids) => {
+        if (!ids || ids.length === 0) return { data: [] };
+
+        // Construct filter: (id='1' || id='2' || ...)
+        const filter = ids.map(id => `id='${id}'`).join(" || ");
+
+        const result = await pb.collection('products').getList(1, ids.length, {
+            filter,
+            expand: 'category,sizes,colors,tags',
+            requestKey: null
+        });
+
+        // The result order is not guaranteed to match the input ids order
+        // We might want to sort them to match the input order if important, 
+        // but for "recently viewed" usually we want them sorted by "most recent", 
+        // which implies the order of the 'ids' array if we stored them that way.
+        // However, PB returns them in default sort order (which we didn't specify, likely created desc).
+        // Let's rely on the client to sort if needed, or just return the list.
+        return { data: result.items.map(mapProduct) };
+    },
 })
 
 const createOrderService = (axiosPrivate, axiosPublic) => ({
