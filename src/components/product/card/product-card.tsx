@@ -15,7 +15,6 @@ import { Discount } from "@/components/ui/discount";
 export default function ProductCard({
   product,
   delay,
-
   ref
 }: {
   product: Product,
