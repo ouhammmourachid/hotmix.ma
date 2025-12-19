@@ -55,17 +55,17 @@ export default function FilterModal() {
           <Filter /> {t('filter')}
         </div>
         <ScrollArea className='flex-1 p-4'>
+          <FilterFeature title={t('filter_categories')}>
+            <CategoryFilter onClick={onClose} />
+          </FilterFeature>
           <FilterFeature title={t('filter_colors')}>
             <ColorFilter onClick={onClose} />
-          </FilterFeature>
-          <FilterFeature title={t('filter_tags')}>
-            <TagFilter onClick={onClose} />
           </FilterFeature>
           <FilterFeature title={t('filter_sizes')}>
             <SizeFilter onClick={onClose} />
           </FilterFeature>
-          <FilterFeature title={t('filter_categories')}>
-            <CategoryFilter onClick={onClose} />
+          <FilterFeature title={t('filter_tags')}>
+            <TagFilter onClick={onClose} />
           </FilterFeature>
         </ScrollArea>
       </motion.div>

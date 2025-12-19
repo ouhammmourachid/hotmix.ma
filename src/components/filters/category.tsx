@@ -42,7 +42,7 @@ export default function CategoryFilter({ onClick }: { onClick: () => void }) {
                         type="radio" readOnly />
                     <label
                         className='text-md cursor-pointer'>
-                        {category.name}
+                        {category.name} ({category.products_count})
                     </label>
                 </div>
             ))}

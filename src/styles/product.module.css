@@ -36,9 +36,9 @@
 
 
 .product_card_quick_add {
-    @apply w-full border-2 border-[#708885] text-xs font-semibold rounded-sm
+    @apply w-full h-10 border-2 border-[#708885] text-xs font-semibold rounded-sm
      bg-secondary hover:bg-whity hover:text-secondary hover:border-secondary
-    text-white my-2 opacity-100 transition-all duration-300 lg:opacity-0;
+    text-white mt-2 opacity-100 transition-all duration-300 lg:opacity-0;
 }
 
 .product_card_prices {

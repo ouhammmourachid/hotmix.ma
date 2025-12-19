@@ -59,7 +59,7 @@ export default function ColorFilter({onClick}:{onClick:()=>void}) {
                     </div>
                     <label
                         className='text-md cursor-pointer'>
-                        {color.name}
+                        {color.name} ({color.products_count})
                     </label>
                 </div>
             ))}

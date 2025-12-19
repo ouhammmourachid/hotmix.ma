@@ -50,7 +50,7 @@ export default function TagFilter({ onClick }: { onClick: () => void }) {
                     />
                     <label
                         className='text-md cursor-pointer'>
-                        {tag.name}
+                        {tag.name} ({tag.products_count})
                     </label>
                 </div>
             ))}

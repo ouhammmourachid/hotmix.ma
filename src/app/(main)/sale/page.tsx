@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useApiService } from '@/services/api.service';
 import { useTranslation } from '@/lib/i18n-utils';
 import Product from '@/types/product';
+import styles from '@/styles/main.module.css';
 
 export default function Page() {
   const { t } = useTranslation();
@@ -79,11 +80,11 @@ export default function Page() {
     observer.current.observe(node);
   };
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen sm:p-8 p-2">
       {/* Header */}
-      <div className="flex flex-col justify-between items-center mb-8">
-        <h1 className="text-4xl font-semibold">{t('sale_page_title')}</h1>
-        <div className="flex justify-between items-center mt-16 w-full">
+      <div className={styles.main_pages_header}>
+        <h1 className={styles.main_pages_title}>{t('sale_page_title')}</h1>
+        <div className={styles.main_pages_filter}>
           <FilterButton onClick={() => setIsFilterOpen(true)} />
           <Grid />
         </div>
@@ -99,7 +100,7 @@ export default function Page() {
 
       {/* Optional: No more products indicator */}
       {!hasMore && products.length > 0 && (
-        <div className="text-center mt-4 text-gray-500">
+        <div className={styles.main_pages_no_more_products}>
           {t('no_more_products')}
         </div>
       )}

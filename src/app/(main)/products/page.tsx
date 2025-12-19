@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
 import { useTranslation } from '@/lib/i18n-utils';
+import styles from '@/styles/main.module.css';
 
 const ProductsPage: React.FC = () => {
   const { filterState, setIsFilterOpen, toString, setFilterStateWithUrl } = useFilter();
@@ -99,9 +100,9 @@ const ProductsPage: React.FC = () => {
     <div className="min-h-screen sm:p-8 p-2">
 
       {/* Header */}
-      <div className="flex flex-col justify-between items-center mb-8">
-        <h1 className="text-4xl font-semibold">{t('nav_all_products')}</h1>
-        <div className="flex justify-between items-center mt-16 w-full">
+      <div className={styles.main_pages_header}>
+        <h1 className={styles.main_pages_title}>{t('nav_all_products')}</h1>
+        <div className={styles.main_pages_filter}>
           <FilterButton onClick={() => setIsFilterOpen(true)} />
           <Grid />
         </div>
@@ -121,7 +122,7 @@ const ProductsPage: React.FC = () => {
 
       {/* Optional: No more products indicator */}
       {!hasMore && products.length > 0 && (
-        <div className="text-center mt-4 text-gray-500">
+        <div className={styles.main_pages_no_more_products}>
           No more products to load
         </div>
       )}

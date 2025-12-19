@@ -204,12 +204,13 @@ export default function ProductCard({
           )}
         </div>
       </div>      {/* Product Info */}
-      <div className="py-4 space-y-4">
+      <div className="pt-3 space-y-4">
         <Link href={`/products/${product.id}`}>
           <h3 className={styles.product_card_name}>
             {product.name}
           </h3>
-        </Link>        <div className="flex items-center justify-between">
+        </Link>        
+        <div className="flex items-center justify-between">
           <div className={styles.product_card_prices}>
             {product.sale_price && product.sale_price !== product.price && (
               <span className={styles.product_card_price}>

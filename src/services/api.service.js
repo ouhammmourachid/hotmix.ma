@@ -49,21 +49,21 @@ const createSizeService = () => ({
 
 const createColorService = () => ({
     getAll: async () => {
-        const records = await pb.collection('colors').getFullList({ requestKey: null });
+        const records = await pb.collection('available_colors').getFullList({ requestKey: null });
         return { data: records.map(mapRecord) };
     },
 })
 
 const createTagService = () => ({
     getAll: async () => {
-        const records = await pb.collection('tags').getFullList({ requestKey: null });
+        const records = await pb.collection('available_tags').getFullList({ requestKey: null });
         return { data: records.map(mapRecord) };
     },
 })
 
 const createCategoryService = () => ({
     getAll: async () => {
-        const records = await pb.collection('categories').getFullList({ requestKey: null });
+        const records = await pb.collection('available_categories').getFullList({ requestKey: null });
         return { data: records.map(mapRecord) };
     },
 })
