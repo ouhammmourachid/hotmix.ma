@@ -105,7 +105,7 @@ export default function Navigation({
             {/* Winter Collection Dropdown */}
             <NavigationMenu.Item>
               <NavigationMenu.Trigger className={styles.nav_link + " group flex items-center gap-1 cursor-pointer bg-transparent border-0 text-white"}>
-                Our Collection
+                {t('nav_our_collection')}
                 <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]:rotate-180" aria-hidden />
                 <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
               </NavigationMenu.Trigger>

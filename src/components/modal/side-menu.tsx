@@ -109,7 +109,7 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
                   className="flex justify-between items-center cursor-pointer text-white text-sm hover:text-gray-300 pb-3"
                   onClick={() => setIsCollectionOpen(!isCollectionOpen)}
                 >
-                  <span>Our Collection</span>
+                  <span>{t('nav_our_collection')}</span>
                   {isCollectionOpen ? <Minus size={20} /> : <Plus size={20} />}
                 </div>
                 <AnimatePresence>

@@ -5,7 +5,7 @@ import {
   HoverInfo,
   CustomInput
 } from '@/components/small-pieces';
-import CollapsibleBankTransfer from '@/components/payment/bank-transfer';
+
 import { OrderSummarySide, OrderSummary } from './checkout-item';
 import { useCart } from '@/contexts/cart-context';
 import CartItem from '@/types/cart-item';
@@ -14,6 +14,7 @@ import Size from '@/types/size';
 import Color from '@/types/color';
 import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
+import { trackPurchase } from '@/lib/pixel';
 
 export default function CheckoutForm() {
 
@@ -183,6 +184,13 @@ export default function CheckoutForm() {
       return;
     }
 
+    // Fire Meta Pixel Purchase event as soon as the user confirms the order
+    trackPurchase(
+      checkoutState.subtotal,
+      'MAD',
+      checkoutState.items.map(item => String(item.product.id))
+    );
+
     try {
       await api.order.create(formData);
       // Clear cart and redirect to home page with success parameter
@@ -193,6 +201,7 @@ export default function CheckoutForm() {
       alert('There was a problem submitting your order. Please try again.');
     }
   }
+
 
   const handleSuccessModalClose = () => {
     setIsSuccessModalOpen(false);
@@ -243,18 +252,11 @@ export default function CheckoutForm() {
               {t('checkout_payment_secure')}
             </p>
             <div>
-              <CollapsibleBankTransfer
-                isOpen={formData.payment.method === 'Bank Transfer'}
-                formData={formData}
-                setFormData={setFormData}
-                first
-              />
               <div
-                onClick={handleClickPaymentChoice}
-                className={`flex pr-4 gap-3 p-4 rounded-b-md cursor-pointer border-2 border-${formData.payment.method == 'At Delivery' ? 'greny' : 'secondary'}`}>
+                className="flex pr-4 gap-3 p-4 rounded-md border-2 border-greny">
                 <input
                   className="checkout_radio"
-                  checked={formData.payment.method === 'At Delivery'}
+                  checked={true}
                   type="radio"
                   name="payment"
                   value="At Delivery"
