@@ -34,7 +34,7 @@ export function CheckoutTotal({ totalItems, subtotal }: { totalItems: number, su
     const { t } = useTranslation();
     // Convert to number to ensure proper calculation
     const subtotalValue = Number(subtotal);
-    const shippingCost = 20;
+    const shippingCost = 30;
     const totalValue = subtotalValue + shippingCost;
 
     return (
@@ -77,7 +77,7 @@ export function OrderSummary({
     subtotal: number
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const subtotalValue = Number(subtotal) + 20;
+    const subtotalValue = Number(subtotal) + 30;
     const { t } = useTranslation();
 
     return (
