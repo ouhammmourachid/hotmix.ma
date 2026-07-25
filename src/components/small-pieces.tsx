@@ -30,17 +30,24 @@ import Category from '@/types/category';
 import { formatPrice } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
 
-export function Size({ size, selectedSize, onClick, className }: { size: SizeType, selectedSize?: SizeType, onClick?: () => void, className?: string }) {
+export function Size({ size, selectedSize, onClick, className, isArchived }: { size: SizeType, selectedSize?: SizeType, onClick?: () => void, className?: string, isArchived?: boolean }) {
   return (
     <button
       key={size.id}
-      className={`${styles.size}
-                ${selectedSize?.id === size.id
-          ? ' border-greny bg-secondary'
-          : ' border-secondary'
-        }  ${className}`}
-      onClick={onClick}>
-      {size.name}
+      disabled={isArchived}
+      className={`${styles.size} ${
+        isArchived
+          ? selectedSize?.id === size.id
+            ? 'border-gray-500 bg-[#57686a] text-gray-200 cursor-not-allowed'
+            : 'border-gray-700/80 bg-transparent text-gray-400/70 cursor-not-allowed'
+          : selectedSize?.id === size.id
+            ? 'border-greny bg-secondary text-white'
+            : 'border-secondary text-white'
+      } ${className || ''}`}
+      onClick={!isArchived ? onClick : undefined}>
+      <span className={isArchived ? "line-through decoration-1 text-gray-300" : ""}>
+        {size.name}
+      </span>
     </button>
   )
 }
@@ -49,13 +56,14 @@ export function Size({ size, selectedSize, onClick, className }: { size: SizeTyp
 
 export function ThreeButtons({
   price,
-
+  className,
   onClickAddToCart,
   onCartOpen,
   productId,
   selectedSize,
   selectedColor,
   quantity,
+  isArchived,
 }: {
   price: number,
   className?: string,
@@ -64,7 +72,8 @@ export function ThreeButtons({
   productId: string,
   selectedSize?: SizeType,
   selectedColor?: Color,
-  quantity: number
+  quantity: number,
+  isArchived?: boolean,
 }) {
   const { addToWithList, isInWithList, removeFromWithList } = useWishlist();
   const { t, language } = useTranslation();
@@ -76,16 +85,25 @@ export function ThreeButtons({
     }
   };
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-4 ${className || ''}`}>
       <div className="flex items-center gap-2">
         <Button
           variant="outline"
+          disabled={isArchived}
           onClick={() => {
-            onClickAddToCart?.();
-            onCartOpen?.();
+            if (!isArchived) {
+              onClickAddToCart?.();
+              onCartOpen?.();
+            }
           }}
-          className={styles.three_buttons_add_to_cart}>
-          {t('add_to_cart')} - {formatPrice(price, 'DH', language)}
+          className={`${styles.three_buttons_add_to_cart} ${
+            isArchived
+              ? 'bg-[#526365]/90 border-[#607375] text-white/90 cursor-not-allowed opacity-90 hover:bg-[#526365]/90 hover:text-white/90'
+              : ''
+          }`}>
+          {isArchived
+            ? `${t('sold_out')} - ${formatPrice(price, 'DH', language)}`
+            : `${t('add_to_cart')} - ${formatPrice(price, 'DH', language)}`}
         </Button>
         <Button
           variant="ghost"
@@ -98,13 +116,19 @@ export function ThreeButtons({
           )}
         </Button>
       </div>
-      <Link
-        href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
-        data-button-tracker
-        className={styles.three_buttons_quick_buy}
-      >
-        {t('buy_now')}
-      </Link>
+      {isArchived ? (
+        <span className={`${styles.three_buttons_quick_buy} opacity-40 cursor-not-allowed pointer-events-none bg-gray-800 text-gray-500 border-gray-700`}>
+          {t('buy_now')}
+        </span>
+      ) : (
+        <Link
+          href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
+          data-button-tracker
+          className={styles.three_buttons_quick_buy}
+        >
+          {t('buy_now')}
+        </Link>
+      )}
     </div>
   )
 }

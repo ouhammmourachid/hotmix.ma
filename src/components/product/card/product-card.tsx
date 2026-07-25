@@ -11,6 +11,7 @@ import styles from "@/styles/product.module.css";
 import { motion } from "framer-motion";
 import { formatPrice } from "@/lib/utils";
 import { Discount } from "@/components/ui/discount";
+import { useTranslation } from "@/lib/i18n-utils";
 
 export default function ProductCard({
   product,
@@ -21,6 +22,7 @@ export default function ProductCard({
   delay?: number,
   ref?: any
 }) {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -117,6 +119,7 @@ export default function ProductCard({
 
   // Current image to display
   const currentImagePath = product.images?.[currentImageIndex]?.path || product.images?.[0]?.path;
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <motion.div
@@ -151,6 +154,21 @@ export default function ProductCard({
             </div>
           </Link>
 
+          {/* Sold Out Badge for Archived Product */}
+          {isArchived && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#eaeaea] flex flex-col items-center justify-center shadow-md">
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                  <line x1="58" y1="42" x2="68" y2="28" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                  <line x1="32" y1="72" x2="42" y2="58" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                </svg>
+                <span className="text-[#111111] font-medium text-base sm:text-lg select-none z-10 text-center px-2">
+                  {t('sold_out')}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Image indicator dots for multiple images - placed outside Link to prevent navigation conflicts */}
           {product.images && product.images.length > 1 && isHovered && (
             <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
@@ -166,42 +184,44 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Hover Overlay with Quick Actions */}
-        <div className={styles.product_card_quick_actions + ' group-hover:opacity-100 pointer-events-none absolute inset-0 z-20'}>
-          {/* Quick Actions */}
-          <div className="hidden lg:flex justify-center gap-2 mb-4 pointer-events-auto">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              onClick={handleClickHeart}
-              className={styles.product_card_quick_actions_button}>
-              {!isInWithList(product.id) ? (
-                <Heart size={20} />
-              ) : (
-                <Trash2 size={20} />
-              )}
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className={styles.product_card_quick_actions_button}
-              onClick={() => setIsModalOpen(true)}>
-              <Eye size={20} />
-            </motion.div>
-          </div>
-
-          {/* Sizes */}
-          {product.sizes && product.sizes.length > 0 && (
-            <div className={styles.product_card_sizes + " pointer-events-auto"}>
-              {product.sizes.map((size) => (
-                <span
-                  key={size.id}
-                  className="text-xs text-white font-bold"
-                >
-                  {size.name}
-                </span>
-              ))}
+        {/* Hover Overlay with Quick Actions - Disabled for archived / sold out products */}
+        {!isArchived && (
+          <div className={styles.product_card_quick_actions + ' group-hover:opacity-100 pointer-events-none absolute inset-0 z-20'}>
+            {/* Quick Actions */}
+            <div className="hidden lg:flex justify-center gap-2 mb-4 pointer-events-auto">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                onClick={handleClickHeart}
+                className={styles.product_card_quick_actions_button}>
+                {!isInWithList(product.id) ? (
+                  <Heart size={20} />
+                ) : (
+                  <Trash2 size={20} />
+                )}
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                className={styles.product_card_quick_actions_button}
+                onClick={() => setIsModalOpen(true)}>
+                <Eye size={20} />
+              </motion.div>
             </div>
-          )}
-        </div>
+
+            {/* Sizes */}
+            {product.sizes && product.sizes.length > 0 && (
+              <div className={styles.product_card_sizes + " pointer-events-auto"}>
+                {product.sizes.map((size) => (
+                  <span
+                    key={size.id}
+                    className="text-xs text-white font-bold"
+                  >
+                    {size.name}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>      {/* Product Info */}
       <div className="pt-3 space-y-4">
         <Link href={`/products/${product.id}`}>
@@ -222,12 +242,20 @@ export default function ProductCard({
           </div>
         </div>
       </div>
-      {/* Quick Add Button */}
-      <Button
-        className={styles.product_card_quick_add + " group-hover:opacity-100"}
-        onClick={() => setIsQuickAddOpen(true)}>
-        QUICK ADD
-      </Button>
+      {/* Quick Add / View Product Button */}
+      {isArchived ? (
+        <Link href={`/products/${product.id}`} className="block">
+          <Button className={styles.product_card_quick_add + " group-hover:opacity-100"}>
+            {t('view_product').toUpperCase()}
+          </Button>
+        </Link>
+      ) : (
+        <Button
+          className={styles.product_card_quick_add + " group-hover:opacity-100"}
+          onClick={() => setIsQuickAddOpen(true)}>
+          QUICK ADD
+        </Button>
+      )}
       <ProductModal
         product={product}
         onClose={() => setIsModalOpen(false)}

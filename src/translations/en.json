@@ -133,5 +133,7 @@
   "generic_success_title": "Success!",
   "generic_success_message": "The operation has been completed successfully.",
   "generic_continue": "Continue",
-  "view_all": "View All"
+  "view_all": "View All",
+  "sold_out": "Sold Out",
+  "view_product": "View Product"
 }

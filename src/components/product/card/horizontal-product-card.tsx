@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import Size from "@/types/size";
 import { formatPrice } from "@/lib/utils";
 import { Discount } from "@/components/ui/discount";
+import { useTranslation } from "@/lib/i18n-utils";
 
 // Simple Size component for displaying size options
 const SizeComponent = ({ size, className }: { size: Size; className?: string }) => (
@@ -27,6 +28,7 @@ export default function HorizontalProductCard({
   product: Product,
   ref?: any
 }) {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -123,6 +125,7 @@ export default function HorizontalProductCard({
 
   // Current image to display
   const currentImagePath = product.images?.[currentImageIndex]?.path || product.images?.[0]?.path;
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <motion.div
@@ -142,7 +145,7 @@ export default function HorizontalProductCard({
           />
           {/* Image Container with zoom effect */}
           <div
-            className="overflow-hidden rounded-lg h-full"
+            className="overflow-hidden rounded-lg h-full relative"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <Link href={`/products/${product.id}`}>
@@ -152,6 +155,21 @@ export default function HorizontalProductCard({
                 className={`w-full h-full object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
               />
             </Link>
+
+            {/* Sold Out Badge for Archived Product */}
+            {isArchived && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-[#eaeaea] flex flex-col items-center justify-center shadow-md">
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                    <line x1="58" y1="42" x2="68" y2="28" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                    <line x1="32" y1="72" x2="42" y2="58" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                  </svg>
+                  <span className="text-[#111111] font-medium text-xs sm:text-base select-none z-10 text-center px-1">
+                    {t('sold_out')}
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Image indicator dots for multiple images - moved outside the Link to avoid navigation conflicts */}
             {product.images && product.images.length > 1 && isHovered && (
