@@ -130,5 +130,6 @@
   "recently_viewed_title": "Recently Viewed",
   "generic_success_title": "Success!",
   "generic_success_message": "The operation has been completed successfully.",
-  "generic_continue": "Continue"
+  "generic_continue": "Continue",
+  "view_all": "View All"
 }
