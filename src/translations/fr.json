@@ -1,6 +1,6 @@
 {
   "welcome": "BIENVENUE AU MAGASIN HOTMIX",
-  "promo": "BUY 2 & GET FREE SHIPPING!",
+  "promo": "SOLDES JUSQU'À 30%!",
   "product_details": "Voir tous les détails",
   "size": "Taille",
   "quantity": "Quantité",
@@ -27,6 +27,8 @@
   "nav_all_products": "Tous les produits",
   "nav_collections": "Nos collections",
   "nav_our_collection": "Notre Collection",
+  "our_collections_title": "Nos Collections",
+  "our_collections_subtitle": "Découvrez les Catégories de Mode Hotmix",
   "nav_new_collection": "Nouvelle collection",
   "nav_sale": "Soldes",
   "nav_account": "Compte",
@@ -130,5 +132,6 @@
   "recently_viewed_title": "Produits Récemment Consultés",
   "generic_success_title": "Succès !",
   "generic_success_message": "L'opération a été effectuée avec succès.",
-  "generic_continue": "Continuer"
+  "generic_continue": "Continuer",
+  "view_all": "Voir Tout"
 }

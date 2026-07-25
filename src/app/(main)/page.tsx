@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import HeroSection from '@/components/hero-section';
+import CategoryCollection from '@/components/category-collection';
 import NewCollection from '@/components/new-collection';
 import SuccessModal from '@/components/modal/success-modal';
 
@@ -29,6 +30,7 @@ const Homepage = () => {
   return (
     <>
       <HeroSection />
+      <CategoryCollection />
       <NewCollection />
 
       {/* Success Modal */}
