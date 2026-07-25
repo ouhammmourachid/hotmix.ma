@@ -274,8 +274,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         </div>
       </div>
       <ProductDetails product={product} />
-      <RecommendedProducts category={product.category?.id} />
-      <RecentlyViewedProducts />
+      <RecommendedProducts category={product.category?.id} currentProductId={product.id} />
+      <RecentlyViewedProducts currentProductId={product.id} />
       <StickyProductFooter
         product={product}
         quantity={quantity}
