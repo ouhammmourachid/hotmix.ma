@@ -11,7 +11,7 @@ export default function Header() {
         <div className="bg-secondary py-2 px-4 ">
         <div className="container mx-auto flex justify-between items-center">
           <p className="hidden lg:flex">{t('welcome')}</p>
-          <p className="flex items-center justify-center w-full lg:w-fit">{t('promo')}</p>
+          <p className="flex items-center justify-center w-full lg:w-fit -ml-24">{t('promo')}</p>
           <div className="items-center gap-4">
             <LanguageSwitcher />
           </div>
