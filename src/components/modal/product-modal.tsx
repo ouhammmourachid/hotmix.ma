@@ -55,6 +55,8 @@ const ProductModal = ({
       duration: 0.5
     }
   };
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+
   return (
     <ModalLayout
       isOpen={isOpen}
@@ -73,12 +75,25 @@ const ProductModal = ({
           onClick={onClose} />
 
         {/* Product image */}
-        <div className="w-1/2 bg-white">
+        <div className="w-1/2 bg-white relative">
           <img
             src={product.images?.[0]?.path}
             alt={product.name}
             className="w-full h-full object-cover"
           />
+          {isArchived && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#eaeaea]/95 flex flex-col items-center justify-center shadow-md">
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                  <line x1="58" y1="42" x2="68" y2="28" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                  <line x1="32" y1="72" x2="42" y2="58" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
+                </svg>
+                <span className="text-[#111111] font-medium text-base sm:text-lg select-none z-10 text-center px-2">
+                  {t('sold_out')}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Product details */}
@@ -123,16 +138,21 @@ const ProductModal = ({
                 {product.colors.map((color: Color) => (
                   <div
                     key={color.id}
-                    onClick={() => setSelectedColor(color)}
-                    className="relative cursor-pointer w-8 h-8"
+                    onClick={() => !isArchived && setSelectedColor(color)}
+                    className={`relative w-8 h-8 ${isArchived ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                     title={color.name}
                   >
                     <div className={`${filterStyles.filter_color_ring} ${selectedColor?.id === color.id ? 'border-2' : ''}`} />
                     <div
                       style={{ backgroundColor: color.code }}
-                      className={filterStyles.filter_color_circle}
+                      className={`${filterStyles.filter_color_circle} relative overflow-hidden`}
                     >
-                      {selectedColor?.id === color.id && <Check size={15} />}
+                      {selectedColor?.id === color.id && !isArchived && <Check size={15} />}
+                      {isArchived && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-[120%] h-[1.5px] bg-white/90 rotate-45 shadow-sm" />
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -151,6 +171,7 @@ const ProductModal = ({
                   key={size.id}
                   size={size}
                   selectedSize={selectedSize}
+                  isArchived={isArchived}
                   onClick={() => setSelectedSize(size)} />
               ))}
             </div>
@@ -163,6 +184,7 @@ const ProductModal = ({
               price={price}
               selectedSize={selectedSize}
               selectedColor={selectedColor}
+              isArchived={isArchived}
               onClickAddToCart={() => addToCart({
                 id: 0,
                 product: product,

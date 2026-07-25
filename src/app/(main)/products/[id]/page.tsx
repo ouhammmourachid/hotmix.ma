@@ -126,6 +126,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }  // Prepare meta description from product description
 
 
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+
   return (
     <div>
       <div className="product">
@@ -219,16 +221,21 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     {product.colors.map(color => (
                       <div
                         key={color.id}
-                        onClick={() => setSelectedColor(color)}
-                        className="relative cursor-pointer w-8 h-8"
+                        onClick={() => !isArchived && setSelectedColor(color)}
+                        className={`relative w-8 h-8 ${isArchived ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                         title={color.name}
                       >
                         <div className={`${filterStyles.filter_color_ring} ${selectedColor?.id === color.id ? 'border-2' : ''}`} />
                         <div
                           style={{ backgroundColor: color.code }}
-                          className={filterStyles.filter_color_circle}
+                          className={`${filterStyles.filter_color_circle} relative overflow-hidden`}
                         >
-                          {selectedColor?.id === color.id && <Check size={15} />}
+                          {selectedColor?.id === color.id && !isArchived && <Check size={15} />}
+                          {isArchived && (
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                              <div className="w-[120%] h-[1.5px] bg-white/90 rotate-45 shadow-sm" />
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -246,18 +253,20 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     key={size.id}
                     size={size}
                     selectedSize={selectedSize}
+                    isArchived={isArchived}
                     onClick={() => setSelectedSize(size)}
                   />
                 ))}
               </div>
             </div>
-            <QuantityChanger quantity={quantity} setQuantity={setQuantity} withLabel />
+            <QuantityChanger quantity={quantity} setQuantity={setQuantity} withLabel className={isArchived ? "opacity-50 pointer-events-none" : ""} />
             <ThreeButtons
               quantity={quantity}
               productId={product.id}
               price={price * quantity}
               selectedSize={selectedSize}
               selectedColor={selectedColor}
+              isArchived={isArchived}
               className="w-full"
               onClickAddToCart={handleClickAddToCart}
               onCartOpen={openCart} />
@@ -265,8 +274,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         </div>
       </div>
       <ProductDetails product={product} />
-      <RecommendedProducts category={product.category?.id} />
-      <RecentlyViewedProducts />
+      <RecommendedProducts category={product.category?.id} currentProductId={product.id} />
+      <RecentlyViewedProducts currentProductId={product.id} />
       <StickyProductFooter
         product={product}
         quantity={quantity}

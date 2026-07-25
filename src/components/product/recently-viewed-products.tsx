@@ -4,11 +4,19 @@ import ProductCard from "@/components/product/card/product-card";
 import { useRecentlyViewed } from "@/contexts/recently-viewed-context";
 import { useTranslation } from '@/lib/i18n-utils';
 
-export default function RecentlyViewedProducts() {
+interface RecentlyViewedProductsProps {
+  currentProductId?: string;
+}
+
+export default function RecentlyViewedProducts({ currentProductId }: RecentlyViewedProductsProps) {
     const { t } = useTranslation();
     const { recentlyViewed } = useRecentlyViewed();
 
-    if (recentlyViewed.length === 0) {
+    const filteredProducts = currentProductId
+        ? recentlyViewed.filter((product) => String(product.id) !== String(currentProductId))
+        : recentlyViewed;
+
+    if (filteredProducts.length === 0) {
         return null;
     }
 
@@ -23,7 +31,7 @@ export default function RecentlyViewedProducts() {
                 </div>
                 <div className="flex items-center justify-center">
                     <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-3">
-                        {recentlyViewed.map((product) => (
+                        {filteredProducts.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}
                     </div>
