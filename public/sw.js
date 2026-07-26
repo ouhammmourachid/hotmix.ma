@@ -1,25 +1,30 @@
 // Hotmix Service Worker for PWA Installability and Offline Support
-const CACHE_NAME = 'hotmix-v1';
+const CACHE_NAME = 'hotmix-v2';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/manifest.webmanifest',
   '/icon-192.png',
   '/icon-512.png',
   '/apple-touch-icon.png',
   '/favicon.ico',
 ];
 
-// Install event: cache core assets
+// Install event: cache core assets safely without failing on missing assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      for (const asset of STATIC_ASSETS) {
+        try {
+          await cache.add(asset);
+        } catch (e) {
+          console.warn('SW asset caching skipped:', asset, e);
+        }
+      }
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate event: clean old caches
+// Activate event: claim clients immediately and purge old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -32,61 +37,35 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event: Network-first strategy with cache fallback for html pages, cache-first for static assets
+// Fetch event: Network-first strategy with cache fallback
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
 
-  // Ignore cross-origin requests, browser extensions, or API routes
+  // Ignore API requests or cross-origin requests
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api')) {
     return;
   }
 
-  // Network first strategy for navigation and HTML pages
-  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          if (response.ok) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-          }
-          return response;
-        })
-        .catch(async () => {
-          const cachedResponse = await caches.match(event.request);
-          if (cachedResponse) return cachedResponse;
-          const rootCache = await caches.match('/');
-          return rootCache || Response.error();
-        })
-    );
-    return;
-  }
-
-  // Cache first strategy for static assets (images, fonts, scripts)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Stale-while-revalidate in background
-        fetch(event.request)
-          .then((networkResponse) => {
-            if (networkResponse.ok) {
-              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-            }
-          })
-          .catch(() => {/* ignore background update error */});
-        return cachedResponse;
-      }
-
-      return fetch(event.request).then((networkResponse) => {
-        if (networkResponse.ok && networkResponse.type === 'basic') {
-          const responseClone = networkResponse.clone();
+    fetch(event.request)
+      .then((response) => {
+        if (response.ok && response.type === 'basic') {
+          const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
         }
-        return networkResponse;
-      });
-    })
+        return response;
+      })
+      .catch(async () => {
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+
+        if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+          const rootCache = await caches.match('/');
+          if (rootCache) return rootCache;
+        }
+        return Response.error();
+      })
   );
 });

@@ -10,6 +10,12 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
+declare global {
+  interface Window {
+    deferredPWAInstallPrompt?: BeforeInstallPromptEvent;
+  }
+}
+
 export default function PWAInstallPrompt() {
   const { t, language } = useLanguage();
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -17,29 +23,24 @@ export default function PWAInstallPrompt() {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    // Only run on client-side
     if (typeof window === "undefined") return;
 
-    // 1. Mobile-only detection: ignore desktop PCs
+    // Mobile-only check
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isMobileUA = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(userAgent);
     const isMobileScreen = window.innerWidth <= 768;
     const isMobile = isMobileUA || isMobileScreen;
 
-    if (!isMobile) {
-      return; // Do not display install prompt on PC / desktop
-    }
+    if (!isMobile) return;
 
-    // 2. Check if already running in mobile standalone mode (already installed)
+    // Check if app is already running in standalone PWA mode
     const isStandalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
 
-    if (isStandalone) {
-      return;
-    }
+    if (isStandalone) return;
 
-    // 3. Check dismiss cooldown (7 days)
+    // Check dismiss cooldown (7 days)
     const dismissedTime = localStorage.getItem("pwa_prompt_dismissed");
     if (dismissedTime) {
       const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
@@ -48,7 +49,7 @@ export default function PWAInstallPrompt() {
       }
     }
 
-    // 4. Detect Mobile iOS (Safari)
+    // Detect iOS
     const iosDevice = /iphone|ipad|ipod/.test(userAgent);
     if (iosDevice) {
       setIsIOS(true);
@@ -56,10 +57,18 @@ export default function PWAInstallPrompt() {
       return () => clearTimeout(timer);
     }
 
-    // 5. Handle Android / Mobile Chrome / Mobile Edge PWA prompt event
+    // Check if prompt was caught earlier by window listener
+    if (window.deferredPWAInstallPrompt) {
+      setDeferredPrompt(window.deferredPWAInstallPrompt);
+      setShowPrompt(true);
+    }
+
+    // Catch future event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      const pwaEvent = e as BeforeInstallPromptEvent;
+      window.deferredPWAInstallPrompt = pwaEvent;
+      setDeferredPrompt(pwaEvent);
       setShowPrompt(true);
     };
 
@@ -71,16 +80,18 @@ export default function PWAInstallPrompt() {
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    const promptEvent = deferredPrompt || window.deferredPWAInstallPrompt;
+    if (!promptEvent) return;
 
     setShowPrompt(false);
-    deferredPrompt.prompt();
+    promptEvent.prompt();
 
-    const { outcome } = await deferredPrompt.userChoice;
+    const { outcome } = await promptEvent.userChoice;
     if (outcome === "accepted") {
-      console.log("Mobile user installed Hotmix App");
+      console.log("Mobile user installed Hotmix PWA");
     }
     setDeferredPrompt(null);
+    window.deferredPWAInstallPrompt = undefined;
   };
 
   const handleDismiss = () => {
@@ -104,7 +115,6 @@ export default function PWAInstallPrompt() {
         }`}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        {/* Header section with icon, title, and close button */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500/20 via-neutral-800 to-amber-400/10 border border-neutral-700 flex items-center justify-center shrink-0">
@@ -129,7 +139,6 @@ export default function PWAInstallPrompt() {
           </button>
         </div>
 
-        {/* Action Buttons for Mobile */}
         <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex items-center justify-between gap-2">
           {isIOS ? (
             <div className="w-full text-xs text-neutral-300 bg-neutral-800/80 p-2.5 rounded-xl flex items-center gap-2 border border-neutral-700/60">
