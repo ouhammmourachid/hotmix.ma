@@ -19,7 +19,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Hotmix - Elegant and Minimalist Clothing for Modern Women",
   description: "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
-  manifest: "/manifest.webmanifest",
+  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -47,6 +47,12 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Hotmix" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {/* This script runs immediately to prevent language flash */}
         <script
           dangerouslySetInnerHTML={{

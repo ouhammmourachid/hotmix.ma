@@ -2,6 +2,7 @@
 const CACHE_NAME = 'hotmix-v1';
 const STATIC_ASSETS = [
   '/',
+  '/manifest.json',
   '/manifest.webmanifest',
   '/icon-192.png',
   '/icon-512.png',

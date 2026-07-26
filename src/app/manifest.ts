@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: '/',
     name: 'Hotmix - Elegant & Minimalist Clothing',
     short_name: 'Hotmix',
     description: "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity.",
