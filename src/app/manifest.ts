@@ -8,10 +8,11 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity.",
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
+    background_color: '#000000',
     theme_color: '#000000',
     orientation: 'portrait',
     scope: '/',
+    categories: ['shopping', 'lifestyle', 'fashion'],
     icons: [
       {
         src: '/icon-192.png',
