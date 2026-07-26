@@ -196,5 +196,10 @@
   "privacy_sec3_title": "3. Sécurité des Données et Cookies",
   "privacy_sec3_desc": "Nous appliquons des mesures de sécurité et de cryptage standard. Les cookies sont utilisés pour améliorer votre navigation.",
   "privacy_sec4_title": "4. Vos Droits et Contact",
-  "privacy_sec4_desc": "Vous avez le droit de demander l'accès, la rectification ou la suppression de vos données personnelles via support@hotmix.ma."
+  "privacy_sec4_desc": "Vous avez le droit de demander l'accès, la rectification ou la suppression de vos données personnelles via support@hotmix.ma.",
+  "pwa_install_title": "Installer Hotmix",
+  "pwa_install_desc": "Installez notre application pour un accès plus rapide et une meilleure expérience.",
+  "pwa_install_btn": "Installer l'application",
+  "pwa_ios_instruction": "Pour installer, appuyez sur l'icône de partage puis 'Sur l'écran d'accueil'.",
+  "pwa_dismiss": "Plus tard"
 }

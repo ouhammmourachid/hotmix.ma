@@ -196,5 +196,10 @@
   "privacy_sec3_title": "3. Data Security & Cookies",
   "privacy_sec3_desc": "We implement industry-standard encryption and security measures. Cookies are used to improve browsing experience and remember your preferences.",
   "privacy_sec4_title": "4. Your Rights & Contact",
-  "privacy_sec4_desc": "You have the right to request access, correction, or deletion of your personal data at any time by contacting support@hotmix.ma."
+  "privacy_sec4_desc": "You have the right to request access, correction, or deletion of your personal data at any time by contacting support@hotmix.ma.",
+  "pwa_install_title": "Install Hotmix App",
+  "pwa_install_desc": "Install our app for a faster shopping experience and instant access.",
+  "pwa_install_btn": "Install App",
+  "pwa_ios_instruction": "To install, tap the share icon and select 'Add to Home Screen'.",
+  "pwa_dismiss": "Not now"
 }

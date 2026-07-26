@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { Suspense } from "react";
 
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PageViewTracker from "@/components/PageViewTracker";
+import SWRegister from "@/components/SWRegister";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
 
@@ -17,6 +19,23 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Hotmix - Elegant and Minimalist Clothing for Modern Women",
   description: "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Hotmix",
+  },
+  icons: {
+    icon: "/icon-192.png",
+    apple: "/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 
@@ -96,6 +115,7 @@ export default function RootLayout({
           />
         </noscript>
 
+        <SWRegister />
         <GoogleAnalytics />
         <Suspense fallback={null}>
           <PageViewTracker />
@@ -103,6 +123,7 @@ export default function RootLayout({
         <AuthProvider>
           <LanguageProvider>
             {children}
+            <PWAInstallPrompt />
           </LanguageProvider>
         </AuthProvider>
       </body>
