@@ -159,12 +159,12 @@ export default function HorizontalProductCard({
             {/* Sold Out Badge for Archived Product */}
             {isArchived && (
               <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-                <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-[#eaeaea] flex flex-col items-center justify-center shadow-md">
+                <div className="relative w-14 h-14 sm:w-28 sm:h-28 rounded-full bg-[#eaeaea] flex flex-col items-center justify-center shadow-md">
                   <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
                     <line x1="58" y1="42" x2="68" y2="28" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
                     <line x1="32" y1="72" x2="42" y2="58" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
                   </svg>
-                  <span className="text-[#111111] font-medium text-xs sm:text-base select-none z-10 text-center px-1">
+                  <span className="text-[#111111] font-medium text-[10px] sm:text-base select-none z-10 text-center px-1">
                     {t('sold_out')}
                   </span>
                 </div>

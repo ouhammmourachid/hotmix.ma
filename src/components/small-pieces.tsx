@@ -116,11 +116,7 @@ export function ThreeButtons({
           )}
         </Button>
       </div>
-      {isArchived ? (
-        <span className={`${styles.three_buttons_quick_buy} opacity-40 cursor-not-allowed pointer-events-none bg-gray-800 text-gray-500 border-gray-700`}>
-          {t('buy_now')}
-        </span>
-      ) : (
+      {!isArchived && (
         <Link
           href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
           data-button-tracker

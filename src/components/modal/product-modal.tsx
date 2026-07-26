@@ -83,12 +83,12 @@ const ProductModal = ({
           />
           {isArchived && (
             <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#eaeaea]/95 flex flex-col items-center justify-center shadow-md">
+              <div className="relative w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-[#eaeaea]/95 flex flex-col items-center justify-center shadow-md">
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
                   <line x1="58" y1="42" x2="68" y2="28" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
                   <line x1="32" y1="72" x2="42" y2="58" stroke="#a0a0a0" strokeWidth="1.2" strokeLinecap="round" />
                 </svg>
-                <span className="text-[#111111] font-medium text-base sm:text-lg select-none z-10 text-center px-2">
+                <span className="text-[#111111] font-medium text-xs sm:text-lg select-none z-10 text-center px-1">
                   {t('sold_out')}
                 </span>
               </div>

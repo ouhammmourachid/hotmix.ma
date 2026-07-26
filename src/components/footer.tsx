@@ -45,17 +45,17 @@ const Footer = () => {
           <h3 className="text-2xl font-semibold">{t('footer_quick_links')}</h3>
           <ul className="space-y-4">
             {[
-              { key: 'footer_about_us', text: 'About us' },
-              { key: 'footer_contact_us', text: 'Contact us' },
-              { key: 'footer_faqs', text: 'FAQs' },
-              { key: 'footer_shipping', text: 'Shipping & Delivery' },
-              { key: 'footer_returns', text: 'Return & Exchange' },
-              { key: 'footer_privacy', text: 'Privacy Policy' }
+              { key: 'footer_about_us', href: '/about-us' },
+              { key: 'footer_contact_us', href: '/contact-us' },
+              { key: 'footer_faqs', href: '/faqs' },
+              { key: 'footer_shipping', href: '/shipping-delivery' },
+              { key: 'footer_returns', href: '/return-exchange' },
+              { key: 'footer_privacy', href: '/privacy-policy' }
             ].map((link) => (
               <li key={link.key}>
-                <a href="#" className="hover:text-greny transition-colors">
+                <Link href={link.href} className="hover:text-greny transition-colors">
                   {t(link.key)}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
