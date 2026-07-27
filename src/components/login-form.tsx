@@ -14,12 +14,13 @@ import Link from "next/link"
 import styles from "@/styles/main.module.css"
 import useAuth from "@/hooks/useAuth"
 import HotmixLogo from "@/components/hotmix-logo"
+import { useTranslation } from "@/lib/i18n-utils"
 
 import { useRef, useState, useEffect } from 'react'
 import { Loader2 } from "lucide-react"
 
 export function LoginForm() {
-
+  const { t } = useTranslation();
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
   const { requestOtp, verifyOtp } = useAuth();
@@ -80,12 +81,12 @@ export function LoginForm() {
           </Link>
         </div>
         <CardTitle className="text-2xl">
-          {step === 'email' ? 'Sign in' : 'Enter Code'}
+          {step === 'email' ? t('auth_signin_title') : t('auth_enter_code_title')}
         </CardTitle>
         <CardDescription >
           {step === 'email'
-            ? "Choose how you'd like to sign in"
-            : `Sent to ${email}`}
+            ? t('auth_choose_signin')
+            : t('auth_sent_to', { email })}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -98,11 +99,10 @@ export function LoginForm() {
           <div className="flex flex-col gap-6">
             {step === 'email' ? (
               <div className="grid gap-2">
-                {/* <Label htmlFor="email">Email</Label> */}
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Email"
+                  placeholder={t('profile_email')}
                   className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -116,7 +116,7 @@ export function LoginForm() {
                 <Input
                   id="otp"
                   type="text"
-                  placeholder="4-digit code"
+                  placeholder={t('auth_otp_placeholder')}
                   className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
@@ -133,7 +133,7 @@ export function LoginForm() {
               disabled={isLoading}>
               {isLoading
                 ? <Loader2 className="h-6 w-6 animate-spin" />
-                : (step === 'email' ? 'Continue' : 'Submit')}
+                : (step === 'email' ? t('auth_continue') : t('auth_submit'))}
             </Button>
 
             {step === 'otp' && (
@@ -144,7 +144,7 @@ export function LoginForm() {
                 onClick={() => setStep('email')}
                 disabled={isLoading}
               >
-                Sign in with a different email
+                {t('auth_different_email')}
               </Button>
             )}
           </div>

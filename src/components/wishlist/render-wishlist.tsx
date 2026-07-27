@@ -78,7 +78,7 @@ export default function RenderWishList() {
     return (
         <div>
             <div className={styles.wishlist_header}>
-                <h1 className="text-4xl font-bold text-center">Your wishlist</h1>
+                <h1 className="text-4xl font-bold text-center">{t('wishlist_title')}</h1>
             </div>
             <div className="flex justify-between items-center py-12 w-full text-white">
                 <Grid />

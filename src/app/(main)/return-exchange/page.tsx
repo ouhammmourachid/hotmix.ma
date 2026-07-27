@@ -47,10 +47,10 @@ export default function ReturnExchangePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           {[
-            'Unworn & unwashed items',
-            'Original tags & labels attached',
-            'Original packaging intact',
-            'Receipt or Order Number provided'
+            t('returns_cond_unworn'),
+            t('returns_cond_tags'),
+            t('returns_cond_packaging'),
+            t('returns_cond_receipt')
           ].map((cond, idx) => (
             <div key={idx} className="flex items-center gap-3 bg-primary/60 border border-gray-800 p-4 rounded-xl">
               <CheckCircle2 className="w-5 h-5 text-greny shrink-0" />
@@ -64,7 +64,7 @@ export default function ReturnExchangePage() {
       <div className="space-y-6">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-white">{t('returns_steps_title')}</h2>
-          <p className="text-gray-400 text-sm">Hassle-free exchange right at your doorstep</p>
+          <p className="text-gray-400 text-sm">{t('returns_steps_subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -73,7 +73,7 @@ export default function ReturnExchangePage() {
             <div className="w-10 h-10 rounded-full bg-greny text-primary font-extrabold flex items-center justify-center text-lg">
               1
             </div>
-            <h4 className="text-lg font-bold text-white">Contact Support</h4>
+            <h4 className="text-lg font-bold text-white">{t('returns_step1_title')}</h4>
             <p className="text-sm text-gray-300 leading-relaxed">{t('returns_step1')}</p>
           </div>
 
@@ -82,7 +82,7 @@ export default function ReturnExchangePage() {
             <div className="w-10 h-10 rounded-full bg-greny text-primary font-extrabold flex items-center justify-center text-lg">
               2
             </div>
-            <h4 className="text-lg font-bold text-white">Select Replacement</h4>
+            <h4 className="text-lg font-bold text-white">{t('returns_step2_title')}</h4>
             <p className="text-sm text-gray-300 leading-relaxed">{t('returns_step2')}</p>
           </div>
 
@@ -91,7 +91,7 @@ export default function ReturnExchangePage() {
             <div className="w-10 h-10 rounded-full bg-greny text-primary font-extrabold flex items-center justify-center text-lg">
               3
             </div>
-            <h4 className="text-lg font-bold text-white">Doorstep Delivery</h4>
+            <h4 className="text-lg font-bold text-white">{t('returns_step3_title')}</h4>
             <p className="text-sm text-gray-300 leading-relaxed">{t('returns_step3')}</p>
           </div>
         </div>
@@ -100,19 +100,19 @@ export default function ReturnExchangePage() {
       {/* CTA Box */}
       <div className="bg-gradient-to-r from-secondary to-primary border border-secondary/80 rounded-2xl p-8 text-center space-y-4">
         <RotateCcw className="w-10 h-10 text-greny mx-auto" />
-        <h3 className="text-2xl font-bold text-white">Ready to Start a Return or Exchange?</h3>
+        <h3 className="text-2xl font-bold text-white">{t('returns_ready_title')}</h3>
         <p className="text-gray-300 text-sm max-w-md mx-auto">
-          Contact our customer service team on WhatsApp for fast, friendly assistance.
+          {t('returns_ready_desc')}
         </p>
         <div className="pt-2">
           <a
-            href="https://wa.me/212600000000"
+            href="https://wa.me/212687763532"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-full transition-all text-sm shadow-lg"
           >
             <MessageSquare className="w-4 h-4" />
-            Contact WhatsApp Support
+            {t('returns_contact_whatsapp')}
           </a>
         </div>
       </div>

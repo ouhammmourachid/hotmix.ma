@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import { HoverInfo, CustomInput } from '@/components/small-pieces';
 import styles from '@/styles/payment.module.css';
+import { useTranslation } from '@/lib/i18n-utils';
 
 export default function CollapsibleCreditCard({
     formData,
@@ -15,6 +16,7 @@ export default function CollapsibleCreditCard({
     isOpen: boolean
     first?: boolean
 }) {
+    const { t } = useTranslation();
     const contentRef = useRef<HTMLDivElement>(null);
     const handleClickPaymentChoice = () => {
         setFormData({ ...formData, paymentType: "credit" });
@@ -33,7 +35,7 @@ export default function CollapsibleCreditCard({
                         name="payment"
                         value="credit"
                         readOnly />
-                    <span>Credit card</span>
+                    <span>{t('payment_credit_card')}</span>
                 </div>
                 <div className="ml-auto flex gap-2">
                     <img src="/visa.png" alt="Visa" className="h-5" />
@@ -64,7 +66,7 @@ export default function CollapsibleCreditCard({
                     ref={contentRef}
                     className='space-y-2 bg-[#19363c] border-r-2 border-l-2 border-secondary p-4'>
                     <CustomInput
-                        placeholder="Card number"
+                        placeholder={t('payment_card_number')}
                         value={formData.cardNumber}
                         onChange={(e) => setFormData({ ...formData, cardNumber: e.target.value })}
                         type="text">
@@ -72,21 +74,20 @@ export default function CollapsibleCreditCard({
                     </CustomInput>
                     <div className="grid grid-cols-2 gap-4">
                         <CustomInput
-                            placeholder="Expiration date (MM / YY)"
+                            placeholder={t('payment_expiry_date')}
                             value={formData.expiryDate}
                             onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
                             type="text" />
                         <CustomInput
-                            placeholder="Security code (CCV)"
+                            placeholder={t('payment_cvv')}
                             value={formData.cvv}
                             onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
                             type="text">
-                            <HoverInfo message='3-digit security code usually found on the back of your
-                            card. American Express cards have a 4-digit code located on the front.'/>
+                            <HoverInfo message={t('payment_cvv_info')}/>
                         </CustomInput>
                     </div>
                     <CustomInput
-                        placeholder="Name on card"
+                        placeholder={t('payment_name_on_card')}
                         value={formData.nameOnCard}
                         onChange={(e) => setFormData({ ...formData, nameOnCard: e.target.value })}
                         type="text" />

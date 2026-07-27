@@ -14,8 +14,10 @@ import styles from "@/styles/main.module.css"
 import { useState, useEffect } from "react"
 import useAuth from "@/hooks/useAuth"
 import HotmixLogo from "@/components/hotmix-logo"
+import { useTranslation } from "@/lib/i18n-utils"
 
 export function SignUpForm() {
+  const { t } = useTranslation();
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -54,7 +56,7 @@ export function SignUpForm() {
     if (formState.password !== formState.confirmPassword) {
       setError({
         ...formError,
-        confirmPassword: "Passwords do not match",
+        confirmPassword: t('auth_passwords_dont_match'),
       })
     } else {
       setError({
@@ -77,9 +79,9 @@ export function SignUpForm() {
           className={styles.sign_in_up_logo}>
           <HotmixLogo className="h-14 text-greny w-auto" />
         </Link>
-        <CardTitle className="text-2xl">Sign up</CardTitle>
+        <CardTitle className="text-2xl">{t('auth_signup_title')}</CardTitle>
         <CardDescription>
-          Enter your email below to create an account
+          {t('auth_signup_desc')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -87,7 +89,7 @@ export function SignUpForm() {
           onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('profile_email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -104,7 +106,7 @@ export function SignUpForm() {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('account_password')}</Label>
               </div>
               <Input
                 id="password"
@@ -116,7 +118,7 @@ export function SignUpForm() {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="confirmPassword">Confirm password</Label>
+                <Label htmlFor="confirmPassword">{t('auth_confirm_password')}</Label>
               </div>
               <Input
                 id="confirmPassword"
@@ -134,13 +136,13 @@ export function SignUpForm() {
               type="submit"
               disabled={formError.confirmPassword !== ""}
               className="w-full bg-primary">
-              Sign up
+              {t('auth_signup_title')}
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
+            {t('auth_already_account')}{" "}
             <a href="/login" className="underline underline-offset-4 hover:text-greny">
-              Login
+              {t('auth_login_link')}
             </a>
           </div>
         </form>

@@ -32,7 +32,7 @@ export default function ContactUsPage() {
         <div className="space-y-2">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">{t('contact_whatsapp')}</h2>
           <p className="text-gray-300 text-sm sm:text-base max-w-md mx-auto">
-            Get instant customer assistance, size guidance, order tracking, and exchange support directly on WhatsApp.
+            {t('contact_whatsapp_desc')}
           </p>
         </div>
         <div>
@@ -43,7 +43,7 @@ export default function ContactUsPage() {
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3.5 rounded-full transition-all shadow-lg text-base"
           >
             <MessageSquare className="w-5 h-5" />
-            Chat on WhatsApp
+            {t('contact_chat_whatsapp')}
             <ArrowUpRight className="w-4 h-4 rtl-flip" />
           </a>
         </div>
@@ -85,8 +85,8 @@ export default function ContactUsPage() {
             <MapPin className="w-6 h-6" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Location</h4>
-            <p className="text-white font-semibold text-base mt-1">Casablanca, Morocco</p>
+            <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">{t('contact_location')}</h4>
+            <p className="text-white font-semibold text-base mt-1">{t('contact_casablanca_morocco')}</p>
           </div>
         </div>
 
@@ -94,8 +94,8 @@ export default function ContactUsPage() {
 
       {/* Social Links Banner */}
       <div className="bg-secondary/40 border border-gray-800 rounded-2xl p-8 text-center space-y-4">
-        <h3 className="text-xl font-bold text-white">Follow Us On Social Media</h3>
-        <p className="text-gray-400 text-sm">Stay updated with our latest collections, sales, and fashion trends.</p>
+        <h3 className="text-xl font-bold text-white">{t('contact_social_title')}</h3>
+        <p className="text-gray-400 text-sm">{t('contact_social_desc')}</p>
         <div className="flex justify-center gap-4 pt-2">
           <a
             href="#"

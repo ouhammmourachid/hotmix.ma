@@ -5,26 +5,26 @@ import UpdateProfile from './update-profile';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import useAuth from "@/hooks/useAuth";
+import { useTranslation } from '@/lib/i18n-utils';
 
 export default function ProfilePage() {
   const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
-
+  const { t } = useTranslation();
   const { user } = useAuth();
 
   const handleClickPensil = () => {
     setIsModalInfoOpen(!isModalInfoOpen);
-
   }
 
   return (
     <div className="min-h-screen p-8 space-y-8 px-44">
-      <h1 className="text-2xl font-semibold mb-6">Profile</h1>
+      <h1 className="text-2xl font-semibold mb-6">{t('profile_title')}</h1>
       <Card className="bg-secondary border-none shadow-lg">
         <CardContent className="p-6">
           {/* Name Section */}
           <div className="mb-6">
             <div className="flex items-center space-x-4">
-              <label className="text-gray-300">Name</label>
+              <label className="text-gray-300">{t('profile_name')}</label>
               <Button
                 onClick={handleClickPensil}
                 variant="ghost"
@@ -37,7 +37,7 @@ export default function ProfilePage() {
           </div>
           {/* Email Section */}
           <div className="mb-6">
-            <label className="block text-gray-300">Email</label>
+            <label className="block text-gray-300">{t('profile_email')}</label>
             <span className="text-gray-300">{user?.email}</span>
           </div>
         </CardContent>

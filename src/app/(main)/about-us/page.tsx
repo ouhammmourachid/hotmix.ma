@@ -28,7 +28,7 @@ export default function AboutUsPage() {
       <div className="bg-secondary/80 border border-secondary rounded-2xl p-6 sm:p-10 backdrop-blur-sm shadow-xl space-y-6">
         <div className="flex items-center gap-3 text-greny">
           <Sparkles className="w-6 h-6" />
-          <h2 className="text-xl sm:text-2xl font-semibold text-white">HOTMIX Story</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-white">{t('about_story_title')}</h2>
         </div>
         <p className="text-gray-200 leading-relaxed text-base sm:text-lg">
           {t('footer_about_description')}
@@ -67,7 +67,7 @@ export default function AboutUsPage() {
       {/* Values Section */}
       <div className="space-y-8">
         <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold text-white">Why Choose HOTMIX</h2>
+          <h2 className="text-3xl font-bold text-white">{t('about_why_choose_title')}</h2>
           <div className="w-16 h-1 bg-greny mx-auto rounded-full" />
         </div>
 
@@ -95,10 +95,10 @@ export default function AboutUsPage() {
       {/* Call To Action */}
       <div className="bg-gradient-to-r from-secondary to-primary border border-secondary/80 rounded-2xl p-8 text-center space-y-6">
         <h3 className="text-2xl sm:text-3xl font-bold text-white">
-          Explore Our Collection
+          {t('about_cta_title')}
         </h3>
         <p className="text-gray-300 max-w-xl mx-auto">
-          Find your next favorite outfit crafted for modern comfort and timeless style.
+          {t('about_cta_desc')}
         </p>
         <Link
           href="/products"

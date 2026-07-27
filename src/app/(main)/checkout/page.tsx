@@ -169,19 +169,19 @@ export default function CheckoutForm() {
   const handlesubmit = async () => {
     // Validate form data
     if (!formData.full_name.trim()) {
-      alert('Please enter your full name');
+      alert(t('checkout_err_name'));
       return;
     }
     if (!formData.shipping_address.trim()) {
-      alert('Please enter your shipping address');
+      alert(t('checkout_err_address'));
       return;
     }
     if (!formData.phone_number.trim()) {
-      alert('Please enter your phone number');
+      alert(t('checkout_err_phone'));
       return;
     }
     if (formData.items.length === 0) {
-      alert('Your order is empty');
+      alert(t('checkout_err_empty'));
       return;
     }
 
@@ -199,7 +199,7 @@ export default function CheckoutForm() {
       // Redirect to home page with success parameter
       window.location.href = '/?orderSuccess=true';
     } catch (error) {
-      alert('There was a problem submitting your order. Please try again.');
+      alert(t('checkout_err_submit'));
     }
   }
 

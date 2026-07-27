@@ -14,62 +14,62 @@ interface FAQItem {
   answer: string;
 }
 
-const faqData: FAQItem[] = [
-  {
-    id: '1',
-    category: 'orders',
-    question: 'How do I place an order on HOTMIX?',
-    answer: 'Simply browse our collection, select your desired size and color, click "Add to Cart", and proceed to checkout. You can easily complete your order using Cash on Delivery or Bank Transfer.'
-  },
-  {
-    id: '2',
-    category: 'orders',
-    question: 'Can I modify or cancel my order after placing it?',
-    answer: 'If you need to change your size or order details, please contact our WhatsApp customer support team as soon as possible before your package is dispatched.'
-  },
-  {
-    id: '3',
-    category: 'shipping',
-    question: 'How long does shipping take in Morocco?',
-    answer: 'Deliveries to Casablanca and nearby areas take between 24 to 48 hours. Deliveries to all other major Moroccan cities take between 2 to 4 business days.'
-  },
-  {
-    id: '4',
-    category: 'shipping',
-    question: 'How much does delivery cost?',
-    answer: 'Standard shipping fees are calculated at checkout depending on your location. We also periodically run free shipping promotions on orders above a specified threshold!'
-  },
-  {
-    id: '5',
-    category: 'returns',
-    question: 'What is your return and exchange policy?',
-    answer: 'We offer a 7-day return and exchange policy from the date you receive your order. Items must be unused, unwashed, and in their original packaging with all tags attached.'
-  },
-  {
-    id: '6',
-    category: 'returns',
-    question: 'How do I exchange an item for a different size?',
-    answer: 'Contact our WhatsApp support with your Order Number and desired size. Our delivery service will bring your new item and collect the return at your doorstep.'
-  },
-  {
-    id: '7',
-    category: 'products',
-    question: 'How do I choose the correct size?',
-    answer: 'Each product page includes detailed size guide measurements. Our designs are tailored for a comfortable, standard fit. Feel free to contact support for sizing advice!'
-  },
-  {
-    id: '8',
-    category: 'products',
-    question: 'Are all products authentic HOTMIX items?',
-    answer: 'Yes, 100%! All items are designed, crafted, and quality-inspected directly under the HOTMIX brand.'
-  }
-];
-
 export default function FAQsPage() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({ '1': true });
+
+  const faqData: FAQItem[] = [
+    {
+      id: '1',
+      category: 'orders',
+      question: t('faq_q1'),
+      answer: t('faq_a1')
+    },
+    {
+      id: '2',
+      category: 'orders',
+      question: t('faq_q2'),
+      answer: t('faq_a2')
+    },
+    {
+      id: '3',
+      category: 'shipping',
+      question: t('faq_q3'),
+      answer: t('faq_a3')
+    },
+    {
+      id: '4',
+      category: 'shipping',
+      question: t('faq_q4'),
+      answer: t('faq_a4')
+    },
+    {
+      id: '5',
+      category: 'returns',
+      question: t('faq_q5'),
+      answer: t('faq_a5')
+    },
+    {
+      id: '6',
+      category: 'returns',
+      question: t('faq_q6'),
+      answer: t('faq_a6')
+    },
+    {
+      id: '7',
+      category: 'products',
+      question: t('faq_q7'),
+      answer: t('faq_a7')
+    },
+    {
+      id: '8',
+      category: 'products',
+      question: t('faq_q8'),
+      answer: t('faq_a8')
+    }
+  ];
 
   const toggleItem = (id: string) => {
     setOpenItems((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -115,11 +115,11 @@ export default function FAQsPage() {
       {/* Category Pills */}
       <div className="flex flex-wrap justify-center gap-3">
         {[
-          { id: 'all', label: 'All FAQs', icon: HelpCircle },
-          { id: 'orders', label: 'Orders & Payment', icon: ShoppingBag },
-          { id: 'shipping', label: 'Shipping & Delivery', icon: Truck },
-          { id: 'returns', label: 'Returns & Exchange', icon: RotateCcw },
-          { id: 'products', label: 'Products & Quality', icon: ShieldCheck }
+          { id: 'all', label: t('faq_cat_all'), icon: HelpCircle },
+          { id: 'orders', label: t('faq_cat_orders'), icon: ShoppingBag },
+          { id: 'shipping', label: t('faq_cat_shipping'), icon: Truck },
+          { id: 'returns', label: t('faq_cat_returns'), icon: RotateCcw },
+          { id: 'products', label: t('faq_cat_products'), icon: ShieldCheck }
         ].map((cat) => {
           const Icon = cat.icon;
           const isActive = activeCategory === cat.id;
@@ -171,16 +171,16 @@ export default function FAQsPage() {
           })
         ) : (
           <div className="text-center py-12 bg-secondary/30 rounded-2xl border border-gray-800 text-gray-400">
-            No questions matched your search query. Try another keyword or contact us!
+            {t('faq_no_results')}
           </div>
         )}
       </div>
 
       {/* Footer Support Prompt */}
       <div className="bg-secondary/50 border border-secondary p-8 rounded-2xl text-center space-y-4">
-        <h3 className="text-xl font-bold text-white">Still have questions?</h3>
+        <h3 className="text-xl font-bold text-white">{t('faq_still_questions')}</h3>
         <p className="text-gray-300 text-sm max-w-md mx-auto">
-          Can’t find the answer you’re looking for? Please contact our friendly customer service team.
+          {t('faq_still_questions_desc')}
         </p>
         <Link
           href="/contact-us"
