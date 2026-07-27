@@ -1,0 +1,27 @@
+import React from 'react';
+
+interface HotmixIconProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function HotmixIcon({ className = "h-6 w-6 text-greny", style }: HotmixIconProps) {
+  return (
+    <svg
+      viewBox="290 326 155 180"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={style}
+      aria-label="Hotmix Icon"
+      role="img"
+    >
+      <path
+        d="M316.465 485.078C316.471 490.362 316.471 495.149 316.471 500.178C309.392 500.178 302.792 500.178 296 500.178C296 444.124 296 388.194 296 332C302.699 332 309.271 332 316.361 332C316.361 359.074 316.361 385.962 316.361 413.132C350.607 413.132 384.335 413.132 418.522 413.132C418.522 386.037 418.522 359.155 418.522 332.001C425.557 332.001 432.135 332.001 438.873 332.001C438.873 388.154 438.873 444.073 438.873 500.214C432.167 500.214 425.703 500.214 418.699 500.214C418.699 473.001 418.699 445.808 418.699 418.461C384.428 418.461 350.695 418.461 316.458 418.461C316.458 440.697 316.458 462.639 316.465 485.078Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export default HotmixIcon;
