@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
 import { useFilter } from '@/contexts/filter-context';
 import RenderProducts from '@/components/product/render-products';
@@ -120,11 +120,7 @@ export default function CollectionPage() {
     };
 
     if (!currentCategory && !loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <h1 className="text-2xl">Category not found</h1>
-            </div>
-        );
+        notFound();
     }
 
     return (

@@ -94,11 +94,18 @@ const createProductService = () => ({
         };
     },
     get: async (id) => {
-        const record = await pb.collection('products').getOne(id, {
-            expand: 'category,sizes,colors,tags', // Removed images from expand
-            requestKey: null
-        });
-        return { data: mapProduct(record) };
+        try {
+            const record = await pb.collection('products').getOne(id, {
+                expand: 'category,sizes,colors,tags', // Removed images from expand
+                requestKey: null
+            });
+            return { data: mapProduct(record) };
+        } catch (err) {
+            if (err?.status === 404 || err?.status === 400) {
+                return { data: null };
+            }
+            throw err;
+        }
     },
     getByIds: async (ids) => {
         if (!ids || ids.length === 0) return { data: [] };
