@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import styles from "@/styles/main.module.css"
 import useAuth from "@/hooks/useAuth"
+import HotmixLogo from "@/components/hotmix-logo"
 
 import { useRef, useState, useEffect } from 'react'
 import { Loader2 } from "lucide-react"
@@ -75,7 +76,7 @@ export function LoginForm() {
           <Link
             href="/"
             className={styles.sign_in_up_logo}>
-            HOTMIX
+            <HotmixLogo className="h-14 text-greny w-auto" />
           </Link>
         </div>
         <CardTitle className="text-2xl">

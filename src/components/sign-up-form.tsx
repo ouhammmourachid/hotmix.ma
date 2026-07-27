@@ -13,6 +13,7 @@ import Link from "next/link"
 import styles from "@/styles/main.module.css"
 import { useState, useEffect } from "react"
 import useAuth from "@/hooks/useAuth"
+import HotmixLogo from "@/components/hotmix-logo"
 
 export function SignUpForm() {
   const [formState, setFormState] = useState({
@@ -74,7 +75,7 @@ export function SignUpForm() {
         <Link
           href="/"
           className={styles.sign_in_up_logo}>
-          HOTMIX
+          <HotmixLogo className="h-14 text-greny w-auto" />
         </Link>
         <CardTitle className="text-2xl">Sign up</CardTitle>
         <CardDescription>
