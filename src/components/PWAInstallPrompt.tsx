@@ -106,63 +106,59 @@ export default function PWAInstallPrompt() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: 60, scale: 0.95 }}
+        initial={{ opacity: 0, y: -50, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 60, scale: 0.95 }}
+        exit={{ opacity: 0, y: -40, scale: 0.96 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className={`fixed bottom-4 left-3 right-3 z-50 p-4 rounded-2xl bg-neutral-900/95 backdrop-blur-xl border border-neutral-800 shadow-2xl text-white ${
+        className={`fixed top-3 left-3 right-3 sm:left-auto sm:right-4 sm:w-96 z-[100] p-2.5 rounded-xl bg-primary/95 backdrop-blur-md border border-secondary shadow-xl shadow-black/40 text-white ${
           isRTL ? "rtl" : "ltr"
         }`}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500/20 via-neutral-800 to-amber-400/10 border border-neutral-700 flex items-center justify-center shrink-0">
-              <Smartphone className="w-5 h-5 text-amber-400" />
+        <div className="flex items-center justify-between gap-2.5">
+          {/* Icon & Details */}
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            <div className="w-8 h-8 rounded-lg bg-secondary/80 border border-greny/20 flex items-center justify-center shrink-0">
+              <Smartphone className="w-4 h-4 text-greny" />
             </div>
-            <div>
-              <h3 className="font-semibold text-sm text-neutral-100 leading-tight">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-bold text-xs text-white leading-tight truncate">
                 {t("pwa_install_title")}
               </h3>
-              <p className="text-xs text-neutral-400 mt-0.5 line-clamp-2">
+              <p className="text-[11px] text-whity/80 leading-tight truncate mt-0.5">
                 {t("pwa_install_desc")}
               </p>
             </div>
           </div>
 
-          <button
-            onClick={handleDismiss}
-            className="text-neutral-400 hover:text-white p-1 rounded-full hover:bg-neutral-800 transition-colors shrink-0"
-            aria-label={t("pwa_dismiss")}
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex items-center justify-between gap-2">
-          {isIOS ? (
-            <div className="w-full text-xs text-neutral-300 bg-neutral-800/80 p-2.5 rounded-xl flex items-center gap-2 border border-neutral-700/60">
-              <Share className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>{t("pwa_ios_instruction")}</span>
-            </div>
-          ) : (
-            <>
-              <button
-                onClick={handleDismiss}
-                className="text-xs text-neutral-400 hover:text-white px-3 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
-              >
-                {t("pwa_dismiss")}
-              </button>
+          {/* Action buttons */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {!isIOS && (
               <button
                 onClick={handleInstallClick}
-                className="flex-1 flex items-center justify-center gap-2 text-xs font-semibold bg-amber-400 hover:bg-amber-300 text-neutral-950 px-4 py-2.5 rounded-xl shadow-lg shadow-amber-400/10 transition-all active:scale-95"
+                className="flex items-center justify-center gap-1 text-[11px] font-bold bg-greny hover:bg-greny/90 text-primary px-3 py-1.5 rounded-lg shadow-sm transition-all active:scale-95 whitespace-nowrap"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-3.5 h-3.5" />
                 <span>{t("pwa_install_btn")}</span>
               </button>
-            </>
-          )}
+            )}
+            <button
+              onClick={handleDismiss}
+              className="text-whity/70 hover:text-white p-1 rounded-lg hover:bg-secondary/60 transition-colors shrink-0"
+              aria-label={t("pwa_dismiss")}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
+
+        {/* iOS Instruction banner if iOS */}
+        {isIOS && (
+          <div className="mt-2 text-[11px] text-whity bg-secondary/60 p-2 rounded-lg flex items-center gap-2 border border-secondary">
+            <Share className="w-3.5 h-3.5 text-greny shrink-0" />
+            <span className="leading-tight">{t("pwa_ios_instruction")}</span>
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );
