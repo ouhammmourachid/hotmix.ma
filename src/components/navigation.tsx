@@ -12,6 +12,7 @@ import HotmixLogo from '@/components/hotmix-logo';
 
 import { useTranslation } from '@/lib/i18n-utils';
 import { useApiService } from '@/services/api.service';
+import { createCategorySlug } from '@/lib/utils';
 import Category from '@/types/category';
 
 function NavLink({
@@ -116,7 +117,7 @@ export default function Navigation({
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
-                        href={`/collections/${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                        href={`/collections/${createCategorySlug(item.name)}`}
                         className="block py-2 text-white hover:text-greny transition-colors duration-200"
                       >
                         {item.name}
