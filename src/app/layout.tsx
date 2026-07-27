@@ -7,6 +7,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PageViewTracker from "@/components/PageViewTracker";
 import SWRegister from "@/components/SWRegister";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import DisableZoomStandalone from "@/components/DisableZoomStandalone";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
 
@@ -60,6 +61,20 @@ export default function RootLayout({
                 e.preventDefault();
                 window.deferredPWAInstallPrompt = e;
               });
+              (function() {
+                try {
+                  var isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                                     window.navigator.standalone === true ||
+                                     document.referrer.indexOf('android-app://') !== -1;
+                  if (isStandalone) {
+                    document.documentElement.classList.add('pwa-standalone');
+                    var meta = document.querySelector('meta[name="viewport"]');
+                    if (meta) {
+                      meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    }
+                  }
+                } catch (e) {}
+              })();
             `,
           }}
         />
@@ -132,6 +147,7 @@ export default function RootLayout({
         </noscript>
 
         <SWRegister />
+        <DisableZoomStandalone />
         <GoogleAnalytics />
         <Suspense fallback={null}>
           <PageViewTracker />

@@ -184,3 +184,17 @@ html[lang="ar"] {
 .account_modal_content {
   @apply bg-primary text-white rounded-sm max-w-lg w-full p-6 relative border border-whity;
 }
+
+/* Disable pinch-to-zoom & double-tap zoom when running as installed PWA */
+@media (display-mode: standalone) {
+  html, body {
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+html.pwa-standalone,
+html.pwa-standalone body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
