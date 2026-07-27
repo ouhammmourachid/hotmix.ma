@@ -50,7 +50,8 @@ export default function CheckoutForm() {
       const productId = urlParams.get('productId') || '';
       const sizeId = urlParams.get('sizeId') || '';
       const colorId = urlParams.get('colorId') || '';
-      const quantity = parseInt(urlParams.get('quantity') || '1');
+      const rawQuantity = parseInt(urlParams.get('quantity') || '1', 10);
+      const quantity = isNaN(rawQuantity) || rawQuantity < 1 ? 1 : rawQuantity;
 
       if (productId) {
         try {
@@ -68,8 +69,8 @@ export default function CheckoutForm() {
                 quantity: quantity,
                 price
               }],
-              totalItems: 1,
-              subtotal: price
+              totalItems: quantity,
+              subtotal: price * quantity
             });
           }
         } catch (error) {
