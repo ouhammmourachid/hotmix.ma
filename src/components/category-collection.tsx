@@ -6,6 +6,7 @@ import { useApiService } from "@/services/api.service";
 import Category from "@/types/category";
 import Product from "@/types/product";
 import { useTranslation } from "@/lib/i18n-utils";
+import { createCategorySlug } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CategoryWithImage extends Category {
@@ -39,7 +40,7 @@ export default function CategoryCollection() {
 
         // 3. Map categories to their first product's image
         const items: CategoryWithImage[] = categoriesData.map((cat) => {
-          const slug = cat.name.toLowerCase().replace(/\s+/g, "-");
+          const slug = createCategorySlug(cat.name);
 
           // Find first product belonging to this category
           const matchingProduct = productsData.find((p) => {

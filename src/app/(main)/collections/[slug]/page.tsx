@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
 import { useFilter } from '@/contexts/filter-context';
 import RenderProducts from '@/components/product/render-products';
@@ -8,6 +8,7 @@ import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
 import Category from '@/types/category';
 import { useTranslation } from '@/lib/i18n-utils';
+import { findCategoryBySlug } from '@/lib/utils';
 
 export default function CollectionPage() {
     const { slug } = useParams();
@@ -31,24 +32,18 @@ export default function CollectionPage() {
                 if (!slug) return;
 
                 // Fetch all categories to find the match
-                // Ideally we should have an API to fetch by slug or name
                 const response = await api.category.getAll();
-                const categories = response.data;
+                const categories = response.data || [];
 
-                // Find category matching the slug (assuming slug is name-like)
-                // Adjust logic if slug is different (e.g. kebab-case vs Name)
-                const match = categories.find((c: Category) =>
-                    c.name.toLowerCase() === (slug as string).toLowerCase().replace(/-/g, ' ') ||
-                    c.name.toLowerCase().replace(/\s+/g, '-') === (slug as string).toLowerCase()
-                );
+                // Robust category lookup matching slug, name, or ID
+                const match = findCategoryBySlug(categories, slug as string);
 
                 if (match) {
                     setCurrentCategory(match);
                     // Update filter state to include this category
                     setFilterState((prev: any) => ({ ...prev, category: match.id }));
                 } else {
-                    console.error("Category not found");
-                    // Handle 404 behavior if needed
+                    console.error("Category not found for slug:", slug);
                 }
             } catch (error) {
                 console.error("Error fetching category:", error);
@@ -120,11 +115,7 @@ export default function CollectionPage() {
     };
 
     if (!currentCategory && !loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <h1 className="text-2xl">Category not found</h1>
-            </div>
-        );
+        notFound();
     }
 
     return (

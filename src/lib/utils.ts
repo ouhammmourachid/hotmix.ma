@@ -77,3 +77,64 @@ export function convertToPocketBaseFilter(filterStr: string): string {
 
   return filters.join(' && ');
 }
+
+/**
+ * Creates a clean, URL-safe slug from a category name or object.
+ */
+export function createCategorySlug(category: { id?: string; name: string } | string): string {
+  const name = typeof category === 'string' ? category : category?.name;
+  if (!name) return '';
+
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[/\\&]/g, ' ')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Matches a category from a list by slug, ID, or name.
+ */
+export function findCategoryBySlug<T extends { id: string; name: string }>(
+  categories: T[],
+  slugOrId: string | undefined | null
+): T | undefined {
+  if (!slugOrId || !categories || categories.length === 0) return undefined;
+
+  const rawSlug = String(slugOrId).trim();
+  let decodedSlug = rawSlug;
+  try {
+    decodedSlug = decodeURIComponent(rawSlug).trim();
+  } catch (e) {
+    // ignore decode error
+  }
+
+  const targetNormalizedSlug = createCategorySlug(decodedSlug);
+  const decodedLower = decodedSlug.toLowerCase();
+  const rawLower = rawSlug.toLowerCase();
+
+  return categories.find((cat) => {
+    if (!cat) return false;
+
+    // 1. Direct ID match
+    if (cat.id === rawSlug || cat.id === decodedSlug) return true;
+
+    // 2. Slugified name match
+    const catSlug = createCategorySlug(cat.name);
+    if (catSlug && catSlug === targetNormalizedSlug) return true;
+
+    // 3. Name lowercase match
+    const catNameLower = cat.name.toLowerCase().trim();
+    if (catNameLower === decodedLower || catNameLower === rawLower) return true;
+
+    // 4. Space-to-hyphen or hyphen-to-space match
+    if (catNameLower.replace(/\s+/g, '-') === decodedLower.replace(/\s+/g, '-')) return true;
+    if (catNameLower.replace(/-/g, ' ') === decodedLower.replace(/-/g, ' ')) return true;
+
+    return false;
+  });
+}
+

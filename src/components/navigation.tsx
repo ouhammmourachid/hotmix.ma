@@ -8,9 +8,11 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 import { useState, useEffect } from 'react'
 import LogoutButton from '@/components/auth/LogoutButton';
+import HotmixLogo from '@/components/hotmix-logo';
 
 import { useTranslation } from '@/lib/i18n-utils';
 import { useApiService } from '@/services/api.service';
+import { createCategorySlug } from '@/lib/utils';
 import Category from '@/types/category';
 
 function NavLink({
@@ -78,7 +80,7 @@ export default function Navigation({
         <Link
           href="/"
           className={styles.nav_logo}>
-          HOTMIX
+          <HotmixLogo className="h-7 text-greny w-auto" />
         </Link>            {/* Desktop navigation links - centered on large screens */}
         <NavigationMenu.Root className="hidden lg:flex">
           <NavigationMenu.List className="flex gap-8 text-white items-center">
@@ -115,7 +117,7 @@ export default function Navigation({
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
-                        href={`/collections/${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                        href={`/collections/${createCategorySlug(item.name)}`}
                         className="block py-2 text-white hover:text-greny transition-colors duration-200"
                       >
                         {item.name}

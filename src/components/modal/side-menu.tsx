@@ -8,6 +8,7 @@ import styles from '@/styles/modal.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/lib/i18n-utils';
 import { useApiService } from '@/services/api.service';
+import { createCategorySlug } from '@/lib/utils';
 import Category from '@/types/category';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -127,7 +128,7 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
                             <li key={cat.id}>
                               <Link
                                 onClick={onClose}
-                                href={`/collections/${cat.name.toLowerCase().replace(/\s+/g, '-')}`}
+                                href={`/collections/${createCategorySlug(cat.name)}`}
                                 className="block text-whity hover:text-greny transition-colors"
                               >
                                 {cat.name}

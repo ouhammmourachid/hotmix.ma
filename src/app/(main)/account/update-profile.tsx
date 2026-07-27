@@ -6,6 +6,7 @@ import ModalLayout from '@/components/modal/modal-layout';
 import { XButton } from '@/components/small-pieces';
 import useAuth from "@/hooks/useAuth";
 import pb from "@/lib/pocketbase";
+import { useTranslation } from '@/lib/i18n-utils';
 
 export default function UpdateProfile({
   isOpen,
@@ -14,6 +15,7 @@ export default function UpdateProfile({
   isOpen: boolean,
   onClose: () => void
 }>) {
+  const { t } = useTranslation();
   const modalRef = useRef(null);
   const { user } = useAuth();
   const [name, setName] = useState("");
@@ -56,13 +58,13 @@ export default function UpdateProfile({
           onClick={onClose}
           className='top-6 text-secondary hover:text-greny' />
         <h1 className="text-xl font-semibold">
-          Edit profile
+          {t('profile_edit_title')}
         </h1>
         <div className="grid gap-4 py-4">
           <div className="space-y-2">
-            <label className="text-gray-400 text-sm">Full Name</label>
+            <label className="text-gray-400 text-sm">{t('profile_full_name')}</label>
             <CustomInput
-              placeholder="Full Name"
+              placeholder={t('profile_full_name')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               type='text'
@@ -76,14 +78,14 @@ export default function UpdateProfile({
             type="button"
             variant="ghost"
             className="account_cancel_button">
-            Cancel
+            {t('profile_cancel')}
           </Button>
           <Button
             onClick={handleSave}
             disabled={isLoading}
             className="account_save_button"
           >
-            {isLoading ? "Saving..." : "Save"}
+            {isLoading ? t('profile_saving') : t('profile_save')}
           </Button>
         </div>
       </div>

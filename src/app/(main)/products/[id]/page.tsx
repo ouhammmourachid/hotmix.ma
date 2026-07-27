@@ -11,6 +11,7 @@ import { useCart } from '@/contexts/cart-context';
 import SizeType from '@/types/size';
 import { motion } from 'framer-motion';
 import { use } from 'react';
+import { notFound } from 'next/navigation';
 import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
 import { formatPrice } from '@/lib/utils';
@@ -45,27 +46,30 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        setLoading(true);        // Replace with your actual API endpoint
+        setLoading(true);
         const response = await api.product.get(productId);
-        setProduct(response.data);
-        addToRecentlyViewed(response.data);
-        setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
+        if (response.data) {
+          setProduct(response.data);
+          addToRecentlyViewed(response.data);
+          setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
 
-        // Update document title and metadata
-        const productName = response.data.name;
-        document.title = `${productName} | HotMix - Elegant Clothing`;
+          // Update document title and metadata
+          const productName = response.data.name;
+          document.title = `${productName} | HotMix - Elegant Clothing`;
 
-        // Initialize selected size with the first available size
-        if (response.data.sizes && response.data.sizes.length > 0) {
-          setSelectedSize(response.data.sizes[0]);
+          // Initialize selected size with the first available size
+          if (response.data.sizes && response.data.sizes.length > 0) {
+            setSelectedSize(response.data.sizes[0]);
+          }
+          if (response.data.colors && response.data.colors.length > 0) {
+            setSelectedColor(response.data.colors[0]);
+          }
+
+          setError(null);
+        } else {
+          setProduct(null);
         }
-        if (response.data.colors && response.data.colors.length > 0) {
-          setSelectedColor(response.data.colors[0]);
-        }
-
-        setError(null);
       } catch (err) {
-        console.error("Error fetching product:", err);
         if (err instanceof Error) {
           setError(err.message);
         } else {
@@ -108,21 +112,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     );
   }
 
-  // Show error state
+  // Show error / 404 state
   if (error || !product) {
-    return (<div className="flex items-center justify-center min-h-screen">
-      <div className="text-center p-6 max-w-md bg-red-100 rounded-lg">
-        <h2 className="text-xl font-bold text-red-800 mb-2">{t('error_loading_product')}</h2>
-        <p className="text-red-700">{t('product_not_found')}</p>
-        <button
-          onClick={() => window.location.href = '/'}
-          className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
-        >
-          {t('return_to_homepage')}
-        </button>
-      </div>
-    </div>
-    );
+    notFound();
   }  // Prepare meta description from product description
 
 
