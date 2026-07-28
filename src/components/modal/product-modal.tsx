@@ -13,7 +13,7 @@ import Link from 'next/link';
 import styles from '@/styles/modal.module.css';
 import { motion } from 'framer-motion';
 import filterStyles from '@/styles/filter.module.css';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, isLightColor } from '@/lib/utils';
 import { Discount } from '@/components/ui/discount';
 // Import for translation support - will be used later
 import { useTranslation } from '@/lib/i18n-utils';
@@ -31,9 +31,40 @@ const ProductModal = ({
 }) => {
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0]);
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(product.colors?.[0]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addToCart } = useCart()
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
+
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+
+  const handleColorSelect = (color: Color) => {
+    if (isArchived) return;
+    setSelectedColor(color);
+
+    if (product && product.images && product.images.length > 0) {
+      const matchedIndex = product.images.findIndex((img: any) => {
+        if (img.color_id && String(img.color_id) === String(color.id)) return true;
+        if (img.color && (String(img.color) === String(color.id) || String(img.color).toLowerCase() === color.name.toLowerCase())) return true;
+        if (img.path) {
+          const lowerPath = img.path.toLowerCase();
+          if (color.name && lowerPath.includes(color.name.toLowerCase())) return true;
+          if (color.id && lowerPath.includes(color.id.toLowerCase())) return true;
+        }
+        return false;
+      });
+
+      if (matchedIndex !== -1) {
+        setCurrentImageIndex(matchedIndex);
+      } else if (product.colors && product.colors.length > 0) {
+        const colorIndex = product.colors.findIndex(c => c.id === color.id);
+        if (colorIndex !== -1 && colorIndex < product.images.length) {
+          setCurrentImageIndex(colorIndex);
+        }
+      }
+    }
+  };
+
   // Initialize translation hook - will be used later for translating components
   const { t, language } = useTranslation();
   const isRTL = language === 'ar'; // Check if current language is RTL (Arabic)
@@ -55,7 +86,6 @@ const ProductModal = ({
       duration: 0.5
     }
   };
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <ModalLayout
@@ -77,7 +107,7 @@ const ProductModal = ({
         {/* Product image */}
         <div className="w-1/2 bg-white relative">
           <img
-            src={product.images?.[0]?.path}
+            src={product.images?.[currentImageIndex]?.path || product.images?.[0]?.path}
             alt={product.name}
             className="w-full h-full object-cover"
           />
@@ -138,7 +168,7 @@ const ProductModal = ({
                 {product.colors.map((color: Color) => (
                   <div
                     key={color.id}
-                    onClick={() => !isArchived && setSelectedColor(color)}
+                    onClick={() => handleColorSelect(color)}
                     className={`relative w-8 h-8 ${isArchived ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                     title={color.name}
                   >
@@ -147,7 +177,9 @@ const ProductModal = ({
                       style={{ backgroundColor: color.code }}
                       className={`${filterStyles.filter_color_circle} relative overflow-hidden`}
                     >
-                      {selectedColor?.id === color.id && !isArchived && <Check size={15} />}
+                      {selectedColor?.id === color.id && !isArchived && (
+                        <Check size={15} className={isLightColor(color) ? "text-black" : "text-white"} />
+                      )}
                       {isArchived && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="w-[120%] h-[1.5px] bg-white/90 rotate-45 shadow-sm" />
