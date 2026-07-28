@@ -14,7 +14,7 @@ import { use } from 'react';
 import { notFound } from 'next/navigation';
 import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, isLightColor } from '@/lib/utils';
 import { Discount } from '@/components/ui/discount';
 import { useTranslation } from '@/lib/i18n-utils';
 import { useCartModal } from '@/contexts/cart-modal-context';
@@ -22,6 +22,9 @@ import filterStyles from '@/styles/filter.module.css';
 import Color from '@/types/color';
 import { useRecentlyViewed } from '@/contexts/recently-viewed-context';
 import RecentlyViewedProducts from '@/components/product/recently-viewed-products';
+
+import ProductImageLightbox from '@/components/product/product-image-lightbox';
+import { Maximize2 } from 'lucide-react';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // Unwrap the params promise using React.use()
@@ -36,6 +39,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const { addToCart, totalItems } = useCart();
   const api = useApiService();
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(undefined);
@@ -83,7 +87,34 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     fetchProduct();
   }, [productId]);
 
-  // Handle price calculation
+  const handleColorSelect = (color: Color) => {
+    if (isArchived) return;
+    setSelectedColor(color);
+
+    if (product && product.images && product.images.length > 0) {
+      // 1. Try to find image matching color ID, color name, or path keyword
+      const matchedIndex = product.images.findIndex((img: any) => {
+        if (img.color_id && String(img.color_id) === String(color.id)) return true;
+        if (img.color && (String(img.color) === String(color.id) || String(img.color).toLowerCase() === color.name.toLowerCase())) return true;
+        if (img.path) {
+          const lowerPath = img.path.toLowerCase();
+          if (color.name && lowerPath.includes(color.name.toLowerCase())) return true;
+          if (color.id && lowerPath.includes(color.id.toLowerCase())) return true;
+        }
+        return false;
+      });
+
+      if (matchedIndex !== -1) {
+        setCurrentImageIndex(matchedIndex);
+      } else if (product.colors && product.colors.length > 0) {
+        // 2. Fallback to matching image by color index position in colors array
+        const colorIndex = product.colors.findIndex(c => c.id === color.id);
+        if (colorIndex !== -1 && colorIndex < product.images.length) {
+          setCurrentImageIndex(colorIndex);
+        }
+      }
+    }
+  };
 
   const handleClickAddToCart = () => {
     if (product && selectedSize) {
@@ -156,8 +187,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             ))}
           </div>
 
-          <div className="relative w-full">
-            <div className="relative w-full h-full overflow-hidden rounded-lg">
+          <div className="relative w-full group">
+            <div
+              className="relative w-full h-full overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => setIsLightboxOpen(true)}
+            >
               <ImageMagnifier src={product.images[currentImageIndex].path} />
             </div>
             <button
@@ -213,7 +247,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     {product.colors.map(color => (
                       <div
                         key={color.id}
-                        onClick={() => !isArchived && setSelectedColor(color)}
+                        onClick={() => handleColorSelect(color)}
                         className={`relative w-8 h-8 ${isArchived ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                         title={color.name}
                       >
@@ -222,7 +256,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           style={{ backgroundColor: color.code }}
                           className={`${filterStyles.filter_color_circle} relative overflow-hidden`}
                         >
-                          {selectedColor?.id === color.id && !isArchived && <Check size={15} />}
+                          {selectedColor?.id === color.id && !isArchived && (
+                            <Check size={15} className={isLightColor(color) ? "text-black" : "text-white"} />
+                          )}
                           {isArchived && (
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                               <div className="w-[120%] h-[1.5px] bg-white/90 rotate-45 shadow-sm" />
@@ -274,6 +310,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         setQuantity={setQuantity}
         onClickAddToCart={handleClickAddToCart}
         onCartOpen={openCart}
+      />
+      <ProductImageLightbox
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        images={product.images}
+        currentIndex={currentImageIndex}
+        onIndexChange={setCurrentImageIndex}
       />
     </div>
   );

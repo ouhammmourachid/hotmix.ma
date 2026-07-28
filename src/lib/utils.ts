@@ -138,3 +138,36 @@ export function findCategoryBySlug<T extends { id: string; name: string }>(
   });
 }
 
+/**
+ * Determines whether a color (by hex code or name) is white or light
+ * so contrast elements (like checkmarks) can be styled appropriately in black.
+ */
+export function isLightColor(color?: { code?: string; name?: string } | string): boolean {
+  if (!color) return false;
+  const hexOrName = typeof color === 'string' ? color : color.code || color.name || '';
+  const lower = hexOrName.toLowerCase().trim();
+
+  // Check common light color names
+  if (['white', 'blanc', 'off-white', 'cream', 'ivory', 'beige', 'snow', 'light'].some(n => lower.includes(n))) {
+    return true;
+  }
+
+  // Parse Hex code
+  let hex = lower.replace('#', '');
+  if (hex.length === 3) {
+    hex = hex.split('').map(c => c + c).join('');
+  }
+  if (hex.length === 6) {
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+      // Relative brightness formula
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness > 185;
+    }
+  }
+
+  return false;
+}
+

@@ -11,7 +11,7 @@ import { useCart } from '@/contexts/cart-context';
 import styles from '@/styles/modal.module.css';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, isLightColor } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
 
 export default function QuickAddModal({
@@ -28,10 +28,40 @@ export default function QuickAddModal({
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(product.sizes?.[0]);
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(product.colors?.[0]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
   const { addToCart } = useCart();
   const [isMobile, setIsMobile] = useState(false);
+
+  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+
+  const handleColorSelect = (color: Color) => {
+    if (isArchived) return;
+    setSelectedColor(color);
+
+    if (product && product.images && product.images.length > 0) {
+      const matchedIndex = product.images.findIndex((img: any) => {
+        if (img.color_id && String(img.color_id) === String(color.id)) return true;
+        if (img.color && (String(img.color) === String(color.id) || String(img.color).toLowerCase() === color.name.toLowerCase())) return true;
+        if (img.path) {
+          const lowerPath = img.path.toLowerCase();
+          if (color.name && lowerPath.includes(color.name.toLowerCase())) return true;
+          if (color.id && lowerPath.includes(color.id.toLowerCase())) return true;
+        }
+        return false;
+      });
+
+      if (matchedIndex !== -1) {
+        setCurrentImageIndex(matchedIndex);
+      } else if (product.colors && product.colors.length > 0) {
+        const colorIndex = product.colors.findIndex(c => c.id === color.id);
+        if (colorIndex !== -1 && colorIndex < product.images.length) {
+          setCurrentImageIndex(colorIndex);
+        }
+      }
+    }
+  };
 
   // Initialize translation hook
   const { t } = useTranslation();
@@ -82,7 +112,6 @@ export default function QuickAddModal({
     setQuantity(1);
     onCartOpen?.();
   }
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <ModalLayout
@@ -105,8 +134,8 @@ export default function QuickAddModal({
           {/* Product Image */}
           <div className="w-20 h-28 bg-gray-200 rounded-sm overflow-hidden flex-shrink-0 relative">
             <img
-              src={product.images?.[0]?.path}
-              alt="Gaming Time Black"
+              src={product.images?.[currentImageIndex]?.path || product.images?.[0]?.path}
+              alt={product.name}
               width={80}
               height={112}
               className="w-full h-full object-cover"
@@ -163,7 +192,7 @@ export default function QuickAddModal({
                 {product.colors.map((color: Color) => (
                   <div
                     key={color.id}
-                    onClick={() => !isArchived && setSelectedColor(color)}
+                    onClick={() => handleColorSelect(color)}
                     className={`relative w-8 h-8 ${isArchived ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                     title={color.name}
                   >
@@ -172,7 +201,9 @@ export default function QuickAddModal({
                       style={{ backgroundColor: color.code }}
                       className={`${filterStyles.filter_color_circle} relative overflow-hidden`}
                     >
-                      {selectedColor?.id === color.id && !isArchived && <Check size={15} />}
+                      {selectedColor?.id === color.id && !isArchived && (
+                        <Check size={15} className={isLightColor(color) ? "text-black" : "text-white"} />
+                      )}
                       {isArchived && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="w-[120%] h-[1.5px] bg-white/90 rotate-45 shadow-sm" />
