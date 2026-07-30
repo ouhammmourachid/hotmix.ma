@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronDown, MapPin, Check, X } from 'lucide-react';
 import citiesData from '@/data/cities.json';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export interface CityItem {
   id: number;
@@ -143,43 +144,45 @@ export function CitySelect({
             )}
           </div>
 
-          {/* City Options List */}
-          <div className="overflow-y-auto flex-1 divide-y divide-gray-800/40">
-            {filteredCities.length > 0 ? (
-              filteredCities.map((city) => {
-                const isSelected =
-                  value?.toLowerCase() === city.name.toLowerCase();
-                return (
-                  <div
-                    key={city.id}
-                    onClick={() => handleSelect(city)}
-                    className={`flex items-center justify-between px-4 py-3 text-sm cursor-pointer transition-colors ${
-                      isSelected
-                        ? "bg-greny/20 text-white font-medium"
-                        : "text-gray-200 hover:bg-[#003d45]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      {isSelected && <Check size={16} className="text-greny shrink-0" />}
-                      <span>{city.name}</span>
-                      {city.deliv_period && (
-                        <span className="text-[10px] text-gray-400 border border-gray-700 px-1 rounded">
-                          {city.deliv_period}
-                        </span>
-                      )}
+          {/* City Options List with Filter-style Scrollbar */}
+          <ScrollArea className="h-60">
+            <div className="divide-y divide-gray-800/40">
+              {filteredCities.length > 0 ? (
+                filteredCities.map((city) => {
+                  const isSelected =
+                    value?.toLowerCase() === city.name.toLowerCase();
+                  return (
+                    <div
+                      key={city.id}
+                      onClick={() => handleSelect(city)}
+                      className={`flex items-center justify-between px-4 py-3 text-sm cursor-pointer transition-colors ${
+                        isSelected
+                          ? "bg-greny/20 text-white font-medium"
+                          : "text-gray-200 hover:bg-[#003d45]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {isSelected && <Check size={16} className="text-greny shrink-0" />}
+                        <span>{city.name}</span>
+                        {city.deliv_period && (
+                          <span className="text-[10px] text-gray-400 border border-gray-700 px-1 rounded">
+                            {city.deliv_period}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs font-semibold text-greny bg-[#004750] px-2 py-0.5 rounded">
+                        {city.delivering_price} DH
+                      </span>
                     </div>
-                    <span className="text-xs font-semibold text-greny bg-[#004750] px-2 py-0.5 rounded">
-                      {city.delivering_price} DH
-                    </span>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="p-4 text-center text-sm text-gray-400">
-                Aucune ville trouvée
-              </div>
-            )}
-          </div>
+                  );
+                })
+              ) : (
+                <div className="p-4 text-center text-sm text-gray-400">
+                  Aucune ville trouvée
+                </div>
+              )}
+            </div>
+          </ScrollArea>
         </div>
       )}
     </div>
