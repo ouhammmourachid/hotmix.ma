@@ -302,5 +302,10 @@
   "checkout_err_address": "Please enter your shipping address",
   "checkout_err_phone": "Please enter your phone number",
   "checkout_err_empty": "Your order is empty",
-  "checkout_err_submit": "There was a problem submitting your order. Please try again."
+  "checkout_err_submit": "There was a problem submitting your order. Please try again.",
+  "checkout_city": "City",
+  "checkout_select_city": "Select your city",
+  "checkout_search_city": "Search city...",
+  "checkout_err_city": "Please select your city",
+  "checkout_err_invalid_phone": "Please enter a valid phone number"
 }

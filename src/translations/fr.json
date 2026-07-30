@@ -302,5 +302,10 @@
   "checkout_err_address": "Veuillez saisir votre adresse de livraison",
   "checkout_err_phone": "Veuillez saisir votre numéro de téléphone",
   "checkout_err_empty": "Votre commande est vide",
-  "checkout_err_submit": "Un problème est survenu lors de l'envoi de votre commande. Veuillez réessayer."
+  "checkout_err_submit": "Un problème est survenu lors de l'envoi de votre commande. Veuillez réessayer.",
+  "checkout_city": "Ville",
+  "checkout_select_city": "Sélectionnez votre ville",
+  "checkout_search_city": "Rechercher une ville...",
+  "checkout_err_city": "Veuillez sélectionner votre ville",
+  "checkout_err_invalid_phone": "Veuillez saisir un numéro de téléphone valide"
 }

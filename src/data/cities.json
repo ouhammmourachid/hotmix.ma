@@ -1,0 +1,4130 @@
+[
+  {
+    "id": 1,
+    "name": "Casablanca",
+    "delivering_price": 20,
+    "return_price": 5,
+    "deliv_period": "12H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 32,
+    "name": "Errahma casa",
+    "delivering_price": 30,
+    "return_price": 5,
+    "deliv_period": "12h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 486,
+    "name": "El helhal (El hraouiin)",
+    "delivering_price": 30,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 498,
+    "name": "Zenata",
+    "delivering_price": 30,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Rabat",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Agadir",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Tanger",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Marrakech",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 34,
+    "name": "Bouskoura",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 38,
+    "name": "Ain Harrouda",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 39,
+    "name": "Mohammedia",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 40,
+    "name": "Bensliman",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 45,
+    "name": "Salé",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 53,
+    "name": "Fés",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 54,
+    "name": "Meknes",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 56,
+    "name": "El jadida",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 111,
+    "name": "Berrechid",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 126,
+    "name": "Mediouna-casa",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 128,
+    "name": "Tétouane",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 145,
+    "name": "Temarra",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 167,
+    "name": "Tit Melil",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 180,
+    "name": "derwa",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 289,
+    "name": "Dar 16 (Casablanca)",
+    "delivering_price": 35,
+    "return_price": 5,
+    "deliv_period": "12H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 579,
+    "name": "Oulad saleh (Bouskoura)",
+    "delivering_price": 38,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Oulad Taima",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Taroudant",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Essaouira",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Beni Mellal",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Khouribga",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Settat",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Safi",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 28,
+    "name": "Sidi Rahal",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 31,
+    "name": "Tamaris",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 41,
+    "name": "Bouznika",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 46,
+    "name": "Salé El Jadida",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 47,
+    "name": "Kénitra",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 49,
+    "name": "Sidi Kacem",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 51,
+    "name": "Laarache",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 67,
+    "name": "Ksar Sghir",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 68,
+    "name": "Fnideq",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 71,
+    "name": "Khémisset",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 73,
+    "name": "Nador",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 74,
+    "name": "Saidia",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 75,
+    "name": "Berkane",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 78,
+    "name": "Taourirt",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 84,
+    "name": "Inzegane",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 93,
+    "name": "Fahs Anjra",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 100,
+    "name": "El Hajeb",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 103,
+    "name": "Moulay Yaacoub",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": ",",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 109,
+    "name": "Khenifra",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H-48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 113,
+    "name": "Nouaceur",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 114,
+    "name": "El Haouz",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 115,
+    "name": "Klaat Essraghna",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 119,
+    "name": "Ait Melloul",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 130,
+    "name": "Sidi Bouaatman",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 133,
+    "name": "Dar Bouazza",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 139,
+    "name": "Martil",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 141,
+    "name": "louizia",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 148,
+    "name": "Mrirt",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 154,
+    "name": "Chichaoua",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 156,
+    "name": "El Harhoura",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 157,
+    "name": "Tiflet",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 163,
+    "name": "Sidi bibi",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 166,
+    "name": "Mechraa Ben Abbou",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 169,
+    "name": "Agouray",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 171,
+    "name": "Sidi yahya zaeir",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 173,
+    "name": "El Gara",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 179,
+    "name": "alnif",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 182,
+    "name": "ait ourir",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 186,
+    "name": "Dardara",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 189,
+    "name": "Tafraout",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 190,
+    "name": "Mirleft",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 191,
+    "name": "Nwayl",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 196,
+    "name": "Igharm",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 199,
+    "name": "Errich",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 204,
+    "name": "Khenichet",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 217,
+    "name": "Ain erregada (berkan)",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 218,
+    "name": "Boulanoire",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 219,
+    "name": "Boujniba",
+    "delivering_price": 40,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 223,
+    "name": "Ouad amlil",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 225,
+    "name": "Bab marzouka",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 238,
+    "name": "Ait qamra",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 239,
+    "name": "Tala youssef",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 241,
+    "name": "Sidi bouzid",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 260,
+    "name": "Gznaya",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 269,
+    "name": "Nzalat Laadam",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 274,
+    "name": "Sidi Taibi",
+    "delivering_price": 40,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 295,
+    "name": "Loudaya (Marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 296,
+    "name": "Anza (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 300,
+    "name": "Leqliaa (ait melloul)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 302,
+    "name": "Drarga (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 306,
+    "name": "Oulad Jallal (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 317,
+    "name": "Dchaira (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 324,
+    "name": "Oulad Yahya (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 325,
+    "name": "el manssoria",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 327,
+    "name": "Tarrast (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 328,
+    "name": "Tikiouine (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 329,
+    "name": "El jorf (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 330,
+    "name": "Mehdia",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 347,
+    "name": "moulay abdelah (el jadida)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 348,
+    "name": "Ben Rahmoun (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 354,
+    "name": "Chrifia (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 355,
+    "name": "taghazout (agadir)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 356,
+    "name": "El haj kador (Meknes)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 357,
+    "name": "Oulmes (meknes)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 363,
+    "name": "sidi abdellah gheyat (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 377,
+    "name": "moulay driss",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 382,
+    "name": "dar essalam (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "´#",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 383,
+    "name": "Chouitre (marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "#",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 384,
+    "name": "Targa (Marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 385,
+    "name": "karyat ba mohamed",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 386,
+    "name": "mers el kheira",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 395,
+    "name": "El Haouzia (El jadida)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 397,
+    "name": "mssawar rasso",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 458,
+    "name": "Beni khlef",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 459,
+    "name": "Bensliman Aéroport",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 460,
+    "name": "Jemaat Fdalat",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 461,
+    "name": "Jemaat Mlila",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 462,
+    "name": "Tnin toualeaa",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 464,
+    "name": "beni khelaf",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 465,
+    "name": "Echelalat",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 477,
+    "name": "Mejjat (Marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 479,
+    "name": "Mzoudia (Marrakech)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 481,
+    "name": "Guisser (Settat)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 482,
+    "name": "beni yakhlaf",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 488,
+    "name": "bassatine el menzah",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 497,
+    "name": "Sidi moussa ben Ali (mohammedia)",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 570,
+    "name": "Merchich",
+    "delivering_price": 40,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 290,
+    "name": "Douar Jamaa (marrakech)",
+    "delivering_price": 42,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 227,
+    "name": "Ain Cheqef",
+    "delivering_price": 43,
+    "return_price": 5,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 228,
+    "name": "Ain allah (Fés)",
+    "delivering_price": 43,
+    "return_price": 8,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 229,
+    "name": "Lake douyat",
+    "delivering_price": 43,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 281,
+    "name": "tassoultante",
+    "delivering_price": 43,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 293,
+    "name": "Douar Al hna (marrakech)",
+    "delivering_price": 43,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 294,
+    "name": "sidi moussa (marrakech)",
+    "delivering_price": 43,
+    "return_price": 5,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Tiznit",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 22,
+    "name": "Sidi Bennour",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 24,
+    "name": "Echmmaia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 26,
+    "name": "Chetouka Ait-Baha",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 27,
+    "name": "Bir Jdid",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 29,
+    "name": "Had Soualem",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 52,
+    "name": "Ouazzane",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 57,
+    "name": "Errachidia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 61,
+    "name": "Chefchaouen",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 69,
+    "name": "Asilah",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 72,
+    "name": "El Hoceima",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 76,
+    "name": "Oujda",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 79,
+    "name": "Guercif",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 81,
+    "name": "TAZA",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 82,
+    "name": "Ifrane",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 83,
+    "name": "Midelt",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 85,
+    "name": "Ouarzazate",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 89,
+    "name": "Imi N'tanoute",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 96,
+    "name": "Driouch",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 98,
+    "name": "Jerada (Oujda)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 101,
+    "name": "SEFROU",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": ";",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 102,
+    "name": "Taounate",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 105,
+    "name": "SIDI SLIMAN",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 106,
+    "name": "Sekhirat",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 107,
+    "name": "Azilal",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 108,
+    "name": "Fquih Ben Salah",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 125,
+    "name": "El Youssoufia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 127,
+    "name": "Mdiq",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 135,
+    "name": "Ben Guérir",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 136,
+    "name": "joref el melha",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 137,
+    "name": "selouane (Nador)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 140,
+    "name": "Moulay Bousslham",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 142,
+    "name": "AIN ATTIQ",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 143,
+    "name": "AZROU",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 144,
+    "name": "Ksar El Kebir",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 147,
+    "name": "Ain taoujtat",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": ",",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 151,
+    "name": "Oued Zem",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 153,
+    "name": "Sidi yahya elgharb",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 155,
+    "name": "Oulad Berhil",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 158,
+    "name": "IMOUZAR KANDRE",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 159,
+    "name": "Goulmima",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 160,
+    "name": "Tinjdad",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 162,
+    "name": "Demnate",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 164,
+    "name": "Kelaaet Magouna",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 168,
+    "name": "Oued Laou",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "72h - 96h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 170,
+    "name": "Souk larbaa",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 172,
+    "name": "Kesebt Tadla",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 174,
+    "name": "Oulad Abbou",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 175,
+    "name": "Ourika",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 176,
+    "name": "Zaiou",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 177,
+    "name": "Bzou",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 178,
+    "name": "Khemis Zemamra",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 181,
+    "name": "Ain Aouda",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 183,
+    "name": "Azla",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 184,
+    "name": "Amsa",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 185,
+    "name": "Ben karish",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 187,
+    "name": "Dar akoubae",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 188,
+    "name": "Bab taza",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 192,
+    "name": "Ait iaaza",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 193,
+    "name": "Oulad ourf (taroudant)",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 194,
+    "name": "Aoulouz",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 195,
+    "name": "Taliwin",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 197,
+    "name": "Ahfir",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 198,
+    "name": "Ras el ma",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 200,
+    "name": "El attaouia",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 201,
+    "name": "Tamelalt",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 202,
+    "name": "Hadd raa (essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 203,
+    "name": "Ounara(essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 205,
+    "name": "Mechra be ksiri",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 206,
+    "name": "Zoumi (ouazzane)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 207,
+    "name": "Sidi redouan (ouazzane)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 208,
+    "name": "Ain beida (ouazzane)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 209,
+    "name": "Brikcha",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 213,
+    "name": "Ain defali (ouzzane)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 215,
+    "name": "ain leuh",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": ":",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 216,
+    "name": "Madagh",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 222,
+    "name": "Jamaat shaim",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 224,
+    "name": "Park agoraa taza",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 226,
+    "name": "Bhalil",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 231,
+    "name": "Sidi el mekhfi",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 233,
+    "name": "Imzouren",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 235,
+    "name": "Swani",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 236,
+    "name": "Azghar",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 240,
+    "name": "Boukidan",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 242,
+    "name": "AZEMMOUR",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 244,
+    "name": "Sidi jaber",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 245,
+    "name": "Oulad ayad (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 246,
+    "name": "Oulad nemma",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 247,
+    "name": "Oulad mrah (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 248,
+    "name": "Afourar (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 249,
+    "name": "Lamrabta (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 250,
+    "name": "Ouled mbarek (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 252,
+    "name": "Belfaa",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 253,
+    "name": "Biogra (agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 254,
+    "name": "Temssia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 255,
+    "name": "Massa",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 257,
+    "name": "Tadart",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 259,
+    "name": "Ait amira",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "´",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 261,
+    "name": "Bejaad",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 263,
+    "name": "El aouamra",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 264,
+    "name": "Khemis sahel",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 265,
+    "name": "Dlalha",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 266,
+    "name": "Jilalia",
+    "delivering_price": 45,
+    "return_price": 8,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 267,
+    "name": "Sidi el mokhtar",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 270,
+    "name": "Skhour Erhamna",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 271,
+    "name": "Base militaire (ben guerir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 272,
+    "name": "Bni Nsar (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 273,
+    "name": "Aroui",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 275,
+    "name": "Sidi Bouknadel",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 276,
+    "name": "Tamesna",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 278,
+    "name": "Ezghenghen (nador)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 279,
+    "name": "tahanaout",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 280,
+    "name": "tamansourt",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 282,
+    "name": "belaaguid (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 284,
+    "name": "Zaouïat Cheikh (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 287,
+    "name": "Ait Kamra-Hoceima",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 297,
+    "name": "Aourir (agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 298,
+    "name": "Masmouda (ouazzane)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 299,
+    "name": "Benhmed",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 303,
+    "name": "Tamraght (agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 304,
+    "name": "Mhaya (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 305,
+    "name": "Ouaouizeght (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 307,
+    "name": "Smimou (essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 308,
+    "name": "Arkmane (nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "1/semaine",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 309,
+    "name": "Oulad Yaich (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 310,
+    "name": "Tamaslouht (marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 311,
+    "name": "Sidi allal tazi",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 312,
+    "name": "Jerf Oulad hedo (tarodant)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 314,
+    "name": "Ain Bni mathar (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 315,
+    "name": "Sbaa Ayoune (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 316,
+    "name": "Midar (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 318,
+    "name": "Al karya (nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 319,
+    "name": "Oulad Tayeb (fes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": ":",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 320,
+    "name": "Hattane (Khouribga)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 323,
+    "name": "Amezmiz (marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 333,
+    "name": "Bounouar-khouribga",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 335,
+    "name": "SEBT GZOULA (Safi)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 336,
+    "name": "Swihla (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 337,
+    "name": "Lalatakerkousst (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 338,
+    "name": "Houara",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 339,
+    "name": "Akchour-Chefchaouen",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 340,
+    "name": "Sidi Aadi",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 341,
+    "name": "MOLY DRISSE ZARHOUNE",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 342,
+    "name": "Oualidia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 345,
+    "name": "Bouyafar (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 346,
+    "name": "TAMSAMAN (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 349,
+    "name": "Ben Tayab (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 351,
+    "name": "Tifnit (Agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 352,
+    "name": "Amzmiz (marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 353,
+    "name": "wahat sidi brahim (marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 358,
+    "name": "Oulad Frej",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 359,
+    "name": "Sidi alal bahraoui",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 361,
+    "name": "Tnin Chtouka (el jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 364,
+    "name": "Tahla",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 365,
+    "name": "SEBT Elguerdane",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 366,
+    "name": "Imi Ouadar",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 367,
+    "name": "Azrou Agadir",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 369,
+    "name": "BNI DRAR (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 370,
+    "name": "sidi hrazam",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 372,
+    "name": "Tiztotine",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 373,
+    "name": "Bab Bered (Tétouane)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 375,
+    "name": "Beni Chiker (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 378,
+    "name": "tala youssef (elhoucima)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 379,
+    "name": "ain karma",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 380,
+    "name": "El afak (marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 387,
+    "name": "Boudinar (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "chaque mardi",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 388,
+    "name": "Agdez (ouarzazat)",
+    "delivering_price": 45,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 389,
+    "name": "tamanar",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 390,
+    "name": "aklim",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 391,
+    "name": "el borouj",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 392,
+    "name": "douar tigni",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 393,
+    "name": "el jerf sfar",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 394,
+    "name": "mazagan beach",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 396,
+    "name": "Sidi Ali",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 398,
+    "name": "Ouled Amrane (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 399,
+    "name": "Sidi Abed(El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 400,
+    "name": "Jamaat Oulad Ghanem",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 401,
+    "name": "Zawit sidi ismail",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 402,
+    "name": "oulad sidi bohya",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 403,
+    "name": "akhmis ryouni",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 404,
+    "name": "Arba Aounate (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 405,
+    "name": "Had El Aounate",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 406,
+    "name": "Jamaat Bni Hlal",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 407,
+    "name": "Jamaat Amtal",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 408,
+    "name": "sabt maarif",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 410,
+    "name": "telat bougadera",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 411,
+    "name": "tnin elgharbiya",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 412,
+    "name": "esswiriya",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 413,
+    "name": "tnin elghayat",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 414,
+    "name": "Ait tisslit(Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 415,
+    "name": "Souk El Had Des Bradia (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 416,
+    "name": "Oulad Zmam (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 417,
+    "name": "Oulad moussa (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 418,
+    "name": "Tagzert (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 419,
+    "name": "Foum zaouia (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 420,
+    "name": "Ikhourba (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 421,
+    "name": "Tanougha (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 422,
+    "name": "Foum El Anceur",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 423,
+    "name": "Bin El Ouidane",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 424,
+    "name": "Foum Jamaa (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 425,
+    "name": "Tanant (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 426,
+    "name": "Faryata (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 427,
+    "name": "Adouz (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 428,
+    "name": "Ait Ali (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 429,
+    "name": "Igherm Laalam (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 430,
+    "name": "Oulad Youssef (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 431,
+    "name": "Oulad Said L'Oued (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 432,
+    "name": "El ksiba (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 433,
+    "name": "Oulad Zidouh (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 434,
+    "name": "Aayat (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 435,
+    "name": "Oulad Gnaou (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 436,
+    "name": "Sidi Aissa ben ali (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 437,
+    "name": "Ennakar (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 438,
+    "name": "Lekssour (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 439,
+    "name": "Sidi Hejaj(Tit mellil)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 440,
+    "name": "Foum Oudi (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 441,
+    "name": "El kbab (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 442,
+    "name": "Agelmouss (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 443,
+    "name": "Ait Ishaq (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 444,
+    "name": "Tighassaline (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 445,
+    "name": "Ikhorban (Agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 446,
+    "name": "El matar (Agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 447,
+    "name": "Jorf Lasfar (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 448,
+    "name": "Lemssouer Rassou (El Jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 449,
+    "name": "Itnain Chtouka (El jadida)",
+    "delivering_price": 45,
+    "return_price": 2,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 450,
+    "name": "Oulad Si Bouhya (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 451,
+    "name": "Khemiss Riouni (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 453,
+    "name": "Sebt El Maârif (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 454,
+    "name": "Etouilaat (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 455,
+    "name": "Temanal(essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 456,
+    "name": "sekhinat(Fes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 463,
+    "name": "Lakhsas(Tiznit)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 466,
+    "name": "Bouderbala (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 467,
+    "name": "Tagadirt (Agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 468,
+    "name": "Kanfouda (Oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 469,
+    "name": "Oued Jdida(Mekness)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 470,
+    "name": "Jaadar(Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 471,
+    "name": "Boulmane Dades",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48H-72H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 472,
+    "name": "Sahrij",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 473,
+    "name": "Timahdite (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 474,
+    "name": "Moulay Idriss Zerhoun (Méknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 475,
+    "name": "Sebt Ben Sassi (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 476,
+    "name": "El ouidan (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 480,
+    "name": "tadart guercif",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 484,
+    "name": "dar lkabdani",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 490,
+    "name": "Lala mimouna",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 491,
+    "name": "Sidi Aayach",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 492,
+    "name": "sidi zwin",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 493,
+    "name": "Talmest",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 494,
+    "name": "Ain cheggag (Fés)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 495,
+    "name": "Sidi Ishaq (Essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 500,
+    "name": "Oulad mansour (nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 501,
+    "name": "Ain bida(Fés)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 502,
+    "name": "Sounasid(Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 503,
+    "name": "Nkoub (Ouarzazat)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 505,
+    "name": "Ben souda (Fés)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 507,
+    "name": "Tamait agadir",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 512,
+    "name": "Sidi chafi shoul",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 513,
+    "name": "Zoualeth Dkhissa (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 514,
+    "name": "OUNAGHA",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 515,
+    "name": "Bouarg (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 517,
+    "name": "Bensergao (Agadir)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 518,
+    "name": "Ouislane (Meknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "72",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 520,
+    "name": "El ghazoua",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 521,
+    "name": "Tizi Ouaali (Taza)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 522,
+    "name": "Esshoul (salé)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 525,
+    "name": "Mghogha (Tanger)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 526,
+    "name": "Idzar",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 527,
+    "name": "Timoulilte",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 528,
+    "name": "Bikouate (Essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 529,
+    "name": "Kamouni",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 530,
+    "name": "SKOURA (sefrou)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 531,
+    "name": "Tinderara (Oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 532,
+    "name": "Telat loulad",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 533,
+    "name": "Timdline (Ouarzazate)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48/72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 534,
+    "name": "Tounfit (Errachidia)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 535,
+    "name": "Bni wassine (Tanger)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 536,
+    "name": "Hakama (Tanger)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 537,
+    "name": "Ain Mechlaoua (Tanger)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 538,
+    "name": "Beni Tajjite (Oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 539,
+    "name": "OULAD DRISS (beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 540,
+    "name": "Sfassif (Khemisset)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 541,
+    "name": "El Hanchane (Essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 542,
+    "name": "Aghbala (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 543,
+    "name": "Temsaman (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 544,
+    "name": "Moul El Bergui (Safi)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 545,
+    "name": "Galaz (Taounate)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 546,
+    "name": "Sidi hejaj (setat)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 547,
+    "name": "Lagouassem (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 550,
+    "name": "Laayayta",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 552,
+    "name": "Oulad mimoun (Beni mellal)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 553,
+    "name": "El manzel  (Sefrou)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 554,
+    "name": "Aghmat (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 560,
+    "name": "Zlilig (Fés)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 561,
+    "name": "Tiddas (Méknes)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "1 /Semaine",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 562,
+    "name": "Oulad boukarin (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 563,
+    "name": "Assni (Marrakech)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 564,
+    "name": "Ighrem N'Ougdal (Ouarzazate)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "72H-96H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 565,
+    "name": "Moulay bouazza (Khenifra)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 566,
+    "name": "Tighirt (Tiznit)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 568,
+    "name": "AKNOUL",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 571,
+    "name": "Oulad Aissa (El jadida)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 572,
+    "name": "Dar lgedarin",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 573,
+    "name": "Tafoughalt (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 574,
+    "name": "Ain sfa (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 575,
+    "name": "Talsint (oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24_48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 577,
+    "name": "Zaida Errachidia",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 578,
+    "name": "Jamaat Oulad saaid (Settat)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 580,
+    "name": "Meskala (Essaouira)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 582,
+    "name": "Taferssit (Nador)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 583,
+    "name": "Stehat (Tétouane)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "1/Semaine (Mardi)",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 584,
+    "name": "El Aioun Sidi Mellouk (Oujda)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 585,
+    "name": "Targha (Tétouane)",
+    "delivering_price": 45,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Dakhla",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Laayoune",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Guelmim",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Tantan",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h-72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 59,
+    "name": "Boujdour",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 87,
+    "name": "Aoussred",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 88,
+    "name": "Zagora",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24h/48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 92,
+    "name": "Tinghir",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 97,
+    "name": "Figuig",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 99,
+    "name": "Boulemane",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 121,
+    "name": "Sidi Ifni",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 123,
+    "name": "Essmara",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 131,
+    "name": "Ain Médiouna (taounat)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": ";",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 138,
+    "name": "Rissani",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 146,
+    "name": "Arfoud",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 149,
+    "name": "Missour",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 211,
+    "name": "Masmouda",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 214,
+    "name": "Boufkrane",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 230,
+    "name": "Ain aicha fricha",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": ";",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 232,
+    "name": "Bni bouayach",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 234,
+    "name": "Ajdir-HOUCIMA",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 268,
+    "name": "Aoufous",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 277,
+    "name": "Bouarfa (oujda)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 283,
+    "name": "outat el haj",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 285,
+    "name": "Targuist (El Hoceïma)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 286,
+    "name": "Beni bouayach (El Houcima)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 288,
+    "name": "issaguen (El houcima)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 301,
+    "name": "Boumia",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 321,
+    "name": "skoura",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 334,
+    "name": "taznaght (ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 344,
+    "name": "Laayoune Echarkiya",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 360,
+    "name": "Aghbalou",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 374,
+    "name": "Ferkhana (Nador)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 457,
+    "name": "Taftachet",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 485,
+    "name": "boudnib",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 487,
+    "name": "ait daoud *Essaouira*",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 496,
+    "name": "Ait Zineb (Ouarzazate)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 504,
+    "name": "Amerzgane(Ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 506,
+    "name": "Ait Ben Haddou (Ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 508,
+    "name": "Tazarine (Ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 509,
+    "name": "Idaousmlal (Agadir)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 510,
+    "name": "Bounaamane (Tiznit)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 511,
+    "name": "Ghafsay (Fés)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 516,
+    "name": "Gigo",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24H/48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 524,
+    "name": "Amassine(Ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 548,
+    "name": "Agouim (Ouarzazat)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 549,
+    "name": "Tidili (Ouarzazate)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 551,
+    "name": "Ribate El Kheir (Fés)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 555,
+    "name": "Imeghran (ouarzazate)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 556,
+    "name": "Aït Attab (Beni mellal)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 557,
+    "name": "Ouzoud (Beni mellal)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 558,
+    "name": "Imouzzer Marmoucha (Fés)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "72H-96H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 567,
+    "name": "Tagounite (Ouarzazate)",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "72H-96H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 569,
+    "name": "El jorf (Errachidia)",
+    "delivering_price": 50,
+    "return_price": 10,
+    "deliv_period": "Samedi",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 576,
+    "name": "Akhefnir",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "48/72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 581,
+    "name": "El jebha",
+    "delivering_price": 50,
+    "return_price": 5,
+    "deliv_period": "24h - 48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 120,
+    "name": "Assa-Zag",
+    "delivering_price": 55,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 124,
+    "name": "Tarfaya",
+    "delivering_price": 55,
+    "return_price": 5,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 332,
+    "name": "Bouizakarne (Guelmim)",
+    "delivering_price": 55,
+    "return_price": 5,
+    "deliv_period": "48h - 72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 350,
+    "name": "El ouatia (Tantan)",
+    "delivering_price": 55,
+    "return_price": 10,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 499,
+    "name": "El marsa (laayoune)",
+    "delivering_price": 55,
+    "return_price": 5,
+    "deliv_period": "48H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 559,
+    "name": "Ouad dahab",
+    "delivering_price": 55,
+    "return_price": 5,
+    "deliv_period": "72h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 86,
+    "name": "Tata",
+    "delivering_price": 60,
+    "return_price": 10,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 291,
+    "name": "Fam Zegit",
+    "delivering_price": 60,
+    "return_price": 15,
+    "deliv_period": null,
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 292,
+    "name": "Akka  (Tata)",
+    "delivering_price": 60,
+    "return_price": 20,
+    "deliv_period": ".",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 331,
+    "name": "marzouga",
+    "delivering_price": 60,
+    "return_price": 5,
+    "deliv_period": "48H/72H",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 343,
+    "name": "Tagmot (Tata)",
+    "delivering_price": 60,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  },
+  {
+    "id": 368,
+    "name": "M'hamid Lghazlan",
+    "delivering_price": 60,
+    "return_price": 5,
+    "deliv_period": "24h-48h",
+    "logo": "/default/restaurant_large.jpg"
+  }
+]
