@@ -30,11 +30,10 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
 }
 
 
-export function CheckoutTotal({ totalItems, subtotal }: { totalItems: number, subtotal: number }) {
+export function CheckoutTotal({ totalItems, subtotal, shippingCost = 30 }: { totalItems: number, subtotal: number, shippingCost?: number }) {
     const { t } = useTranslation();
     // Convert to number to ensure proper calculation
     const subtotalValue = Number(subtotal);
-    const shippingCost = 30;
     const totalValue = subtotalValue + shippingCost;
 
     return (
@@ -70,14 +69,16 @@ export function OrderItems({ items }: { items: CartItemType[] }) {
 export function OrderSummary({
     items,
     totalItems,
-    subtotal
+    subtotal,
+    shippingCost = 30
 }: {
     items: CartItemType[],
     totalItems: number,
-    subtotal: number
+    subtotal: number,
+    shippingCost?: number
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const subtotalValue = Number(subtotal) + 30;
+    const totalValue = Number(subtotal) + shippingCost;
     const { t } = useTranslation();
 
     return (
@@ -89,14 +90,15 @@ export function OrderSummary({
                     className='flex text-greny'>
                     {t('checkout_order_summary')} {isOpen ? <ChevronUp className='mt-1' /> : <ChevronDown className='mt-1' />}
                 </div>
-                <div>{subtotalValue.toFixed(0)} DH</div>
+                <div>{totalValue.toFixed(0)} DH</div>
             </div>
             {isOpen &&
                 <div className="p-6 border-b border-secondary">
                     <OrderItems items={items} />
                     <CheckoutTotal
                         totalItems={totalItems}
-                        subtotal={subtotal} />
+                        subtotal={subtotal}
+                        shippingCost={shippingCost} />
                 </div>
             }
         </div>
@@ -107,11 +109,13 @@ export function OrderSummary({
 export function OrderSummarySide({
     items,
     totalItems,
-    subtotal
+    subtotal,
+    shippingCost = 30
 }: {
     items: CartItemType[],
     totalItems: number,
-    subtotal: number
+    subtotal: number,
+    shippingCost?: number
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const subtotalValue = Number(subtotal);
@@ -146,7 +150,8 @@ export function OrderSummarySide({
 
             <CheckoutTotal
                 subtotal={subtotalValue}
-                totalItems={totalItems} />
+                totalItems={totalItems}
+                shippingCost={shippingCost} />
         </div>
     )
 }

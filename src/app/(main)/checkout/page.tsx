@@ -15,6 +15,7 @@ import Color from '@/types/color';
 import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 import { trackPurchase } from '@/lib/pixel';
+import { CitySelect, CityItem } from '@/components/ui/city-select';
 
 export default function CheckoutForm() {
 
@@ -33,9 +34,9 @@ export default function CheckoutForm() {
     totalItems: 0,
     subtotal: 0
   });
+
   const fetchProduct = async (productId: string) => {
     try {
-      // Replace with your actual API endpoint
       const response = await api.product.get(productId);
       return response.data;
     } catch (err) {
@@ -77,7 +78,6 @@ export default function CheckoutForm() {
           console.error("Error loading product:", error);
         }
       } else {
-        // Update with cart context when params are removed
         setCheckoutState({
           items: cartItems,
           totalItems,
@@ -88,24 +88,29 @@ export default function CheckoutForm() {
 
     loadProductData();
   }, [cartItems, totalItems, subtotal]);
+
   const [formData, setFormData] = useState<{
     full_name: string;
     shipping_address: string;
     phone_number: string;
+    city: string;
+    shipping_price: number;
     payment: {
       method: string;
       status: "pending" | "completed" | "failed";
     };
-    items: { product: string; size?: string; quantity: number }[];
+    items: { product: string; size?: string; color?: string; quantity: number }[];
   }>({
     full_name: '',
     shipping_address: '',
     phone_number: '',
+    city: '',
+    shipping_price: 30,
     payment: {
       method: "At Delivery",
       status: "pending"
     },
-    items: [] // Initialize as empty array
+    items: []
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -121,8 +126,8 @@ export default function CheckoutForm() {
           full_name: parsedData.full_name || '',
           shipping_address: parsedData.shipping_address || '',
           phone_number: parsedData.phone_number || '',
-          // We don't restore payment method as it might be sensitive or context-dependent, 
-          // but user asked for payment data too. Let's restore method if available.
+          city: parsedData.city || '',
+          shipping_price: typeof parsedData.shipping_price === 'number' ? parsedData.shipping_price : 30,
           payment: {
             ...prev.payment,
             method: parsedData.paymentMethod || "At Delivery"
@@ -142,10 +147,12 @@ export default function CheckoutForm() {
       full_name: formData.full_name,
       shipping_address: formData.shipping_address,
       phone_number: formData.phone_number,
+      city: formData.city,
+      shipping_price: formData.shipping_price,
       paymentMethod: formData.payment.method
     };
     localStorage.setItem('checkoutFormData', JSON.stringify(dataToSave));
-  }, [formData.full_name, formData.shipping_address, formData.phone_number, formData.payment.method, isLoaded]);
+  }, [formData.full_name, formData.shipping_address, formData.phone_number, formData.city, formData.shipping_price, formData.payment.method, isLoaded]);
 
   // Update formData.items whenever checkoutState.items changes
   useEffect(() => {
@@ -162,14 +169,22 @@ export default function CheckoutForm() {
     }
   }, [checkoutState.items]);
 
-  const handleClickPaymentChoice = () => {
-    setFormData({ ...formData, payment: { ...formData.payment, method: "At Delivery" } });
-  }
+  // Handle phone input change to accept ONLY valid phone characters (digits and optional leading +)
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    // Allow leading + and digits only
+    const sanitized = val.replace(/(?!^\+)[^\d]/g, '');
+    setFormData(prev => ({ ...prev, phone_number: sanitized }));
+  };
 
   const handlesubmit = async () => {
     // Validate form data
     if (!formData.full_name.trim()) {
       alert(t('checkout_err_name'));
+      return;
+    }
+    if (!formData.city.trim()) {
+      alert(t('checkout_err_city'));
       return;
     }
     if (!formData.shipping_address.trim()) {
@@ -180,6 +195,14 @@ export default function CheckoutForm() {
       alert(t('checkout_err_phone'));
       return;
     }
+    
+    // Clean digits check for phone number (should be between 9 and 13 digits)
+    const digitsOnly = formData.phone_number.replace(/\D/g, '');
+    if (digitsOnly.length < 9 || digitsOnly.length > 13) {
+      alert(t('checkout_err_invalid_phone'));
+      return;
+    }
+
     if (formData.items.length === 0) {
       alert(t('checkout_err_empty'));
       return;
@@ -187,22 +210,19 @@ export default function CheckoutForm() {
 
     // Fire Meta Pixel Purchase event as soon as the user confirms the order
     trackPurchase(
-      checkoutState.subtotal,
+      checkoutState.subtotal + formData.shipping_price,
       'MAD',
       checkoutState.items.map(item => String(item.product.id))
     );
 
     try {
       await api.order.create(formData);
-      // Clear cart and redirect to home page with success parameter
       clearCart();
-      // Redirect to home page with success parameter
       window.location.href = '/?orderSuccess=true';
     } catch (error) {
       alert(t('checkout_err_submit'));
     }
   }
-
 
   const handleSuccessModalClose = () => {
     setIsSuccessModalOpen(false);
@@ -218,7 +238,9 @@ export default function CheckoutForm() {
         <OrderSummary
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
+          shippingCost={formData.shipping_price}
           items={checkoutState.items} />
+
         <div className="lg:col-span-2 space-y-6 lg:sticky lg:top-4 lg:h-fit p-6 pt-0 lg:pt-6 lg:border-r-2 lg:border-secondary lg:pr-12">
           {/* Delivery Section */}
           <div className="space-y-4">
@@ -231,19 +253,37 @@ export default function CheckoutForm() {
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               type="text"
             />
+
             <CustomInput
               placeholder={t('checkout_address')}
               value={formData.shipping_address}
               onChange={(e) => setFormData({ ...formData, shipping_address: e.target.value })}
-              type="text" />
+              type="text"
+            />
+
+            {/* City Selection Combobox */}
+            <CitySelect
+              value={formData.city}
+              onChange={(cityItem: CityItem) => {
+                setFormData(prev => ({
+                  ...prev,
+                  city: cityItem.name,
+                  shipping_price: cityItem.delivering_price || 30
+                }));
+              }}
+              placeholder={t('checkout_select_city')}
+              searchPlaceholder={t('checkout_search_city')}
+            />
+
             <CustomInput
               placeholder={t('checkout_phone')}
               value={formData.phone_number}
-              onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-              type="text">
+              onChange={handlePhoneChange}
+              type="tel">
               <HoverInfo message={t('checkout_phone_info')} />
             </CustomInput>
           </div>
+
           {/* Payment Section */}
           <div className="space-y-4">
             <h2 className="checkout_title">
@@ -276,6 +316,7 @@ export default function CheckoutForm() {
         <OrderSummarySide
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
+          shippingCost={formData.shipping_price}
           items={checkoutState.items} />
       </div>
 
