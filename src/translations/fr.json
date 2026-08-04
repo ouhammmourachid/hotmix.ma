@@ -306,5 +306,6 @@
   "checkout_select_city": "Sélectionnez votre ville",
   "checkout_search_city": "Rechercher une ville...",
   "checkout_err_city": "Veuillez sélectionner votre ville",
-  "checkout_err_invalid_phone": "Veuillez saisir un numéro de téléphone valide"
+  "checkout_err_invalid_phone": "Veuillez saisir un numéro de téléphone valide",
+  "checkout_err_phone_prefix": "Le numéro de téléphone doit commencer par 0, +212 ou 212"
 }

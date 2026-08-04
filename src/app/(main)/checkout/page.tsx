@@ -16,9 +16,11 @@ import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 import { trackPurchase } from '@/lib/pixel';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
 export default function CheckoutForm() {
-
+  const router = useRouter();
   const { cartItems, totalItems, subtotal, clearCart } = useCart();
   const api = useApiService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -114,6 +116,8 @@ export default function CheckoutForm() {
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [phoneError, setPhoneError] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -169,15 +173,59 @@ export default function CheckoutForm() {
     }
   }, [checkoutState.items]);
 
-  // Handle phone input change to accept ONLY valid phone characters (digits and optional leading +)
+  // Handle phone input change to accept ONLY phone numbers starting with 0, +212, or 212
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     // Allow leading + and digits only
-    const sanitized = val.replace(/(?!^\+)[^\d]/g, '');
+    let sanitized = val.replace(/(?!^\+)[^\d]/g, '');
+
+    if (!sanitized) {
+      setPhoneError('');
+      setFormData(prev => ({ ...prev, phone_number: '' }));
+      return;
+    }
+
+    // Must start with '0', '+', or '2'
+    if (!/^(0|\+|2)/.test(sanitized)) {
+      setPhoneError(t('checkout_err_phone_prefix'));
+      return;
+    }
+
+    if (sanitized.startsWith('+')) {
+      const validPlusPrefixes = ['+', '+2', '+21', '+212'];
+      if (sanitized.length <= 4) {
+        if (!validPlusPrefixes.some(p => p.startsWith(sanitized))) {
+          setPhoneError(t('checkout_err_phone_prefix'));
+          return;
+        }
+      } else if (!sanitized.startsWith('+212')) {
+        setPhoneError(t('checkout_err_phone_prefix'));
+        return;
+      }
+      sanitized = sanitized.slice(0, 13);
+    } else if (sanitized.startsWith('2')) {
+      const valid2Prefixes = ['2', '21', '212'];
+      if (sanitized.length <= 3) {
+        if (!valid2Prefixes.some(p => p.startsWith(sanitized))) {
+          setPhoneError(t('checkout_err_phone_prefix'));
+          return;
+        }
+      } else if (!sanitized.startsWith('212')) {
+        setPhoneError(t('checkout_err_phone_prefix'));
+        return;
+      }
+      sanitized = sanitized.slice(0, 12);
+    } else if (sanitized.startsWith('0')) {
+      sanitized = sanitized.slice(0, 10);
+    }
+
+    setPhoneError('');
     setFormData(prev => ({ ...prev, phone_number: sanitized }));
   };
 
   const handlesubmit = async () => {
+    if (isSubmitting) return;
+
     // Validate form data
     if (!formData.full_name.trim()) {
       alert(t('checkout_err_name'));
@@ -196,9 +244,19 @@ export default function CheckoutForm() {
       return;
     }
     
-    // Clean digits check for phone number (should be between 9 and 13 digits)
-    const digitsOnly = formData.phone_number.replace(/\D/g, '');
-    if (digitsOnly.length < 9 || digitsOnly.length > 13) {
+    // Phone validation (must start with 0, +212, or 212 followed by 9 digits)
+    let isValidPhone = false;
+
+    if (formData.phone_number.startsWith('0')) {
+      isValidPhone = /^0\d{9}$/.test(formData.phone_number);
+    } else if (formData.phone_number.startsWith('+212')) {
+      isValidPhone = /^\+212\d{9}$/.test(formData.phone_number);
+    } else if (formData.phone_number.startsWith('212')) {
+      isValidPhone = /^212\d{9}$/.test(formData.phone_number);
+    }
+
+    if (!isValidPhone) {
+      setPhoneError(t('checkout_err_phone_prefix'));
       alert(t('checkout_err_invalid_phone'));
       return;
     }
@@ -208,6 +266,21 @@ export default function CheckoutForm() {
       return;
     }
 
+    setIsSubmitting(true);
+
+    // Normalize phone number (replace leading +212 or 212 with 0)
+    let normalizedPhone = formData.phone_number;
+    if (normalizedPhone.startsWith('+212')) {
+      normalizedPhone = '0' + normalizedPhone.slice(4);
+    } else if (normalizedPhone.startsWith('212')) {
+      normalizedPhone = '0' + normalizedPhone.slice(3);
+    }
+
+    const orderData = {
+      ...formData,
+      phone_number: normalizedPhone
+    };
+
     // Fire Meta Pixel Purchase event as soon as the user confirms the order
     trackPurchase(
       checkoutState.subtotal + formData.shipping_price,
@@ -216,10 +289,11 @@ export default function CheckoutForm() {
     );
 
     try {
-      await api.order.create(formData);
+      await api.order.create(orderData);
       clearCart();
-      window.location.href = '/?orderSuccess=true';
+      router.push('/?orderSuccess=true');
     } catch (error) {
+      setIsSubmitting(false);
       alert(t('checkout_err_submit'));
     }
   }
@@ -229,7 +303,7 @@ export default function CheckoutForm() {
   }
 
   const navigateToHome = () => {
-    window.location.href = '/';
+    router.push('/');
   }
 
   return (
@@ -275,13 +349,20 @@ export default function CheckoutForm() {
               searchPlaceholder={t('checkout_search_city')}
             />
 
-            <CustomInput
-              placeholder={t('checkout_phone')}
-              value={formData.phone_number}
-              onChange={handlePhoneChange}
-              type="tel">
-              <HoverInfo message={t('checkout_phone_info')} />
-            </CustomInput>
+            <div>
+              <CustomInput
+                placeholder={t('checkout_phone')}
+                value={formData.phone_number}
+                onChange={handlePhoneChange}
+                type="tel">
+                <HoverInfo message={t('checkout_phone_info')} />
+              </CustomInput>
+              {phoneError && (
+                <p className="text-red-500 text-xs font-medium mt-1">
+                  {phoneError}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Payment Section */}
@@ -307,8 +388,16 @@ export default function CheckoutForm() {
             </div>
             <Button
               onClick={handlesubmit}
-              className="complete_order_button">
-              {t('checkout_complete_order')}
+              disabled={isSubmitting}
+              className="complete_order_button flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>{t('checkout_complete_order')}...</span>
+                </>
+              ) : (
+                t('checkout_complete_order')
+              )}
             </Button>
           </div>
         </div>

@@ -31,10 +31,14 @@ export function trackPurchase(
   currency = 'MAD',
   contentIds: string[] = []
 ) {
+  const numericValue = Number(value);
+  const safeValue = Number.isNaN(numericValue) ? 0 : numericValue;
+  const safeCurrency = (currency || 'MAD').toString().toUpperCase().trim();
+
   trackEvent('Purchase', {
-    value,
-    currency,
-    content_ids: contentIds,
+    value: safeValue,
+    currency: safeCurrency,
+    content_ids: Array.isArray(contentIds) ? contentIds : [],
     content_type: 'product',
   });
 }

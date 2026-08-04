@@ -306,5 +306,6 @@
   "checkout_select_city": "اختر مدينتك",
   "checkout_search_city": "البحث عن مدينة...",
   "checkout_err_city": "يرجى اختيار مدينتك",
-  "checkout_err_invalid_phone": "يرجى إدخال رقم هاتف صحيح"
+  "checkout_err_invalid_phone": "يرجى إدخال رقم هاتف صحيح",
+  "checkout_err_phone_prefix": "يجب أن يبدأ رقم الهاتف بـ 0 أو 212+ أو 212"
 }
