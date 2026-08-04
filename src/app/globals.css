@@ -178,11 +178,11 @@ html[lang="ar"] {
 }
 
 .account_modal {
-  @apply fixed inset-0 bg-black/50 flex flex-col items-center justify-center z-50;
+  @apply fixed inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4;
 }
 
 .account_modal_content {
-  @apply bg-primary text-white rounded-sm max-w-lg w-full p-6 relative border border-whity;
+  @apply bg-primary text-white rounded-xl max-w-lg w-[95%] sm:w-full p-5 sm:p-6 relative border border-secondary shadow-2xl max-h-[90vh] overflow-y-auto;
 }
 
 /* Disable pinch-to-zoom & double-tap zoom when running as installed PWA */

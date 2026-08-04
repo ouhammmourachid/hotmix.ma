@@ -51,7 +51,7 @@ export default function AddAddress({ isOpen, onClose }: Readonly<{ isOpen: boole
             </label>
           </div>
           <SelectCountry />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <CustomInput
               placeholder={t('address_first_name')}
               value={formData.firstName}
@@ -81,7 +81,7 @@ export default function AddAddress({ isOpen, onClose }: Readonly<{ isOpen: boole
               setFormData({ ...formData, apartment: e.target.value })
             }
             type='text' />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <SelectCity />
             <CustomInput
               placeholder={t('address_postal_code')}

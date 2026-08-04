@@ -140,7 +140,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
     const logout = () => {
         pb.authStore.clear();
-        router.push("/login");
+        router.push("/");
         router.refresh();
     };
 

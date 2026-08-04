@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Heart, Search, User, Plus, Minus } from 'lucide-react';
+import { Heart, Search, User, Plus, Minus, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ModalLayout from '@/components/modal/modal-layout';
@@ -10,6 +10,7 @@ import { useTranslation } from '@/lib/i18n-utils';
 import { useApiService } from '@/services/api.service';
 import { createCategorySlug } from '@/lib/utils';
 import Category from '@/types/category';
+import useAuth from '@/hooks/useAuth';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -17,6 +18,7 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
   const modalRef = useRef(null);
   const { t } = useTranslation();
   const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
   const [categories, setCategories] = useState<Category[]>([]);
   const [isCollectionOpen, setIsCollectionOpen] = useState(false);
   const api = useApiService();
@@ -177,15 +179,27 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
         </div>
 
         <div className="flex-none w-full p-4 space-y-4 bg-primary">
-          <button
-            onClick={() => {
-              router.push('/account');
-              onClose();
-            }}
-            className={styles.side_menu_account_button}>
-            <User size={20} />
-            <span>{t('side_menu_account')}</span>
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                logout();
+                onClose();
+              }}
+              className={styles.side_menu_account_button}>
+              <LogOut size={20} />
+              <span>{t('nav_logout')}</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                router.push('/account');
+                onClose();
+              }}
+              className={styles.side_menu_account_button}>
+              <User size={20} />
+              <span>{t('side_menu_account')}</span>
+            </button>
+          )}
           <div className="items-center pt-4 gap-2 flex justify-start border-t-2 border-secondary">
             <span>
               <img src="https://flagcdn.com/w20/ma.png" alt="Morocco" />
