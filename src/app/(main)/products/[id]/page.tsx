@@ -131,13 +131,33 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     }
   };
 
-  // Show loading state
+  // Show loading state — skeleton that matches page layout to prevent CLS
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-greny mx-auto"></div>
-          <p className="mt-4 text-white">{t('loading_product')}</p>
+      <div className="flex flex-col lg:flex-row w-full mx-auto lg:px-12 p-4 gap-8 lg:gap-10 min-h-screen animate-pulse max-w-[1450px]">
+        {/* Image gallery skeleton */}
+        <div className="flex gap-4 lg:w-[55%] ml-0 flex-col-reverse md:flex-row">
+          {/* Thumbnails */}
+          <div className="flex flex-row md:flex-col gap-2">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="w-20 rounded-lg bg-gray-700" style={{ aspectRatio: '1000/1500' }} />
+            ))}
+          </div>
+          {/* Main image */}
+          <div className="relative w-full rounded-lg bg-gray-700" style={{ aspectRatio: '1000/1500' }} />
+        </div>
+        {/* Product info skeleton */}
+        <div className="lg:w-[45%] space-y-6">
+          <div className="h-8 bg-gray-700 rounded w-3/4" />
+          <div className="h-4 bg-gray-700 rounded w-1/4" />
+          <div className="h-10 bg-gray-700 rounded w-1/3" />
+          <div className="flex gap-2">
+            {[0, 1, 2, 3].map((i) => <div key={i} className="w-8 h-8 rounded-full bg-gray-700" />)}
+          </div>
+          <div className="flex gap-2">
+            {[0, 1, 2].map((i) => <div key={i} className="w-12 h-10 bg-gray-700 rounded" />)}
+          </div>
+          <div className="h-14 bg-gray-700 rounded" />
         </div>
       </div>
     );
@@ -155,7 +175,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div>
       <div className="product">
         {/* Left side - Image gallery */}
-        <div className="flex gap-4 lg:w-1/2 ml-0 flex-col-reverse md:flex-row">
+        <div className="flex gap-4 lg:w-[55%] ml-0 flex-col-reverse md:flex-row">
           <div className="flex flex-row md:flex-col gap-2">
             {product.images.map((img, index) => (
               <motion.button
@@ -178,11 +198,15 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 className={`w-20 h-fit rounded-lg overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-greny' : ''
                   }`}
               >
-                <img
-                  src={img.path}
-                  alt={`Product view ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
+                {/* Aspect-ratio container keeps thumbnail proportional and prevents CLS */}
+                <div style={{ aspectRatio: '1000/1500' }} className="w-full overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img.path}
+                    alt={`Product view ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </motion.button>
             ))}
           </div>
@@ -210,7 +234,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         </div>
 
         {/* Right side - Product info with sticky positioning */}
-        <div className="lg:sticky lg:top-4 w-full h-fit">
+        <div className="lg:sticky lg:top-4 lg:w-[45%] w-full h-fit">
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-white">{product.name}</h1>

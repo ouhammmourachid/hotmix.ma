@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/hover-card"
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useFilter } from '@/contexts/filter-context';
 import { useGrid } from '@/contexts/grid-context';
 import styles from '@/styles/small.module.css';
@@ -259,6 +259,8 @@ export function Rating({ rating, withNumber }: { rating: number, withNumber?: bo
 
 export function ScrollArrow() {
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+  const isProductPage = Boolean(pathname?.startsWith('/products/') && pathname !== '/products');
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -282,7 +284,7 @@ export function ScrollArrow() {
   return isVisible ? (
     <Button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={styles.scroll_arrow}>
+      className={`${styles.scroll_arrow} ${isProductPage ? '!bottom-36 md:!bottom-28' : ''}`}>
       <ChevronUp className='w-5 h-5' />
     </Button>
   ) : null;

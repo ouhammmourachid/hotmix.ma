@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { Suspense } from "react";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -12,6 +11,7 @@ import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import DisableZoomStandalone from "@/components/DisableZoomStandalone";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
+import VercelAnalytics from "@/components/VercelAnalytics";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -41,7 +41,6 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -56,7 +55,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Hotmix" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <script
+
+        {/* PWA install prompt — must run before React hydration (beforeInteractive) */}
+        <Script
+          id="pwa-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.addEventListener('beforeinstallprompt', function(e) {
@@ -80,8 +83,11 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* This script runs immediately to prevent language flash */}
-        <script
+
+        {/* Language detection — must run before React hydration to prevent language flash */}
+        <Script
+          id="lang-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -115,24 +121,6 @@ export default function RootLayout({
             `,
           }}
         />
-
-        {/* Meta Pixel Code */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '2421906261576995');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
       </head>
       <body
         className={`${outfit.variable} antialiased`}
@@ -160,8 +148,29 @@ export default function RootLayout({
             <PWAInstallPrompt />
           </LanguageProvider>
         </AuthProvider>
-        <Analytics />
-        <SpeedInsights />
+
+        {/* Vercel Analytics + Speed Insights — wrapped in client component for Turbopack */}
+        <VercelAnalytics />
+
+        {/* Meta Pixel — deferred so it doesn't block First Contentful Paint */}
+        <Script
+          id="fb-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '2421906261576995');
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
       </body>
     </html>
   );

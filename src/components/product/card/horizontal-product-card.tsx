@@ -149,11 +149,18 @@ export default function HorizontalProductCard({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <Link href={`/products/${product.id}`}>
-              <img
-                src={currentImagePath}
-                alt={product.name}
-                className={`w-full h-full object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
-              />
+              <div style={{ aspectRatio: '1000/1500' }} className="w-full overflow-hidden rounded-lg">
+                {currentImagePath ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={currentImagePath}
+                    alt={product.name}
+                    className={`w-full h-full object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-800" />
+                )}
+              </div>
             </Link>
 
             {/* Sold Out Badge for Archived Product */}

@@ -50,7 +50,16 @@ export default function RecommendedProducts({ category, currentProductId }: Reco
         </div>
         <div className="flex items-center justify-center">
           {loading ? (
-            <div className="text-white">{t('loading_recommended_products')}</div>
+            /* Skeleton grid — same dimensions as real grid, prevents CLS */
+            <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-3 animate-pulse">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="space-y-3">
+                  <div className="w-full bg-gray-700 rounded-lg" style={{ aspectRatio: '1000/1500' }} />
+                  <div className="h-4 bg-gray-700 rounded w-3/4" />
+                  <div className="h-4 bg-gray-700 rounded w-1/3" />
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (

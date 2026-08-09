@@ -66,11 +66,11 @@ export default function StickyProductFooter({                                  p
             {product.name}
           </span>
         </div>
-        <div className='flex items-center justify-center gap-2 md:gap-4 w-full md:w-fit'>
+        <div className='flex items-center justify-between sm:justify-center gap-2 md:gap-4 w-full md:w-fit'>
           <QuantityChanger
             quantity={quantity}
             setQuantity={setQuantity}
-            className={`sticky-footer mb-0 ${isArchived ? 'opacity-50 pointer-events-none' : ''}`} 
+            className={`sticky-footer mb-0 shrink-0 ${isArchived ? 'opacity-50 pointer-events-none' : ''}`} 
           />
           <Button
             disabled={isArchived}
@@ -80,7 +80,7 @@ export default function StickyProductFooter({                                  p
                 onCartOpen?.();
               }
             }}
-            className={`${styles.sticky_product_footer_button} ${
+            className={`${styles.sticky_product_footer_button} text-xs sm:text-base flex-1 sm:flex-initial min-w-0 ${
               isArchived ? 'bg-[#526365]/90 border-[#607375] text-white/90 cursor-not-allowed hover:bg-[#526365]/90' : ''
             }`}>
             {isArchived
