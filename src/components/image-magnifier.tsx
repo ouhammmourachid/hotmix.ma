@@ -32,12 +32,14 @@ export default function ImageMagnifier({src}:{src:string}) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ aspectRatio: '1000/1500' }}>
       <img
         ref={imageRef}
         src={src}
         alt="Product Image"
-        className="w-full h-full object-cover rounded-sm"
+        className="absolute inset-0 w-full h-full object-cover rounded-sm"
+        fetchPriority="high"
+        loading="eager"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShowMagnifier(false)}
         onMouseMove={handleMouseMove}

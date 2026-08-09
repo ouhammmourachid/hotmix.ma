@@ -16,12 +16,16 @@ const ProductsPage: React.FC = () => {
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastRequestId = useRef(0);
   const api = useApiService();
 
   const fetchData = async (filter: string, currentPage: number) => {
     const requestId = ++lastRequestId.current;
+    if (currentPage === 1) {
+      setLoading(true);
+    }
     try {
       const response = await api.product.getAll(filter + `&page=${currentPage}`);
 
@@ -37,18 +41,16 @@ const ProductsPage: React.FC = () => {
 
       setCount(response.data.count);
       setHasMore(!!response.data.next);
-
-      console.log("Fetch details:", {
-        page: currentPage,
-        resultsCount: response.data.results.length,
-        hasMore: !!response.data.next
-      });
     } catch (error) {
       // Ignore errors from stale requests (optional, but good practice)
       if (requestId !== lastRequestId.current) return;
 
       console.error("Fetch error:", error);
       setHasMore(false);
+    } finally {
+      if (requestId === lastRequestId.current) {
+        setLoading(false);
+      }
     }
   };
 
@@ -118,6 +120,7 @@ const ProductsPage: React.FC = () => {
       <RenderProducts
         ref={lastProductRef}
         products={products}
+        loading={loading}
       />
 
       {/* Optional: No more products indicator */}

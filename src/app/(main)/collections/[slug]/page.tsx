@@ -139,6 +139,7 @@ export default function CollectionPage() {
             <RenderProducts
                 ref={lastProductRef}
                 products={products}
+                loading={loading}
             />
 
             {!hasMore && products.length > 0 && (

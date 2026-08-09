@@ -77,7 +77,7 @@ export function LoginForm() {
           <Link
             href="/"
             className={styles.sign_in_up_logo}>
-            <HotmixLogo className="h-14 text-greny w-auto" />
+            <HotmixLogo className="h-10 sm:h-12 md:h-14 max-w-full text-greny w-auto" />
           </Link>
         </div>
         <CardTitle className="text-2xl">

@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import NewsletterForm from "@/components/newsletter-form";
 import { FacebookIcon, Instagram, Youtube, ArrowUpRight } from 'lucide-react';
@@ -6,12 +7,17 @@ import { ScrollArrow } from '@/components/small-pieces';
 import styles from '@/styles/main.module.css';
 import Link from "next/link";
 import { useTranslation } from '@/lib/i18n-utils';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const pathname = usePathname();
+  const isProductPage = Boolean(pathname?.startsWith('/products/') && pathname !== '/products');
+
   return (
     <footer className="pt-16 pb-6">
-      <div className="grid grid-cols-1 items-start md:grid-cols-2 lg:grid-cols-3 gap-12 pb-7 lg:mx-20 mx-4">          {/* About Section */}
+      <div className="grid grid-cols-1 items-start md:grid-cols-2 lg:grid-cols-3 gap-12 pb-7 lg:mx-20 mx-4">
+        {/* About Section */}
         <div className="space-y-6">
           <h3 className="text-2xl font-semibold">{t('footer_about_title')}</h3>
           <p className="text-gray-300 leading-relaxed">
@@ -40,7 +46,9 @@ const Footer = () => {
               <Tiktok className="w-5 h-5" />
             </a>
           </div>
-        </div>          {/* Quick Links */}
+        </div>
+
+        {/* Quick Links */}
         <div className="space-y-6">
           <h3 className="text-2xl font-semibold">{t('footer_quick_links')}</h3>
           <ul className="space-y-4">
@@ -59,12 +67,16 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-        </div>          {/* Newsletter */}
+        </div>
+
+        {/* Newsletter */}
         <NewsletterForm />
       </div>
       {/* Scroll Arrow */}
-      <ScrollArrow />        {/* Bottom Section */}
-      <div className={styles.footer_copyright}>
+      <ScrollArrow />
+
+      {/* Bottom Section */}
+      <div className={`${styles.footer_copyright} ${isProductPage ? 'pb-36 lg:pb-20' : 'pb-16 lg:pb-4'}`}>
         <div className="flex flex-col items-center md:items-start space-y-2 md:space-y-0 md:flex-row md:justify-between w-full text-sm text-gray-400">
           <div className="flex flex-col md:flex-row items-center gap-2">
             <p>{t('footer_copyright')}</p>

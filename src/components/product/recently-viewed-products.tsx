@@ -16,6 +16,8 @@ export default function RecentlyViewedProducts({ currentProductId }: RecentlyVie
         ? recentlyViewed.filter((product) => String(product.id) !== String(currentProductId))
         : recentlyViewed;
 
+    // Don't render anything — this data comes from context so no layout shift risk
+    // (context is hydrated before paint, so filteredProducts.length is known immediately)
     if (filteredProducts.length === 0) {
         return null;
     }
@@ -29,12 +31,10 @@ export default function RecentlyViewedProducts({ currentProductId }: RecentlyVie
                         {t('recently_viewed_title')}
                     </h2>
                 </div>
-                <div className="flex items-center justify-center">
-                    <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-3">
-                        {filteredProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
+                <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-3">
+                    {filteredProducts.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
                 </div>
             </div>
         </section>

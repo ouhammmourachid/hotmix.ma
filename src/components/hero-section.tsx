@@ -5,6 +5,7 @@ import styles from '@/styles/main.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/lib/i18n-utils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const BANNERS = [
   {
@@ -32,7 +33,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative h-[600px] md:h-[900px] overflow-hidden">
+    <div className="relative w-full overflow-hidden aspect-[9/16] md:aspect-[16/9] md:max-h-[850px]">
       {/* Background Image Carousel with Fade Transition */}
       <div className="absolute inset-0">
         <AnimatePresence mode="sync">
@@ -44,15 +45,24 @@ export default function HeroSection() {
             transition={{ duration: 1, ease: 'easeInOut' }}
             className="absolute inset-0 w-full h-full"
           >
-            <picture className="w-full h-full block">
-              <source media="(max-width: 767px)" srcSet={BANNERS[currentIndex].mobile} />
-              <source media="(min-width: 768px)" srcSet={BANNERS[currentIndex].desktop} />
-              <img
-                src={BANNERS[currentIndex].desktop}
-                alt={BANNERS[currentIndex].alt}
-                className="w-full h-full object-cover"
-              />
-            </picture>
+            {/* Mobile image (< 768px) */}
+            <Image
+              src={BANNERS[currentIndex].mobile}
+              alt={BANNERS[currentIndex].alt}
+              fill
+              className="object-cover md:hidden"
+              priority={currentIndex === 0}
+              sizes="100vw"
+            />
+            {/* Desktop image (≥ 768px) */}
+            <Image
+              src={BANNERS[currentIndex].desktop}
+              alt={BANNERS[currentIndex].alt}
+              fill
+              className="object-cover hidden md:block"
+              priority={currentIndex === 0}
+              sizes="100vw"
+            />
           </motion.div>
         </AnimatePresence>
       </div>

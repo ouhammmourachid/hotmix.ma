@@ -13,6 +13,7 @@ import { formatPrice } from "@/lib/utils";
 import { Discount } from "@/components/ui/discount";
 import { useTranslation } from "@/lib/i18n-utils";
 
+
 export default function ProductCard({
   product,
   delay,
@@ -143,14 +144,17 @@ export default function ProductCard({
             href={`/products/${product.id}`}
             className="cursor-pointer block relative z-10"
           >
-            {/* Image with zoom effect for all images */}
-            <div className="overflow-hidden rounded-lg">
-              <img
-                src={currentImagePath}
-                alt={product.name}
-                className={`w-full object-cover rounded-lg transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
-                style={{ height: '100%' }}
-              />
+            <div className="overflow-hidden rounded-lg" style={{ aspectRatio: '1000/1500' }}>
+              {currentImagePath ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={currentImagePath}
+                  alt={product.name}
+                  className={`w-full h-full object-cover rounded-lg transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-800" />
+              )}
             </div>
           </Link>
 
@@ -187,24 +191,29 @@ export default function ProductCard({
         {/* Hover Overlay with Quick Actions - Disabled for archived / sold out products */}
         {!isArchived && (
           <div className={styles.product_card_quick_actions + ' group-hover:opacity-100 pointer-events-none absolute inset-0 z-20'}>
-            {/* Quick Actions */}
-            <div className="hidden lg:flex justify-center gap-2 mb-4 pointer-events-auto">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
+            {/* Quick Actions (Wishlist & Quick View) */}
+            <div className="hidden lg:flex justify-center gap-3 mb-4 pointer-events-auto">
+              <button
+                type="button"
                 onClick={handleClickHeart}
-                className={styles.product_card_quick_actions_button}>
+                aria-label="Wishlist"
+                className="w-10 h-10 rounded-full bg-secondary text-white hover:bg-whity hover:text-primary flex items-center justify-center cursor-pointer shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:scale-110 active:scale-95"
+              >
                 {!isInWithList(product.id) ? (
                   <Heart size={20} />
                 ) : (
-                  <Trash2 size={20} />
+                  <Trash2 size={20} className="text-red-400" />
                 )}
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className={styles.product_card_quick_actions_button}
-                onClick={() => setIsModalOpen(true)}>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                aria-label="Quick View"
+                className="w-10 h-10 rounded-full bg-secondary text-white hover:bg-whity hover:text-primary flex items-center justify-center cursor-pointer shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-75 ease-out hover:scale-110 active:scale-95"
+              >
                 <Eye size={20} />
-              </motion.div>
+              </button>
             </div>
 
             {/* Sizes */}

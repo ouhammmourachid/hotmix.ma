@@ -100,7 +100,7 @@ export default function CategoryCollection() {
   }
 
   return (
-    <section className="py-12 md:py-16 bg-background relative">
+    <section className="pt-16 pb-12 md:pt-24 md:pb-16 bg-background relative">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <motion.div

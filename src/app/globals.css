@@ -104,7 +104,7 @@ html[lang="ar"] {
 }
 
 .sign_in_up {
-  @apply flex min-h-svh w-full items-center justify-center p-6 md:p-10;
+  @apply flex min-h-svh w-full items-center justify-center p-4 sm:p-6 md:p-10;
 }
 
 .filter_button {
@@ -112,7 +112,7 @@ html[lang="ar"] {
 }
 
 .product {
-  @apply flex flex-col lg:flex-row w-full mx-auto lg:px-12 p-4 gap-8 text-white min-h-screen;
+  @apply flex flex-col lg:flex-row w-full mx-auto lg:px-12 p-4 gap-8 lg:gap-10 text-white min-h-screen max-w-[1450px];
 }
 
 .product_price {
