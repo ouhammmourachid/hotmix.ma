@@ -36,17 +36,19 @@ A modern e-commerce web application built with [Next.js 16](https://nextjs.org/)
    cd hotmix.ma
    ```
 
-2. **Install dependencies:**
+2. **Install Bun** if it is not already available:
 
    ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
+   curl -fsSL https://bun.sh/install | bash
    ```
 
-3. **Configure Environment Variables:**
+3. **Install dependencies:**
+
+   ```bash
+   bun install
+   ```
+
+4. **Configure Environment Variables:**
 
    Create a `.env.local` file in the root directory. You typically need to configure your PocketBase URL:
 
@@ -54,20 +56,20 @@ A modern e-commerce web application built with [Next.js 16](https://nextjs.org/)
    NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
    ```
 
-4. **Run the development server:**
+5. **Run the development server:**
 
    ```bash
-   npm run dev
+   bun run dev
    ```
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## 📜 Scripts
 
-- `npm run dev`: Starts the development server with Turbopack.
-- `npm run build`: Builds the application for production.
-- `npm run start`: Starts the production server.
-- `npm run lint`: Runs ESLint to check for code quality.
+- `bun run dev`: Starts the development server with Turbopack.
+- `bun run build`: Builds the application for production.
+- `bun run start`: Starts the production server.
+- `bun run lint`: Runs ESLint to check for code quality.
 
 ## 📂 Project Structure
 
