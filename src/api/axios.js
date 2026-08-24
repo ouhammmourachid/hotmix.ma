@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://api.hotmix.ma';
+const BASE_URL = 'https://admin.hotmix.ma';
 
 export default axios.create({
     baseURL: BASE_URL
