@@ -1,152 +1,60 @@
-"use client";
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, notFound } from 'next/navigation';
-import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
-import { useFilter } from '@/contexts/filter-context';
-import RenderProducts from '@/components/product/render-products';
-import { useApiService } from '@/services/api.service';
-import Product from '@/types/product';
-import Category from '@/types/category';
-import { useTranslation } from '@/lib/i18n-utils';
-import { findCategoryBySlug } from '@/lib/utils';
+import type { Metadata } from "next";
+import { getCategoryBySlug, getAllCategorySlugs } from "@/lib/categories-server";
+import { absoluteUrl, buildMetadata } from "@/lib/seo";
+import JsonLd from "@/components/json-ld";
+import CollectionPageClient from "./collection-page-client";
 
-export default function CollectionPage() {
-    const { slug } = useParams();
-    const { filterState, setIsFilterOpen, toString, setFilterState, setFilterStateWithUrl } = useFilter();
-    const { t } = useTranslation();
-    const [products, setProducts] = useState<Product[]>([]);
-    const [count, setCount] = useState(0);
-    const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-    const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-    const [loading, setLoading] = useState(true);
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastRequestId = useRef(0);
-    const api = useApiService();
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
 
-    // Fetch category first
-    useEffect(() => {
-        const fetchCategory = async () => {
-            setLoading(true);
-            try {
-                if (!slug) return;
+export const dynamicParams = false;
 
-                // Fetch all categories to find the match
-                const response = await api.category.getAll();
-                const categories = response.data || [];
+export async function generateStaticParams() {
+  const slugs = await getAllCategorySlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
-                // Robust category lookup matching slug, name, or ID
-                const match = findCategoryBySlug(categories, slug as string);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const category = await getCategoryBySlug(slug);
 
-                if (match) {
-                    setCurrentCategory(match);
-                    // Update filter state to include this category
-                    setFilterState((prev: any) => ({ ...prev, category: match.id }));
-                } else {
-                    console.error("Category not found for slug:", slug);
-                }
-            } catch (error) {
-                console.error("Error fetching category:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  if (!category) {
+    return buildMetadata({
+      title: "Collection not found",
+      description: "This collection is no longer available.",
+      path: `/collections/${slug}`,
+      noIndex: true,
+    });
+  }
 
-        fetchCategory();
-    }, [slug]);
+  return buildMetadata({
+    title: category.name,
+    description: `Shop the ${category.name} collection at Hotmix — elegant, minimalist women's clothing.`,
+    path: `/collections/${slug}`,
+  });
+}
 
-    // Fetch products
-    const fetchData = async (filter: string, currentPage: number) => {
-        if (!currentCategory) return;
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params;
+  const category = await getCategoryBySlug(slug);
 
-        const requestId = ++lastRequestId.current;
-        try {
-            // Ensure specific category is in filter if not already (though `filterState` should have it)
-            // We rely on `toString()` effectively.
-
-            const response = await api.product.getAll(filter + `&page=${currentPage}`);
-
-            if (requestId !== lastRequestId.current) return;
-
-            setProducts(prev =>
-                currentPage === 1
-                    ? response.data.results
-                    : [...prev, ...response.data.results]
-            );
-
-            setCount(response.data.count);
-            setHasMore(!!response.data.next);
-        } catch (error) {
-            if (requestId !== lastRequestId.current) return;
-            console.error("Fetch error:", error);
-            setHasMore(false);
-        }
-    };
-
-    // When filter changes (or category is set), fetch data
-    useEffect(() => {
-        if (!currentCategory) return;
-
-        setProducts([]);
-        setPage(1);
-        setHasMore(true);
-        fetchData(toString(), 1);
-    }, [filterState, currentCategory]);
-
-    // Infinite scroll
-    useEffect(() => {
-        if (hasMore && page > 1 && currentCategory) {
-            fetchData(toString(), page);
-        }
-    }, [page]);
-
-    const lastProductRef = (node: HTMLDivElement | null) => {
-        if (!node || !hasMore) return;
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasMore) {
-                    setPage((prev) => prev + 1);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        observer.current.observe(node);
-    };
-
-    if (!currentCategory && !loading) {
-        notFound();
-    }
-
-    return (
-        <div className="min-h-screen sm:p-8 p-2">
-            {/* Header */}
-            <div className="flex flex-col justify-between items-center mb-8">
-                <h1 className="text-4xl font-semibold capitalize">
-                    {currentCategory?.name || (slug as string).replace(/-/g, ' ')}
-                </h1>
-                <div className="flex justify-between items-center mt-16 w-full">
-                    <FilterButton onClick={() => setIsFilterOpen(true)} />
-                    <Grid />
-                </div>
-            </div>
-
-            <FilterSummary
-                base={`/collections/${slug}`}
-                count={count}
-            />
-
-            <RenderProducts
-                ref={lastProductRef}
-                products={products}
-                loading={loading}
-            />
-
-            {!hasMore && products.length > 0 && (
-                <div className="text-center mt-4 text-gray-500">
-                    No more products to load
-                </div>
-            )}
-        </div>
-    );
+  return (
+    <>
+      {category && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Collections", item: absoluteUrl("/collections") },
+              { "@type": "ListItem", position: 3, name: category.name, item: absoluteUrl(`/collections/${slug}`) },
+            ],
+          }}
+        />
+      )}
+      <CollectionPageClient />
+    </>
+  );
 }
