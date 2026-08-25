@@ -94,10 +94,6 @@ const ProductsPageClient: React.FC = () => {
     observer.current.observe(node);
   };
 
-  useEffect(() => {
-    document.title = "Shop Our Collection | Hotmix";
-  }, []);
-
   return (
     <div className="min-h-screen sm:p-8 p-2">
 

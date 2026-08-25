@@ -7,11 +7,41 @@ export const DEFAULT_OG_IMAGE_WIDTH = 1672;
 export const DEFAULT_OG_IMAGE_HEIGHT = 941;
 
 export function absoluteUrl(path: string): string {
-  return new URL(path, SITE_URL).toString();
+  const url = new URL(path, SITE_URL);
+  if (!url.pathname.endsWith("/") && !/\.[a-zA-Z0-9]+$/.test(url.pathname)) {
+    url.pathname += "/";
+  }
+  return url.toString();
+}
+
+const HTML_ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ",
+  eacute: "é", egrave: "è", ecirc: "ê", euml: "ë",
+  agrave: "à", acirc: "â", auml: "ä",
+  ocirc: "ô", ouml: "ö",
+  ucirc: "û", ugrave: "ù", uuml: "ü",
+  icirc: "î", iuml: "ï",
+  ccedil: "ç",
+  oelig: "œ", aelig: "æ",
+  Eacute: "É", Egrave: "È", Ecirc: "Ê",
+  Agrave: "À", Acirc: "Â",
+  Ccedil: "Ç",
+};
+
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
+    .replace(/&([a-zA-Z]+);/g, (match, name: string) => HTML_ENTITIES[name] ?? match);
 }
 
 export function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const withoutTags = html.replace(/<[^>]*>/g, " ");
+  const decoded = decodeEntities(withoutTags);
+  const withoutMarkdown = decoded
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/_(.*?)_/g, "$1");
+  return withoutMarkdown.replace(/\s+/g, " ").trim();
 }
 
 export function truncate(text: string, maxLength: number): string {
@@ -36,6 +66,9 @@ export function buildMetadata({
 }: BuildMetadataOptions): Metadata {
   const url = absoluteUrl(path);
   const ogImage = image ? absoluteUrl(image) : absoluteUrl(DEFAULT_OG_IMAGE);
+  const ogImageDimensions = image
+    ? {}
+    : { width: DEFAULT_OG_IMAGE_WIDTH, height: DEFAULT_OG_IMAGE_HEIGHT };
 
   return {
     title,
@@ -51,7 +84,7 @@ export function buildMetadata({
       description,
       url,
       siteName: SITE_NAME,
-      images: [{ url: ogImage, width: DEFAULT_OG_IMAGE_WIDTH, height: DEFAULT_OG_IMAGE_HEIGHT }],
+      images: [{ url: ogImage, ...ogImageDimensions }],
       type: "website",
     },
     twitter: {

@@ -20,14 +20,17 @@ export const getProductForSeo = cache(async (id: string): Promise<ProductSeoData
       name: record.name,
       description: record.description ?? '',
       price: record.price,
-      sale_price: record.salePrice ?? undefined,
+      sale_price: record.salePrice || undefined,
       status: record.status,
       imageUrl: images.length > 0
         ? `https://hotmix-files.s3.eu-north-1.amazonaws.com/${record.collectionId}/${record.id}/${images[0]}`
         : undefined,
     };
-  } catch (error) {
-    return null;
+  } catch (error: any) {
+    if (error?.status === 404 || error?.status === 400) {
+      return null;
+    }
+    throw error;
   }
 });
 

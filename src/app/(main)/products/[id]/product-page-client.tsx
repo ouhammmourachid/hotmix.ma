@@ -56,10 +56,6 @@ export default function ProductPageClient({ params }: { params: Promise<{ id: st
           addToRecentlyViewed(response.data);
           setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
 
-          // Update document title and metadata
-          const productName = response.data.name;
-          document.title = `${productName} | HotMix - Elegant Clothing`;
-
           // Initialize selected size with the first available size
           if (response.data.sizes && response.data.sizes.length > 0) {
             setSelectedSize(response.data.sizes[0]);

@@ -19,5 +19,5 @@ export const getCategoryBySlug = cache(async (slug: string): Promise<CategorySeo
 
 export const getAllCategorySlugs = cache(async (): Promise<string[]> => {
   const categories = await pb.collection('available_categories').getFullList<CategorySeoData>({ requestKey: null });
-  return categories.map((category) => createCategorySlug(category));
+  return categories.map((category) => createCategorySlug(category)).filter(Boolean);
 });
