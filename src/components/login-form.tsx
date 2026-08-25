@@ -73,11 +73,11 @@ export function LoginForm() {
   return (
     <Card className={styles.login_form}>
       <CardHeader className="space-y-1">
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-3">
           <Link
             href="/"
             className={styles.sign_in_up_logo}>
-            <HotmixLogo className="h-10 sm:h-12 md:h-14 max-w-full text-greny w-auto" />
+            <HotmixLogo className="h-6 sm:h-7 max-w-full text-greny w-auto" />
           </Link>
         </div>
         <CardTitle className="text-2xl">
@@ -103,7 +103,7 @@ export function LoginForm() {
                   id="email"
                   type="email"
                   placeholder={t('profile_email')}
-                  className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
+                  className={`${styles.login_form_input} h-12`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   ref={userRef}
@@ -117,7 +117,7 @@ export function LoginForm() {
                   id="otp"
                   type="text"
                   placeholder={t('auth_otp_placeholder')}
-                  className={`${styles.login_form_input} h-12 border-green-500/50 focus:border-green-500`}
+                  className={`${styles.login_form_input} h-12`}
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                   required
@@ -129,7 +129,7 @@ export function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full bg-secondary border border-gray-600 hover:bg-secondary/80 h-12 text-lg font-normal"
+              className="w-full bg-greny hover:bg-greny/85 text-black h-12 text-base font-medium rounded-sm"
               disabled={isLoading}>
               {isLoading
                 ? <Loader2 className="h-6 w-6 animate-spin" />
