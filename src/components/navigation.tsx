@@ -59,10 +59,10 @@ export default function Navigation({
   }, []);
 
   const clickAccount = () => {
-    if (window.location.pathname === '/account') {
+    if (window.location.pathname === '/account/') {
       setIsAccountMenuOpen(!isAccountMenuOpen);
     } else {
-      window.location.href = '/account';
+      window.location.href = '/account/';
     }
   }
   return (
@@ -97,7 +97,7 @@ export default function Navigation({
             {/* All Products Link */}
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
-                <a href="/products" className={styles.nav_link + " group"}>
+                <a href="/products/" className={styles.nav_link + " group"}>
                   {t('nav_all_products')}
                   <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
                 </a>
@@ -117,7 +117,7 @@ export default function Navigation({
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
-                        href={`/collections/${createCategorySlug(item.name)}`}
+                        href={`/collections/${createCategorySlug(item.name)}/`}
                         className="block py-2 text-white hover:text-greny transition-colors duration-200"
                       >
                         {item.name}
@@ -133,7 +133,7 @@ export default function Navigation({
             {/* Sale Link */}
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
-                <a href="/sale" className={styles.nav_link + " group"}>
+                <a href="/sale/" className={styles.nav_link + " group"}>
                   {t('nav_sale')}
                   <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
                 </a>
@@ -166,7 +166,7 @@ export default function Navigation({
                 )}
             </div>
             <a
-              href="/wishlist"
+              href="/wishlist/"
               className="relative cursor-pointer hover:text-greny">
               <Heart className="w-5 h-5 text-white" />
               <span className={styles.nav_span}>

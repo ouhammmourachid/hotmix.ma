@@ -87,7 +87,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
       onClose();
       // Redirect to search page with query parameter
       const formattedQuery = searchQuery.trim().replace(/\s+/g, "+");
-      window.location.href = `/search?q=${formattedQuery}`;
+      window.location.href = `/search/?q=${formattedQuery}`;
     }
   };
   return (
