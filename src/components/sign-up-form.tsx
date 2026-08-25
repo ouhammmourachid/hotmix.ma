@@ -141,7 +141,7 @@ export function SignUpForm() {
           </div>
           <div className="mt-4 text-center text-sm">
             {t('auth_already_account')}{" "}
-            <a href="/login" className="underline underline-offset-4 hover:text-greny">
+            <a href="/login/" className="underline underline-offset-4 hover:text-greny">
               {t('auth_login_link')}
             </a>
           </div>

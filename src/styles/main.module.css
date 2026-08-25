@@ -42,11 +42,11 @@
 /* login form */
 
 .login_form {
-    @apply flex flex-col gap-6 bg-secondary w-full max-w-sm rounded-lg border-none overflow-hidden max-w-[calc(100vw-2rem)];
+    @apply flex flex-col gap-6 bg-secondary w-full max-w-[min(26rem,calc(100vw-2rem))] rounded-lg border border-whity/10 shadow-2xl shadow-black/50 overflow-hidden;
 }
 
 .login_form_input {
-    @apply w-full bg-secondary border-gray-500 focus:border-greny focus:border-none focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-offset-greny;
+    @apply w-full bg-primary/40 border-whity/15 focus:border-greny focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none transition-colors;
 }
 
 /* navigation */

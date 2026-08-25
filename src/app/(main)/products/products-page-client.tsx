@@ -1,0 +1,132 @@
+"use client";
+import React from 'react'; // Explicitly import React
+import { Grid, FilterSummary, FilterButton } from '@/components/small-pieces';
+import { useFilter } from '@/contexts/filter-context';
+import RenderProducts from '@/components/product/render-products';
+import { useState, useEffect, useRef } from 'react';
+import { useApiService } from '@/services/api.service';
+import Product from '@/types/product';
+import { useTranslation } from '@/lib/i18n-utils';
+import styles from '@/styles/main.module.css';
+
+const ProductsPageClient: React.FC = () => {
+  const { filterState, setIsFilterOpen, toString, setFilterStateWithUrl } = useFilter();
+  const { t } = useTranslation();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastRequestId = useRef(0);
+  const api = useApiService();
+
+  const fetchData = async (filter: string, currentPage: number) => {
+    const requestId = ++lastRequestId.current;
+    if (currentPage === 1) {
+      setLoading(true);
+    }
+    try {
+      const response = await api.product.getAll(filter + `&page=${currentPage}`);
+
+      // Ignore if a newer request has started
+      if (requestId !== lastRequestId.current) return;
+
+      // If it's the first page, replace products, otherwise append
+      setProducts(prev =>
+        currentPage === 1
+          ? response.data.results
+          : [...prev, ...response.data.results]
+      );
+
+      setCount(response.data.count);
+      setHasMore(!!response.data.next);
+    } catch (error) {
+      // Ignore errors from stale requests (optional, but good practice)
+      if (requestId !== lastRequestId.current) return;
+
+      console.error("Fetch error:", error);
+      setHasMore(false);
+    } finally {
+      if (requestId === lastRequestId.current) {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // populate the filter state with data from the url
+    const url = new URL(window.location.href);
+    const searchParams = url.searchParams;
+    setFilterStateWithUrl(searchParams);
+  }, []);
+  // Reset when filter changes
+  useEffect(() => {
+    setProducts([]);
+    setPage(1);
+    setHasMore(true);
+    fetchData(toString(), 1); // Immediately fetch first page
+  }, [filterState]);
+
+  // Fetch more products when page changes (and hasMore is true)
+  useEffect(() => {
+    if (hasMore && page > 1) {
+      fetchData(toString(), page);
+    }
+  }, [page]);
+
+  const lastProductRef = (node: HTMLDivElement | null) => {
+    if (!node || !hasMore) return;
+
+    // Disconnect previous observer
+    if (observer.current) observer.current.disconnect();
+
+    // Create new observer
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    observer.current.observe(node);
+  };
+
+  return (
+    <div className="min-h-screen sm:p-8 p-2">
+
+      {/* Header */}
+      <div className={styles.main_pages_header}>
+        <h1 className={styles.main_pages_title}>{t('nav_all_products')}</h1>
+        <div className={styles.main_pages_filter}>
+          <FilterButton onClick={() => setIsFilterOpen(true)} />
+          <Grid />
+        </div>
+      </div>
+
+      {/* Filter Summary */}
+      <FilterSummary
+        base='/products'
+        count={count}
+      />
+
+      {/* Products */}
+      <RenderProducts
+        ref={lastProductRef}
+        products={products}
+        loading={loading}
+      />
+
+      {/* Optional: No more products indicator */}
+      {!hasMore && products.length > 0 && (
+        <div className={styles.main_pages_no_more_products}>
+          No more products to load
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductsPageClient;

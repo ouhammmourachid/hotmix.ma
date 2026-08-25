@@ -12,6 +12,8 @@ import DisableZoomStandalone from "@/components/DisableZoomStandalone";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import VercelAnalytics from "@/components/VercelAnalytics";
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_WIDTH, DEFAULT_OG_IMAGE_HEIGHT } from "@/lib/seo";
+import JsonLd from "@/components/json-ld";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -19,9 +21,16 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
+const DEFAULT_TITLE = "Hotmix - Elegant and Minimalist Clothing for Modern Women";
+const DEFAULT_DESCRIPTION = "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.";
+
 export const metadata: Metadata = {
-  title: "Hotmix - Elegant and Minimalist Clothing for Modern Women",
-  description: "Discover Hotmix, a women's clothing brand that embraces elegance and simplicity. Explore our collection of minimalist and comfortable pieces designed to empower modern women with timeless style.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -31,6 +40,24 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon-192.png",
     apple: "/apple-touch-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    type: "website",
+    images: [{ url: `${SITE_URL}${DEFAULT_OG_IMAGE}`, width: DEFAULT_OG_IMAGE_WIDTH, height: DEFAULT_OG_IMAGE_HEIGHT }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [`${SITE_URL}${DEFAULT_OG_IMAGE}`],
   },
 };
 
@@ -47,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -119,6 +146,31 @@ export default function RootLayout({
                 }
               })();
             `,
+          }}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: `${SITE_URL}/icon-512.png`,
+          }}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: `${SITE_URL}/search/?q={search_term_string}`,
+              },
+              "query-input": "required name=search_term_string",
+            },
           }}
         />
       </head>

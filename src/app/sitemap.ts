@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import pb from '@/lib/pocketbase'
 
+export const dynamic = 'force-static'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.hotmix.ma'
 
@@ -39,12 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
         {
             url: `${baseUrl}/collections`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/new-collection`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,

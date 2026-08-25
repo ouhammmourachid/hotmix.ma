@@ -51,7 +51,7 @@ const PersistLogin = ({ children }: { children: React.ReactNode }) => {
 
     if (!pb.authStore.isValid) {
       // If not authenticated, redirect to login
-      window.location.replace('/login');
+      window.location.replace('/login/');
     } else {
       verifyUser();
     }
