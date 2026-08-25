@@ -107,6 +107,10 @@ const createProductService = () => ({
             throw err;
         }
     },
+    getRecommended: async (id) => {
+        const response = await axiosPublic.get(`/recommendations/${id}`);
+        return { data: response.data };
+    },
     getByIds: async (ids) => {
         if (!ids || ids.length === 0) return { data: [] };
 
