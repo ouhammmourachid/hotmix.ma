@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  // Every route must be resolvable as a static file (e.g. /products/ -> out/products/index.html).
+  // This is what lets plain S3 static website hosting serve the site with no rewrite rules.
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
