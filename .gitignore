@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 .playwright-cli/
 .next-claude-test/
+
+# local git worktrees (agent workspaces)
+.worktrees/
