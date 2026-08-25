@@ -1,6 +1,5 @@
 import React from 'react';
 import { MoveUpRight, Check } from 'lucide-react';
-import { Rating } from '@/components/small-pieces';
 import { XButton } from '@/components/small-pieces';
 import { Size, ThreeButtons } from '@/components/small-pieces';
 import { useState, useRef } from 'react';
@@ -134,10 +133,6 @@ const ProductModal = ({
               {product.name}
             </h2>
           </Link>
-
-
-          {/* Rating */}
-          <Rating rating={4.6} withNumber />
 
           {/* Price */}
           <div className={styles.product_prices}>

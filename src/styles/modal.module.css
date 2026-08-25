@@ -53,6 +53,10 @@
     @apply flex items-center gap-3 mb-6;
 }
 
+.product_discount {
+    @apply flex-shrink-0;
+}
+
 /* quick add modal */
 
 .quick_add_modal {
@@ -87,6 +91,10 @@
 
 .quick_add_sale_price {
     @apply text-greny font-bold flex-shrink-0;
+}
+
+.quick_add_discount {
+    @apply flex-shrink-0;
 }
 
 /* side menu modal */

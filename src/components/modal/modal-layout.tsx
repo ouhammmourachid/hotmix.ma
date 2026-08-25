@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { XCursor } from '@/components/small-pieces';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -65,7 +66,17 @@ export default function ModalLayout({
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const modalManager = useRef(ModalManager.getInstance());
+
+  // Portal to document.body once mounted, so the modal's `fixed` overlay
+  // positions itself against the viewport instead of getting trapped inside
+  // an ancestor that framer-motion has given a `transform` to (e.g. a
+  // product card's entrance animation) — a `transform` on an ancestor
+  // creates a new containing block for `position: fixed` descendants.
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Register/unregister modal with manager
   useEffect(() => {
@@ -181,7 +192,9 @@ export default function ModalLayout({
 
   // if (!isOpen) return null;
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence mode='wait'>
       {isOpen && (
         <motion.div
@@ -200,6 +213,7 @@ export default function ModalLayout({
           {children}
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

@@ -127,6 +127,10 @@ html[lang="ar"] {
   @apply absolute -translate-y-1/2 bg-whity p-2 rounded-full hover:bg-greny;
 }
 
+.product_discount {
+  @apply flex-shrink-0;
+}
+
 
 /* checkout page */
 .complete_order_button {

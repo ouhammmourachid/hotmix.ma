@@ -32,6 +32,15 @@ export function formatPrice(
     : `${formattedPrice} ${currency}`.trim();
 }
 
+// PocketBase filter values are quoted here with double quotes so a raw `'`
+// in user input (e.g. searching "women's dress") doesn't terminate the
+// literal early — PocketBase's filter grammar rejects the SQL-style `''`
+// escape (it 400s), but backslash-escaping `"` and `\` inside a
+// double-quoted literal is valid.
+function escapePbFilterValue(value: string): string {
+  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
 export function convertToPocketBaseFilter(filterStr: string): string {
   if (!filterStr) return '';
   const params = new URLSearchParams(filterStr);
@@ -40,34 +49,34 @@ export function convertToPocketBaseFilter(filterStr: string): string {
   if (params.has('sizes')) {
     const sizes = params.get('sizes')?.split(',') || [];
     if (sizes.length > 0) {
-      const sizeFilters = sizes.map(s => `sizes ~ '${s}'`).join(' || ');
+      const sizeFilters = sizes.map(s => `sizes ~ "${escapePbFilterValue(s)}"`).join(' || ');
       filters.push(`(${sizeFilters})`);
     }
   }
   if (params.has('colors')) {
     const colors = params.get('colors')?.split(',') || [];
     if (colors.length > 0) {
-      const colorFilters = colors.map(c => `colors ~ '${c}'`).join(' || ');
+      const colorFilters = colors.map(c => `colors ~ "${escapePbFilterValue(c)}"`).join(' || ');
       filters.push(`(${colorFilters})`);
     }
   }
   if (params.has('tags')) {
     const tags = params.get('tags')?.split(',') || [];
     if (tags.length > 0) {
-      const tagFilters = tags.map(t => `tags ~ '${t}'`).join(' || ');
+      const tagFilters = tags.map(t => `tags ~ "${escapePbFilterValue(t)}"`).join(' || ');
       filters.push(`(${tagFilters})`);
     }
   }
   if (params.has('category')) {
     const category = params.get('category');
     if (category) {
-      filters.push(`category = '${category}'`);
+      filters.push(`category = "${escapePbFilterValue(category)}"`);
     }
   }
   if (params.has('q')) {
     const q = params.get('q');
     if (q) {
-      filters.push(`name ~ '${q}'`);
+      filters.push(`name ~ "${escapePbFilterValue(q)}"`);
     }
   }
 

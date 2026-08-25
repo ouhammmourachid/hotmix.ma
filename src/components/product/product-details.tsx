@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
-import ProductReviews from '@/components/product/product-reviews';
 import Product from '@/types/product';
 import styles from '@/styles/product.module.css';
 import { useTranslation } from '@/lib/i18n-utils';
 
 const tabs = [
   { id: 'description', translationKey: 'product_tab_description' },
-  { id: 'details', translationKey: 'product_tab_details' },
-  { id: 'reviews', translationKey: 'product_tab_reviews' }
+  { id: 'details', translationKey: 'product_tab_details' }
 ];
 
 export default function ProductDetails({ product }: { product: Product }) {
@@ -41,10 +39,6 @@ export default function ProductDetails({ product }: { product: Product }) {
               </div>
             </div>
           </div>
-        );
-      case 'reviews':
-        return (
-          <ProductReviews reviews={[]} />
         );
       default:
         return null;

@@ -1,6 +1,6 @@
 import {
   Heart, X, Plus,
-  Minus, Star,
+  Minus,
   ChevronUp,
   ChevronDown, Trash2,
   Info,
@@ -240,23 +240,6 @@ export function QuantityChanger({
 }
 
 
-export function Rating({ rating, withNumber }: { rating: number, withNumber?: boolean }) {
-  return (
-    <div className="flex items-center gap-1">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          size={15}
-          className={`${Math.round(rating) >= star ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'
-            }`}
-        />
-      ))}
-      {withNumber && <span className="text-gray-500 ml-2">{rating}</span>}
-    </div>
-  );
-}
-
-
 export function ScrollArrow() {
   const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname();
@@ -435,6 +418,7 @@ export function FilterSummary({
   const [categories, setCategories] = useState<Category[]>([]);
   const api = useApiService();
   const router = useRouter();
+  const isFirstRender = useRef(true);
   const fetchData = async () => {
     try {
       const response = await api.size.getAll();
@@ -454,6 +438,16 @@ export function FilterSummary({
   }, []);
 
   useEffect(() => {
+    // Skip on mount: filterState hasn't been hydrated from the URL yet at
+    // this point (that hydration effect lives in the parent page and runs
+    // after this one, since child effects fire before parent effects on
+    // mount), so writing it back here would overwrite query params like
+    // ?q=... with the still-default, empty filter state before they're
+    // ever read.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     router.replace(`${base}?${toString()}`);
   }, [filterState])
   const handleClick = (type: string, id: string) => {

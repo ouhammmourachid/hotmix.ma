@@ -37,7 +37,7 @@ export default function SearchResults({
                         onClick={onClickLink}
                         href={`/products/${product.id}`}>
                         <img
-                            src={product.images[0].path}
+                            src={product.images?.[0]?.path}
                             alt={product.name}
                             className="w-16 object-cover rounded-sm"
                         />
@@ -51,7 +51,7 @@ export default function SearchResults({
                         </h4>
                     </Link>
                     <div className='flex items-center gap-2'>
-                        {product.sale_price && (
+                        {product.sale_price && product.sale_price !== product.price && (
                         <span
                             className="text-gray-400 line-through">
                             {product.price} DH

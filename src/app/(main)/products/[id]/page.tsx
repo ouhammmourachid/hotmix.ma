@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
-import { Rating } from '@/components/small-pieces';
 import { ThreeButtons, Size, QuantityChanger } from '@/components/small-pieces';
 import ImageMagnifier from '@/components/image-magnifier';
 import ProductDetails from '@/components/product/product-details';
@@ -238,7 +237,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-white">{product.name}</h1>
-              <Rating rating={5} withNumber />
             </div>
 
             <div className="flex items-center gap-4">

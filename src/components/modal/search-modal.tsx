@@ -20,6 +20,7 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const api = useApiService();
+  const latestQueryRef = useRef<string>("");
   const animationConfig = {
     initial: { y: -600, opacity: 1 },
     animate: { y: 0, opacity: 1 },
@@ -38,26 +39,41 @@ export default function SearchModal({ isOpen, onClose }: Readonly<{ isOpen: bool
     }
   };
   useEffect(() => {
-    if (searchQuery.trim().length > 0) {
-      performSearch(searchQuery.trim().replace(/\s+/g, "+"));
-    } else {
+    const trimmed = searchQuery.trim();
+    latestQueryRef.current = trimmed;
+
+    if (trimmed.length === 0) {
+      setIsLoading(false);
       setSearchResults([]);
+      return;
     }
+
+    // Debounce so we don't fire a request per keystroke.
+    const timeoutId = setTimeout(() => {
+      performSearch(trimmed, trimmed.replace(/\s+/g, "+"));
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  const performSearch = async (query: string) => {
+  const performSearch = async (rawQuery: string, encodedQuery: string) => {
     try {
       setIsLoading(true);
       setError(null);
 
-      // Make API call to your backend
-      const response = await api.product.getAll(`q=${query}&page_size=30`);
+      const response = await api.product.getAll(`q=${encodedQuery}&perPage=30`);
+
+      // A slower, older request can resolve after a newer one — only apply
+      // the response if it's still answering the latest query typed.
+      if (latestQueryRef.current !== rawQuery) return;
+
       setSearchResults((response.data.results || []) as Product[]);
     } catch (err) {
+      if (latestQueryRef.current !== rawQuery) return;
       console.error('Search error:', err);
       setError('An error occurred while searching. Please try again.');
     } finally {
-      setIsLoading(false);
+      if (latestQueryRef.current === rawQuery) setIsLoading(false);
     }
   };
   const handleClickLink = () => {

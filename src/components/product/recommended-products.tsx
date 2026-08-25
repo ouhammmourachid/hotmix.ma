@@ -155,7 +155,7 @@ export default function RecommendedProducts({ currentProductId }: RecommendedPro
                 disabled={!canGoPrev}
                 aria-label="Previous products"
                 style={imageCenter != null ? { top: `${imageCenter}px` } : undefined}
-                className={`product_image_skip border-2 left-2 ${imageCenter == null ? 'top-1/2' : ''} z-10 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 ${canGoPrev
+                className={`product_image_skip border-2 left-2 ${imageCenter == null ? 'top-1/2' : ''} z-10 opacity-100 lg:opacity-0 lg:group-hover/slider:opacity-100 transition-opacity duration-300 ${canGoPrev
                     ? '!bg-primary border-greny hover:!bg-greny cursor-pointer'
                     : '!bg-gray-300 border-gray-300 cursor-not-allowed'
                   }`}
@@ -196,7 +196,7 @@ export default function RecommendedProducts({ currentProductId }: RecommendedPro
                 disabled={!canGoNext}
                 aria-label="Next products"
                 style={imageCenter != null ? { top: `${imageCenter}px` } : undefined}
-                className={`product_image_skip border-2 right-2 ${imageCenter == null ? 'top-1/2' : ''} z-10 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 ${canGoNext
+                className={`product_image_skip border-2 right-2 ${imageCenter == null ? 'top-1/2' : ''} z-10 opacity-100 lg:opacity-0 lg:group-hover/slider:opacity-100 transition-opacity duration-300 ${canGoNext
                     ? '!bg-primary border-greny hover:!bg-greny cursor-pointer'
                     : '!bg-gray-300 border-gray-300 cursor-not-allowed'
                   }`}

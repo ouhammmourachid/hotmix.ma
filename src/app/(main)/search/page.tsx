@@ -3,6 +3,7 @@ import { Grid, FilterButton, FilterSummary } from '@/components/small-pieces';
 import { useFilter } from '@/contexts/filter-context';
 import RenderProducts from '@/components/product/render-products';
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useApiService } from '@/services/api.service';
 import Product from '@/types/product';
 
@@ -16,13 +17,21 @@ export default function Page() {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const api = useApiService();
+  const latestFilterRef = useRef<string>('');
+  const searchParams = useSearchParams();
 
   const { t } = useTranslation();
 
 
   const fetchData = async (filter: string, currentPage: number) => {
+    latestFilterRef.current = filter;
     try {
-      const response = await api.product.getAll(`${filter}&page=${page}`);
+      const response = await api.product.getAll(`${filter}&page=${currentPage}`);
+
+      // A slower, older request (e.g. the initial unfiltered fetch before the
+      // URL query populates filterState) can resolve after a newer one —
+      // only apply it if it's still answering the latest filter.
+      if (latestFilterRef.current !== filter) return;
 
       // If it's the first page, replace products, otherwise append
       setProducts(prev =>
@@ -45,19 +54,16 @@ export default function Page() {
     }
   };
 
+  const searchParamsString = searchParams.toString();
+
   useEffect(() => {
-    // populate the filter state with data from the url
-    const url = new URL(window.location.href);
-    const searchParams = url.searchParams;
+    // Re-sync filterState whenever the URL query changes — including
+    // client-side navigations (e.g. the "View all" link from the search
+    // modal) that don't remount this page, so a mount-only effect would miss.
+    // Keyed on the string form because useSearchParams() doesn't return a
+    // referentially stable object across renders.
     setFilterStateWithUrl(searchParams);
-  }, []);
-
-  // change the filter state when the url changes
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    setFilterStateWithUrl(urlParams);
-  }, []);
+  }, [searchParamsString]);
 
   // Reset when filter changes
   useEffect(() => {
