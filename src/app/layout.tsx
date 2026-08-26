@@ -5,6 +5,7 @@ import Script from "next/script";
 
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Contentsquare from "@/components/Contentsquare";
 import PageViewTracker from "@/components/PageViewTracker";
 import SWRegister from "@/components/SWRegister";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
@@ -191,6 +192,7 @@ export default function RootLayout({
         <SWRegister />
         <DisableZoomStandalone />
         <GoogleAnalytics />
+        <Contentsquare />
         <Suspense fallback={null}>
           <PageViewTracker />
         </Suspense>

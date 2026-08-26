@@ -45,3 +45,6 @@ next-env.d.ts
 # local git worktrees (agent workspaces)
 .worktrees/
 docs/
+
+# contentsquare wizard reports
+.cs-wizard/
