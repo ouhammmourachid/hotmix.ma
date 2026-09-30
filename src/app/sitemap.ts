@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import pb from '@/lib/pocketbase'
 
-export const dynamic = 'force-static'
+export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.hotmix.ma'

@@ -9,7 +9,9 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-export const dynamicParams = false;
+// ISR: pages not generated at build time are rendered on first request, and every
+// page is refreshed at most once a minute, so backend changes show up without a rebuild.
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const ids = await getAllPublishedProductIds();
