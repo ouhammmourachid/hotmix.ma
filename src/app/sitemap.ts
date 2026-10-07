@@ -1,11 +1,10 @@
 import { MetadataRoute } from 'next'
 import pb from '@/lib/pocketbase'
+import { absoluteUrl } from '@/lib/seo'
 
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://www.hotmix.ma'
-
     let products: any[] = []
     try {
         // Fetch all published products
@@ -20,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     const productUrls = products.map((product) => ({
-        url: `${baseUrl}/products/${product.id}`,
+        url: absoluteUrl(`/products/${product.id}`),
         lastModified: new Date(product.updated),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
@@ -28,25 +27,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [
         {
-            url: baseUrl,
+            url: absoluteUrl('/'),
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 1.0,
         },
         {
-            url: `${baseUrl}/products`,
+            url: absoluteUrl('/products'),
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/collections`,
+            url: absoluteUrl('/collections'),
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/sale`,
+            url: absoluteUrl('/sale'),
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
