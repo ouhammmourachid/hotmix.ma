@@ -25,6 +25,28 @@ import RecentlyViewedProducts from '@/components/product/recently-viewed-product
 import ProductImageLightbox from '@/components/product/product-image-lightbox';
 import { Maximize2 } from 'lucide-react';
 
+// Returns the index of the image that best matches the given color, or -1 if none
+function findColorImageIndex(product: Product, color: Color): number {
+  if (!product.images || product.images.length === 0) return -1;
+
+  // 1. Try to find image matching color ID, color name, or path keyword
+  const matchedIndex = product.images.findIndex((img: any) => {
+    if (img.color_id && String(img.color_id) === String(color.id)) return true;
+    if (img.color && (String(img.color) === String(color.id) || String(img.color).toLowerCase() === color.name.toLowerCase())) return true;
+    if (img.path) {
+      const lowerPath = img.path.toLowerCase();
+      if (color.name && lowerPath.includes(color.name.toLowerCase())) return true;
+      if (color.id && lowerPath.includes(color.id.toLowerCase())) return true;
+    }
+    return false;
+  });
+  if (matchedIndex !== -1) return matchedIndex;
+
+  // 2. Fallback to matching image by color index position in colors array
+  const colorIndex = product.colors?.findIndex(c => c.id === color.id) ?? -1;
+  return colorIndex < product.images.length ? colorIndex : -1;
+}
+
 export default function ProductPageClient({ params }: { params: Promise<{ id: string }> }) {
   // Unwrap the params promise using React.use()
   const resolvedParams = use(params);
@@ -61,7 +83,17 @@ export default function ProductPageClient({ params }: { params: Promise<{ id: st
             setSelectedSize(response.data.sizes[0]);
           }
           if (response.data.colors && response.data.colors.length > 0) {
-            setSelectedColor(response.data.colors[0]);
+            // Preselect the color given in the URL (?color=<colorId>), falling back to the first one
+            const colorParam = new URLSearchParams(window.location.search).get('color');
+            const urlColor = colorParam
+              ? response.data.colors.find((c: Color) => String(c.id) === colorParam)
+              : undefined;
+            const initialColor = urlColor ?? response.data.colors[0];
+            setSelectedColor(initialColor);
+            if (urlColor) {
+              const imageIndex = findColorImageIndex(response.data, urlColor);
+              if (imageIndex !== -1) setCurrentImageIndex(imageIndex);
+            }
           }
 
           setError(null);
@@ -86,28 +118,14 @@ export default function ProductPageClient({ params }: { params: Promise<{ id: st
     if (isArchived) return;
     setSelectedColor(color);
 
-    if (product && product.images && product.images.length > 0) {
-      // 1. Try to find image matching color ID, color name, or path keyword
-      const matchedIndex = product.images.findIndex((img: any) => {
-        if (img.color_id && String(img.color_id) === String(color.id)) return true;
-        if (img.color && (String(img.color) === String(color.id) || String(img.color).toLowerCase() === color.name.toLowerCase())) return true;
-        if (img.path) {
-          const lowerPath = img.path.toLowerCase();
-          if (color.name && lowerPath.includes(color.name.toLowerCase())) return true;
-          if (color.id && lowerPath.includes(color.id.toLowerCase())) return true;
-        }
-        return false;
-      });
+    // Keep the selected color in the URL so the link can be shared
+    const url = new URL(window.location.href);
+    url.searchParams.set('color', color.id);
+    window.history.replaceState(window.history.state, '', url);
 
-      if (matchedIndex !== -1) {
-        setCurrentImageIndex(matchedIndex);
-      } else if (product.colors && product.colors.length > 0) {
-        // 2. Fallback to matching image by color index position in colors array
-        const colorIndex = product.colors.findIndex(c => c.id === color.id);
-        if (colorIndex !== -1 && colorIndex < product.images.length) {
-          setCurrentImageIndex(colorIndex);
-        }
-      }
+    if (product) {
+      const imageIndex = findColorImageIndex(product, color);
+      if (imageIndex !== -1) setCurrentImageIndex(imageIndex);
     }
   };
 
