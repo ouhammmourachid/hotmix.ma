@@ -86,10 +86,35 @@
 
 /* product details */
 
+/* same width and gutters as the .product layout above, so the rows line up with it */
 .product_details {
-    @apply flex flex-col lg:flex-row px-7 text-white pt-9 gap-6 lg:gap-64;
+    @apply w-full max-w-[1450px] mx-auto px-4 lg:px-12 pt-4 lg:pt-8 text-white;
 }
 
-.product_details_content {
-    @apply border-2 border-secondary rounded-md w-full;
+.product_details_list {
+    @apply w-full border-t border-secondary;
+}
+
+.product_details_row {
+    @apply border-b border-secondary;
+}
+
+.product_details_button {
+    @apply w-full flex items-center justify-between py-4 lg:py-5 text-xs lg:text-[13px] font-semibold uppercase tracking-wider text-white/90 hover:text-greny transition-colors;
+}
+
+.product_details_icon {
+    @apply w-4 h-4 transition-transform duration-200;
+}
+
+.product_details_button:hover .product_details_icon {
+    @apply translate-x-1;
+}
+
+[dir="rtl"] .product_details_icon {
+    @apply rotate-180;
+}
+
+[dir="rtl"] .product_details_button:hover .product_details_icon {
+    @apply -translate-x-1;
 }

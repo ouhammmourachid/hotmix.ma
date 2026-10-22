@@ -1,73 +1,49 @@
 import React, { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 import Product from '@/types/product';
+import ProductDescriptionModal from '@/components/modal/product-description-modal';
+import ProductDetailsModal from '@/components/modal/product-details-modal';
 import styles from '@/styles/product.module.css';
 import { useTranslation } from '@/lib/i18n-utils';
 
-const tabs = [
+type SectionId = 'description' | 'details';
+
+const sections: { id: SectionId; translationKey: string }[] = [
   { id: 'description', translationKey: 'product_tab_description' },
   { id: 'details', translationKey: 'product_tab_details' }
 ];
 
 export default function ProductDetails({ product }: { product: Product }) {
-  const [activeTab, setActiveTab] = useState('description');
-  const { t, language } = useTranslation();
-  const isRTL = language === 'ar';
+  const [activeSection, setActiveSection] = useState<SectionId | null>(null);
+  const { t } = useTranslation();
 
-  const renderContent = (product: Product) => {
-    switch (activeTab) {
-      case 'description':
-        return (
-          <div
-            className="p-6 space-y-4 prose prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          />
-        );
-      case 'details':
-        return (
-          <div className="p-4 sm:p-6 font-semibold">
-            <div className="rounded-lg border border-secondary">
-              <div className="flex items-center justify-between">
-                <div className="p-3 w-1/3">
-                  <span className="text-base font-medium text-gray-200">{t('size')}</span>
-                </div>
-                <div className="border-l border-secondary p-3 w-full">
-                  <span className="text-base text-gray-300">
-                    {product.sizes?.map((size) => size.name).join(', ')}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+  const onClose = () => setActiveSection(null);
 
   return (
     <div className={styles.product_details}>
-      <div className="flex flex-row lg:flex-col items-start gap-6 lg:gap-0">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)} className={`lg:px-6 py-4 text-lg font-semibold relative
-                ${isRTL
-                ? 'lg:border-r-2 lg:border-l-0'
-                : 'lg:border-l-2 lg:border-r-0'
-              } lg:border-b-0 border-secondary
-                hover:text-greny ${activeTab === tab.id
-                ? 'border-white border-b-2'
-                : ''
-              }`}
-          >
-            {t(tab.translationKey)}
-          </button>
+      <ul className={styles.product_details_list}>
+        {sections.map((section) => (
+          <li key={section.id} className={styles.product_details_row}>
+            <button
+              onClick={() => setActiveSection(section.id)}
+              className={styles.product_details_button}
+            >
+              {t(section.translationKey)}
+              <ArrowRight className={styles.product_details_icon} />
+            </button>
+          </li>
         ))}
-      </div>
-      <div className={styles.product_details_content}>
-        {renderContent(product)}
-      </div>
+      </ul>
+
+      <ProductDescriptionModal
+        isOpen={activeSection === 'description'}
+        onClose={onClose}
+        description={product.description} />
+      <ProductDetailsModal
+        isOpen={activeSection === 'details'}
+        onClose={onClose}
+        product={product} />
     </div>
   );
 };

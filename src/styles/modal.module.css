@@ -118,6 +118,40 @@
     @apply block text-white text-sm hover:text-gray-300 border-b border-secondary pb-3;
 }
 
+/* product description & details modals */
+.product_info_modal {
+    @apply fixed inset-0 bg-black/50 z-50;
+}
+
+.product_info {
+    @apply fixed top-0 h-full w-full md:max-w-xl bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+}
+
+.product_info_header {
+    @apply relative flex items-center justify-center px-14 py-5 border-b border-secondary;
+}
+
+.product_info_title {
+    @apply text-sm font-bold uppercase tracking-wide text-center;
+}
+
+.product_info_body {
+    @apply flex-1 overflow-y-auto px-6 py-8;
+}
+
+.product_info_heading {
+    @apply text-base font-bold uppercase tracking-wide mb-4;
+}
+
+.product_info_sizes {
+    @apply flex flex-wrap gap-2;
+}
+
+/* matches the size chips on the product page (small.module.css .size), but static */
+.product_info_size {
+    @apply min-w-12 h-10 px-4 border border-secondary rounded flex items-center justify-center text-sm text-white;
+}
+
 /* search modal */
 .search_modal {
     @apply fixed inset-0 flex items-center justify-center z-50;

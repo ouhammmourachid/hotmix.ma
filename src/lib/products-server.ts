@@ -1,5 +1,6 @@
 import { cache } from 'react';
 import pb from '@/lib/pocketbase';
+import { withNetworkRetry } from '@/lib/pocketbase-retry';
 
 export interface ProductSeoData {
   id: string;
@@ -13,7 +14,7 @@ export interface ProductSeoData {
 
 export const getProductForSeo = cache(async (id: string): Promise<ProductSeoData | null> => {
   try {
-    const record = await pb.collection('products').getOne(id, { requestKey: null });
+    const record = await withNetworkRetry(() => pb.collection('products').getOne(id, { requestKey: null }));
     const images: string[] = Array.isArray(record.images) ? record.images : [];
     return {
       id: record.id,
@@ -34,11 +35,18 @@ export const getProductForSeo = cache(async (id: string): Promise<ProductSeoData
   }
 });
 
+// Used by generateStaticParams: if the backend is unreachable at build time, prerender
+// nothing and let ISR render each product on first request instead of failing the build.
 export const getAllPublishedProductIds = cache(async (): Promise<string[]> => {
-  const products = await pb.collection('products').getFullList({
-    filter: 'status = "published"',
-    fields: 'id',
-    requestKey: null,
-  });
-  return products.map((product) => product.id);
+  try {
+    const products = await withNetworkRetry(() => pb.collection('products').getFullList({
+      filter: 'status = "published"',
+      fields: 'id',
+      requestKey: null,
+    }));
+    return products.map((product) => product.id);
+  } catch (error) {
+    console.warn('getAllPublishedProductIds: backend unreachable, skipping prerender', error);
+    return [];
+  }
 });
