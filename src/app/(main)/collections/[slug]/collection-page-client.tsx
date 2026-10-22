@@ -127,7 +127,7 @@ export default function CollectionPageClient() {
                 </h1>
                 <div className="flex justify-between items-center mt-16 w-full">
                     <FilterButton onClick={() => setIsFilterOpen(true)} />
-                    <Grid />
+                    <Grid hideOnMobile />
                 </div>
             </div>
 

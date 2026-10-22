@@ -30,6 +30,10 @@
     @apply flex items-center gap-3 flex-1 justify-center;
 }
 
+.grid_group_hide_mobile {
+    @apply max-sm:hidden;
+}
+
 .grid_item {
     @apply cursor-pointer text-whity/50 hover:text-whity transition-colors duration-150;
 }

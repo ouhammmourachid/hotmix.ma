@@ -86,7 +86,7 @@ export default function SalePageClient() {
         <h1 className={styles.main_pages_title}>{t('sale_page_title')}</h1>
         <div className={styles.main_pages_filter}>
           <FilterButton onClick={() => setIsFilterOpen(true)} />
-          <Grid />
+          <Grid hideOnMobile />
         </div>
       </div>
       {/* Filter Summary */}

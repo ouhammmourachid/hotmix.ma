@@ -273,14 +273,11 @@ export function ScrollArrow() {
   ) : null;
 };
 
-export function Grid() {
+export function Grid({ hideOnMobile = false }: { hideOnMobile?: boolean }) {
   const { gridSize, setGridSize } = useGrid();
 
-  // Check screen size on mount and window resize
-
-
   return (
-    <div className={styles.grid_group}>
+    <div className={`${styles.grid_group} ${hideOnMobile ? styles.grid_group_hide_mobile : ''}`}>
       <Grid2X1
         onClick={() => setGridSize(1)}
         className={`${styles.grid_item} ${gridSize === 1 ? styles.grid_item_selected : ''}`} />

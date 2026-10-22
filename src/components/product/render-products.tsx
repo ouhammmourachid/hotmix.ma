@@ -55,11 +55,12 @@ export default function RenderProducts({
   useEffect(() => {
     const updateLayout = () => {
       // Check if we're on a small screen
-      const smallScreen = typeof window !== 'undefined' && window.innerWidth <= 640;
+      // Matches Tailwind's `sm` breakpoint, below which the grid toggle is hidden
+      const smallScreen = typeof window !== 'undefined' && window.innerWidth < 640;
       setIsSmallScreen(smallScreen);
 
-      // For small screens, always use 1 column, but remember grid selection
-      setResponsiveGridSize(smallScreen ? 1 : gridSize);
+      // Small screens always show 2 products per row, ignoring the saved grid selection
+      setResponsiveGridSize(smallScreen ? 2 : gridSize);
     };
 
     // Set initial values
@@ -70,16 +71,14 @@ export default function RenderProducts({
     return () => window.removeEventListener('resize', updateLayout);
   }, [gridSize]);
 
-  // On small screens, use HorizontalProductCard for gridSize=1, otherwise use ProductCard
-  // On larger screens, use the normal logic based on the actual grid size
-  const useHorizontalCard = isSmallScreen ? gridSize === 1 : responsiveGridSize === 1;
+  const useHorizontalCard = !isSmallScreen && responsiveGridSize === 1;
 
   // Show grid-aware skeleton placeholders while loading or when products array is empty during initial load
   if (loading) {
     return (
       <div
         style={{ gridTemplateColumns: `repeat(${responsiveGridSize}, 1fr)` }}
-        className="gap-8 items-center justify-center grid w-full"
+        className="gap-4 sm:gap-8 items-center justify-center grid w-full"
       >
         {Array.from({ length: 6 }).map((_, index) =>
           useHorizontalCard ? (
@@ -95,7 +94,7 @@ export default function RenderProducts({
   return (
     <div
       style={{ gridTemplateColumns: `repeat(${responsiveGridSize}, 1fr)` }}
-      className="gap-8 items-center justify-center grid w-full">
+      className="gap-4 sm:gap-8 items-center justify-center grid w-full">
       {
         products && products.map((product: Product, index: number) => {
           return useHorizontalCard ? (

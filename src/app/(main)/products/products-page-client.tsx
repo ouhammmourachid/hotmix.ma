@@ -102,7 +102,7 @@ const ProductsPageClient: React.FC = () => {
         <h1 className={styles.main_pages_title}>{t('nav_all_products')}</h1>
         <div className={styles.main_pages_filter}>
           <FilterButton onClick={() => setIsFilterOpen(true)} />
-          <Grid />
+          <Grid hideOnMobile />
         </div>
       </div>
 

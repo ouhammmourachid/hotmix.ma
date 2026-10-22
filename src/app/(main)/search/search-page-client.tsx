@@ -105,7 +105,7 @@ export default function SearchPageClient() {
         <h1 className="text-4xl font-semibold">{count} {t('search_results_for')} "{filterState.searchQuery}"</h1>
         <div className="flex justify-between items-center mt-16 w-full">
           <FilterButton onClick={() => setIsFilterOpen(true)} />
-          <Grid />
+          <Grid hideOnMobile />
         </div>
       </div>
       {/* Filter Summary */}
