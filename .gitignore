@@ -48,3 +48,4 @@ docs/
 
 # contentsquare wizard reports
 .cs-wizard/
+.next-corrupt/
