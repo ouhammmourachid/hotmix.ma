@@ -87,9 +87,9 @@
 /* product details */
 
 .product_details {
-    @apply flex flex-col lg:flex-row px-7 text-white pt-9 gap-6 lg:gap-64;
+    @apply px-7 text-white pt-9;
 }
 
-.product_details_content {
-    @apply border-2 border-secondary rounded-md w-full;
+.product_info_heading {
+    @apply text-base font-bold uppercase tracking-wide mb-4;
 }
