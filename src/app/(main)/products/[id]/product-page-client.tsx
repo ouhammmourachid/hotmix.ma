@@ -47,7 +47,11 @@ function findColorImageIndex(product: Product, color: Color): number {
   return colorIndex < product.images.length ? colorIndex : -1;
 }
 
-export default function ProductPageClient({ params }: { params: Promise<{ id: string }> }) {
+export default function ProductPageClient({ params, initialProduct }: {
+  params: Promise<{ id: string }>;
+  // Rendered on the server so the product and its main image show without waiting for a client fetch
+  initialProduct?: Product | null;
+}) {
   // Unwrap the params promise using React.use()
   const resolvedParams = use(params);
   const productId = resolvedParams.id;
@@ -55,20 +59,35 @@ export default function ProductPageClient({ params }: { params: Promise<{ id: st
   const { t } = useTranslation();
   const { openCart } = useCartModal();
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState<Product | null>(initialProduct ?? null);
+  const [loading, setLoading] = useState(!initialProduct);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const { addToCart, totalItems } = useCart();
   const api = useApiService();
-  const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(undefined);
-  const [selectedColor, setSelectedColor] = useState<Color | undefined>(undefined);
-  const [price, setPrice] = useState<number>(0);
+  const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(initialProduct?.sizes?.[0]);
+  const [selectedColor, setSelectedColor] = useState<Color | undefined>(initialProduct?.colors?.[0]);
+  const [price, setPrice] = useState<number>(initialProduct ? (initialProduct.sale_price || initialProduct.price) : 0);
   const { addToRecentlyViewed } = useRecentlyViewed();
   // Fetch product data from API
   useEffect(() => {
+    if (initialProduct && String(initialProduct.id) === productId) {
+      addToRecentlyViewed(initialProduct);
+      // The URL is only readable after mount, so apply ?color= here instead of during render
+      const colorParam = new URLSearchParams(window.location.search).get('color');
+      const urlColor = colorParam
+        ? initialProduct.colors?.find((c: Color) => String(c.id) === colorParam)
+        : undefined;
+      if (urlColor) {
+        setSelectedColor(urlColor);
+        const imageIndex = findColorImageIndex(initialProduct, urlColor);
+        if (imageIndex !== -1) setCurrentImageIndex(imageIndex);
+      }
+      return;
+    }
+
     const fetchProduct = async () => {
       try {
         setLoading(true);

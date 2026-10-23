@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import pb from "@/lib/pocketbase";
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
 
 interface AuthContextType {
     user: any;
@@ -42,6 +43,11 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
             unsubscribe();
         };
     }, []);
+
+    // Tie analytics to the account id (no email or other PII) so repeat buyers can be followed
+    useEffect(() => {
+        if (user?.id) posthog.identify(user.id);
+    }, [user?.id]);
 
     const login = async (data: any) => {
         try {
@@ -140,6 +146,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
     const logout = () => {
         pb.authStore.clear();
+        posthog.reset();
         router.push("/");
         router.refresh();
     };

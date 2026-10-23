@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import CartItem from '@/types/cart-item'
+import posthog from 'posthog-js'
 
 interface CartContextType {
   cartItems: CartItem[]
@@ -34,6 +35,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cartItems, isInitialized])
 
   const addToCart = (item: CartItem) => {
+    posthog.capture('product_added_to_cart', {
+      product_id: item.product.id,
+      product_name: item.product.name,
+      size: item.size?.name,
+      color: item.color?.name,
+      quantity: item.quantity,
+      price: item.price,
+      currency: 'MAD',
+    })
     setCartItems(prev => {
       const existingItem = prev.find(i => (
         i.size?.id === item.size?.id &&

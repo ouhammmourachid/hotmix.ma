@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProductForSeo, getAllPublishedProductIds } from "@/lib/products-server";
+import { getProductForSeo, getProductForPage, getAllPublishedProductIds } from "@/lib/products-server";
 import { absoluteUrl, buildMetadata, stripHtml, truncate } from "@/lib/seo";
 import JsonLd from "@/components/json-ld";
 import ProductPageClient from "./product-page-client";
@@ -50,6 +50,7 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
+  const initialProduct = await getProductForPage(id);
   const price = product.sale_price ?? product.price;
   const description = truncate(stripHtml(product.description) || product.name, 500);
 
@@ -86,7 +87,7 @@ export default async function Page({ params }: PageProps) {
           ],
         }}
       />
-      <ProductPageClient params={params} />
+      <ProductPageClient params={params} initialProduct={initialProduct} />
     </>
   );
 }
