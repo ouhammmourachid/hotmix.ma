@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   HoverInfo,
@@ -15,6 +15,7 @@ import Color from '@/types/color';
 import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 import { trackPurchase } from '@/lib/pixel';
+import posthog from 'posthog-js';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
@@ -90,6 +91,21 @@ export default function CheckoutForm() {
 
     loadProductData();
   }, [cartItems, totalItems, subtotal]);
+
+  // Fire checkout_started once, as soon as the checkout has items to show
+  const hasTrackedCheckoutStart = useRef(false);
+  useEffect(() => {
+    if (hasTrackedCheckoutStart.current || checkoutState.items.length === 0) return;
+    hasTrackedCheckoutStart.current = true;
+    const isBuyNow = new URLSearchParams(window.location.search).has('productId');
+    posthog.capture('checkout_started', {
+      source: isBuyNow ? 'buy_now' : 'cart',
+      value: checkoutState.subtotal,
+      currency: 'MAD',
+      total_items: checkoutState.totalItems,
+      product_ids: checkoutState.items.map(item => String(item.product.id)),
+    });
+  }, [checkoutState]);
 
   const [formData, setFormData] = useState<{
     full_name: string;
@@ -226,20 +242,28 @@ export default function CheckoutForm() {
   const handlesubmit = async () => {
     if (isSubmitting) return;
 
+    const trackValidationError = (field: string) => {
+      posthog.capture('checkout_validation_error', { field });
+    };
+
     // Validate form data
     if (!formData.full_name.trim()) {
+      trackValidationError('full_name');
       alert(t('checkout_err_name'));
       return;
     }
     if (!formData.city.trim()) {
+      trackValidationError('city');
       alert(t('checkout_err_city'));
       return;
     }
     if (!formData.shipping_address.trim()) {
+      trackValidationError('shipping_address');
       alert(t('checkout_err_address'));
       return;
     }
     if (!formData.phone_number.trim()) {
+      trackValidationError('phone_number');
       alert(t('checkout_err_phone'));
       return;
     }
@@ -256,12 +280,14 @@ export default function CheckoutForm() {
     }
 
     if (!isValidPhone) {
+      trackValidationError('phone_number_format');
       setPhoneError(t('checkout_err_phone_prefix'));
       alert(t('checkout_err_invalid_phone'));
       return;
     }
 
     if (formData.items.length === 0) {
+      trackValidationError('items');
       alert(t('checkout_err_empty'));
       return;
     }
@@ -281,18 +307,26 @@ export default function CheckoutForm() {
       phone_number: normalizedPhone
     };
 
-    // Fire Meta Pixel Purchase event as soon as the user confirms the order
-    trackPurchase(
-      checkoutState.subtotal + formData.shipping_price,
-      'MAD',
-      checkoutState.items.map(item => String(item.product.id))
-    );
+    const orderValue = checkoutState.subtotal + formData.shipping_price;
+    const productIds = checkoutState.items.map(item => String(item.product.id));
 
     try {
       await api.order.create(orderData);
+      // Only report the purchase once the order is actually saved
+      trackPurchase(orderValue, 'MAD', productIds);
+      posthog.capture('order_completed', {
+        value: orderValue,
+        subtotal: checkoutState.subtotal,
+        shipping_price: formData.shipping_price,
+        currency: 'MAD',
+        city: formData.city,
+        total_items: checkoutState.totalItems,
+        product_ids: productIds,
+      });
       clearCart();
       router.push('/?orderSuccess=true');
     } catch (error) {
+      posthog.capture('order_failed', { value: orderValue });
       setIsSubmitting(false);
       alert(t('checkout_err_submit'));
     }
