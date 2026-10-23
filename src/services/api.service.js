@@ -2,43 +2,7 @@ import { axiosPublic } from '@/api/axios';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import pb from '@/lib/pocketbase';
 import { convertToPocketBaseFilter } from '@/lib/utils';
-
-const mapRecord = (record) => {
-    const data = { ...record };
-    if (record.expand) {
-        Object.keys(record.expand).forEach(key => {
-            data[key] = record.expand[key];
-        });
-    }
-    return data;
-};
-
-const mapProduct = (record) => {
-    const data = mapRecord(record);
-
-    // Map fields to match frontend expectations
-    data.sale_price = data.salePrice;
-    data.created_at = data.created;
-    data.updated_at = data.updated;
-
-    // Handle images - using direct S3 links
-    if (data.images && Array.isArray(data.images)) {
-        data.images = data.images.map((filename, index) => ({
-            id: index,
-            path: `https://hotmix-files.s3.eu-north-1.amazonaws.com/${record.collectionId}/${record.id}/${filename}`
-        }));
-    } else {
-        data.images = [];
-    }
-
-    // Handle discount (ensure it's a string if needed, or keep as number if frontend handles it)
-    // Based on types/product.ts, discount is string | undefined.
-    if (data.discount !== undefined && data.discount !== null) {
-        data.discount = String(data.discount);
-    }
-
-    return data;
-};
+import { mapRecord, mapProduct } from '@/lib/product-mapper';
 
 const createSizeService = () => ({
     getAll: async () => {
