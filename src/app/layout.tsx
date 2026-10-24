@@ -1,18 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
-import { Suspense } from "react";
 import Script from "next/script";
 
 import "./globals.css";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import Contentsquare from "@/components/Contentsquare";
-import PageViewTracker from "@/components/PageViewTracker";
 import SWRegister from "@/components/SWRegister";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import DisableZoomStandalone from "@/components/DisableZoomStandalone";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
-import VercelAnalytics from "@/components/VercelAnalytics";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_WIDTH, DEFAULT_OG_IMAGE_HEIGHT } from "@/lib/seo";
 import JsonLd from "@/components/json-ld";
 
@@ -191,20 +186,12 @@ export default function RootLayout({
 
         <SWRegister />
         <DisableZoomStandalone />
-        <GoogleAnalytics />
-        <Contentsquare />
-        <Suspense fallback={null}>
-          <PageViewTracker />
-        </Suspense>
         <AuthProvider>
           <LanguageProvider>
             {children}
             <PWAInstallPrompt />
           </LanguageProvider>
         </AuthProvider>
-
-        {/* Vercel Analytics + Speed Insights — wrapped in client component for Turbopack */}
-        <VercelAnalytics />
 
         {/* Meta Pixel — deferred so it doesn't block First Contentful Paint */}
         <Script
