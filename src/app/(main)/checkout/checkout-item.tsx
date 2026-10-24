@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
 import CartItemType from '@/types/cart-item';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -31,7 +32,7 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
 }
 
 
-export function CheckoutTotal({ totalItems, subtotal, shippingCost = 30 }: { totalItems: number, subtotal: number, shippingCost?: number }) {
+export function CheckoutTotal({ totalItems, subtotal, shippingCost = DEFAULT_SHIPPING_PRICE }: { totalItems: number, subtotal: number, shippingCost?: number }) {
     const { t } = useTranslation();
     // Convert to number to ensure proper calculation
     const subtotalValue = Number(subtotal);
@@ -71,7 +72,7 @@ export function OrderSummary({
     items,
     totalItems,
     subtotal,
-    shippingCost = 30
+    shippingCost = DEFAULT_SHIPPING_PRICE
 }: {
     items: CartItemType[],
     totalItems: number,
@@ -111,7 +112,7 @@ export function OrderSummarySide({
     items,
     totalItems,
     subtotal,
-    shippingCost = 30
+    shippingCost = DEFAULT_SHIPPING_PRICE
 }: {
     items: CartItemType[],
     totalItems: number,

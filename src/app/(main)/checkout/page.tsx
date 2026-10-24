@@ -17,6 +17,7 @@ import { useTranslation } from '@/lib/i18n-utils';
 import { trackPurchase } from '@/lib/pixel';
 import posthog from 'posthog-js';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
+import { getShippingPrice, DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
@@ -136,7 +137,7 @@ export default function CheckoutForm() {
     shipping_address: '',
     phone_number: '',
     city: '',
-    shipping_price: 30,
+    shipping_price: DEFAULT_SHIPPING_PRICE,
     payment: {
       method: "At Delivery",
       status: "pending"
@@ -169,7 +170,8 @@ export default function CheckoutForm() {
           shipping_address: parsedData.shipping_address || '',
           phone_number: parsedData.phone_number || '',
           city: parsedData.city || '',
-          shipping_price: typeof parsedData.shipping_price === 'number' ? parsedData.shipping_price : 30,
+          // Recomputed from the city rather than restored, so a fee saved under old rates isn't reused
+          shipping_price: getShippingPrice(parsedData.city || ''),
           payment: {
             ...prev.payment,
             method: parsedData.paymentMethod || "At Delivery"
@@ -406,7 +408,7 @@ export default function CheckoutForm() {
                 onChange={(cityItem: CityItem) => {
                   updateField('city', {
                     city: cityItem.name,
-                    shipping_price: cityItem.delivering_price || 30
+                    shipping_price: getShippingPrice(cityItem.name)
                   });
                 }}
                 placeholder={t('checkout_select_city')}
