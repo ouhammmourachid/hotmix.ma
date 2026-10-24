@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
-import { Suspense } from "react";
 import Script from "next/script";
 
 import "./globals.css";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import Contentsquare from "@/components/Contentsquare";
-import PageViewTracker from "@/components/PageViewTracker";
 import SWRegister from "@/components/SWRegister";
-import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import DisableZoomStandalone from "@/components/DisableZoomStandalone";
 import { LanguageProvider } from "@/contexts/language-context";
 import { AuthProvider } from "@/contexts/auth-context";
-import VercelAnalytics from "@/components/VercelAnalytics";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_WIDTH, DEFAULT_OG_IMAGE_HEIGHT } from "@/lib/seo";
 import JsonLd from "@/components/json-ld";
 
@@ -84,15 +78,16 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Hotmix" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        {/* PWA install prompt — must run before React hydration (beforeInteractive) */}
+        {/* PWA setup — must run before React hydration (beforeInteractive) */}
         <Script
           id="pwa-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
+              // No install banner or popup: the site stays installable from the browser menu
+              // (manifest + service worker), but Chrome's own "Add to Home screen" banner is blocked
               window.addEventListener('beforeinstallprompt', function(e) {
                 e.preventDefault();
-                window.deferredPWAInstallPrompt = e;
               });
               (function() {
                 try {
@@ -191,20 +186,11 @@ export default function RootLayout({
 
         <SWRegister />
         <DisableZoomStandalone />
-        <GoogleAnalytics />
-        <Contentsquare />
-        <Suspense fallback={null}>
-          <PageViewTracker />
-        </Suspense>
         <AuthProvider>
           <LanguageProvider>
             {children}
-            <PWAInstallPrompt />
           </LanguageProvider>
         </AuthProvider>
-
-        {/* Vercel Analytics + Speed Insights — wrapped in client component for Turbopack */}
-        <VercelAnalytics />
 
         {/* Meta Pixel — deferred so it doesn't block First Contentful Paint */}
         <Script

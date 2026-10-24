@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronDown, MapPin, Check, X } from 'lucide-react';
 import citiesData from '@/data/cities.json';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { getShippingPrice } from '@/lib/shipping';
 
 export interface CityItem {
   id: number;
@@ -20,6 +21,7 @@ interface CitySelectProps {
   placeholder?: string;
   searchPlaceholder?: string;
   className?: string;
+  invalid?: boolean;
 }
 
 export function CitySelect({
@@ -28,6 +30,7 @@ export function CitySelect({
   placeholder = "Sélectionnez votre ville",
   searchPlaceholder = "Rechercher une ville...",
   className = "",
+  invalid = false,
 }: CitySelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -81,7 +84,8 @@ export function CitySelect({
       {/* Input Trigger Box matching checkout_input_with_icon */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="checkout_input_with_icon cursor-pointer select-none items-center justify-between min-h-[50px] px-3 transition-colors"
+        aria-invalid={invalid || undefined}
+        className={`checkout_input_with_icon cursor-pointer select-none items-center justify-between min-h-[50px] px-3 transition-colors ${invalid ? '!border-red-500' : ''}`}
       >
         <div className="flex items-center gap-2 overflow-hidden flex-1">
           <MapPin size={18} className="text-gray-400 shrink-0" />
@@ -89,7 +93,7 @@ export function CitySelect({
             <div className="flex items-center justify-between w-full pr-2 overflow-hidden">
               <span className="text-white font-medium truncate">{selectedCity.name}</span>
               <span className="text-xs bg-greny/20 text-greny border border-greny/40 px-2 py-0.5 rounded-full shrink-0 font-semibold ml-2">
-                +{selectedCity.delivering_price} DH
+                +{getShippingPrice(selectedCity.name)} DH
               </span>
             </div>
           ) : value ? (
@@ -171,7 +175,7 @@ export function CitySelect({
                         )}
                       </div>
                       <span className="text-xs font-semibold text-greny bg-[#004750] px-2 py-0.5 rounded">
-                        {city.delivering_price} DH
+                        {getShippingPrice(city.name)} DH
                       </span>
                     </div>
                   );

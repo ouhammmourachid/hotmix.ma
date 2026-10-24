@@ -29,6 +29,8 @@ import Tag from '@/types/tag';
 import Category from '@/types/category';
 import { formatPrice } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
+import { saveBuyNowProduct } from '@/lib/buy-now';
+import Product from '@/types/product';
 
 export function Size({ size, selectedSize, onClick, className, isArchived }: { size: SizeType, selectedSize?: SizeType, onClick?: () => void, className?: string, isArchived?: boolean }) {
   return (
@@ -64,6 +66,7 @@ export function ThreeButtons({
   selectedColor,
   quantity,
   isArchived,
+  product,
 }: {
   price: number,
   className?: string,
@@ -74,6 +77,8 @@ export function ThreeButtons({
   selectedColor?: Color,
   quantity: number,
   isArchived?: boolean,
+  // Handed to the checkout so Buy now opens it instantly
+  product?: Product,
 }) {
   const { addToWithList, isInWithList, removeFromWithList } = useWishlist();
   const { t, language } = useTranslation();
@@ -84,6 +89,10 @@ export function ThreeButtons({
       addToWithList(productId);
     }
   };
+  // Only send the size/color the product actually has, so the URL never carries "undefined"
+  const buyNowParams = new URLSearchParams({ productId, quantity: String(quantity) });
+  if (selectedSize?.id) buyNowParams.set('sizeId', selectedSize.id);
+  if (selectedColor?.id) buyNowParams.set('colorId', selectedColor.id);
   return (
     <div className={`flex flex-col gap-4 ${className || ''}`}>
       <div className="flex items-center gap-2">
@@ -118,7 +127,8 @@ export function ThreeButtons({
       </div>
       {!isArchived && (
         <Link
-          href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
+          href={`/checkout?${buyNowParams.toString()}`}
+          onClick={() => product && saveBuyNowProduct(product)}
           data-button-tracker
           className={styles.three_buttons_quick_buy}
         >
@@ -525,18 +535,21 @@ export function CustomInput({
   placeholder,
   type,
   children,
+  invalid,
 }: {
   value: string,
   onChange: (e: any) => void,
   placeholder: string,
   type: string,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  invalid?: boolean
 }) {
   return (
-    <div className='checkout_input_with_icon'>
+    <div className={`checkout_input_with_icon ${invalid ? '!border-red-500' : ''}`}>
       <Input
         type={type}
         placeholder={placeholder}
+        aria-invalid={invalid || undefined}
         className="checkout_input_with_icon_input focus-visible:ring-0"
         value={value}
         onChange={onChange} />

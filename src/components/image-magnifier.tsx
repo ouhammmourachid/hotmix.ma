@@ -1,6 +1,15 @@
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 
-export default function ImageMagnifier({src}:{src:string}) {
+export default function ImageMagnifier({src, alt = 'Product Image', sizes, preload = false, eager = false}:{
+  src: string;
+  alt?: string;
+  sizes: string;
+  // Preload in the document head; only for the image visible on first paint (the LCP image)
+  preload?: boolean;
+  // Load now instead of when scrolled near, e.g. for the slides next to the visible one
+  eager?: boolean;
+}) {
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -33,13 +42,15 @@ export default function ImageMagnifier({src}:{src:string}) {
 
   return (
     <div className="relative" style={{ aspectRatio: '1000/1500' }}>
-      <img
+      <Image
         ref={imageRef}
         src={src}
-        alt="Product Image"
-        className="absolute inset-0 w-full h-full object-cover rounded-sm"
-        fetchPriority="high"
-        loading="eager"
+        alt={alt}
+        fill
+        sizes={sizes}
+        className="object-cover rounded-sm"
+        preload={preload}
+        loading={preload ? undefined : eager ? 'eager' : 'lazy'}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShowMagnifier(false)}
         onMouseMove={handleMouseMove}

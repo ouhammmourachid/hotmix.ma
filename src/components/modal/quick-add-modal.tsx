@@ -241,6 +241,7 @@ export default function QuickAddModal({
           <ThreeButtons
             quantity={quantity}
             productId={product.id}
+            product={product}
             price={price * quantity}
             selectedSize={selectedSize}
             selectedColor={selectedColor}

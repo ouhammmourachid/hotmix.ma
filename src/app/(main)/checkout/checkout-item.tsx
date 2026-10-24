@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import { DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
 import CartItemType from '@/types/cart-item';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -10,7 +12,7 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
     return (
         <div className="flex gap-4 items-center">
             <div className="relative w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
-                <img src={item.product.images[0].path} alt={item.product.name} className="max-h-full max-w-full" />
+                <Image src={item.product.images[0].path} alt={item.product.name} fill sizes="64px" className="object-contain" />
                 <span
                     className="absolute -top-2 -right-2 bg-white text-black font-semibold text-sm rounded-full w-6 h-6 flex items-center justify-center bg-opacity-60">
                     {item.quantity}
@@ -29,8 +31,29 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
     )
 }
 
+// Placeholder for an amount while the checkout is still loading its items
+function AmountSkeleton({ className = 'h-4 w-14' }: { className?: string }) {
+    return <span aria-hidden="true" className={`inline-block rounded bg-gray-700 animate-pulse ${className}`} />;
+}
 
-export function CheckoutTotal({ totalItems, subtotal, shippingCost = 30 }: { totalItems: number, subtotal: number, shippingCost?: number }) {
+// Same shape as a CheckoutItem row, so the summary doesn't jump when the items arrive
+function OrderItemsSkeleton() {
+    return (
+        <div className="pb-4 animate-pulse" aria-hidden="true">
+            <div className="flex gap-4 items-center">
+                <div className="w-16 h-16 rounded-lg bg-gray-700" />
+                <div className="flex-1 space-y-2">
+                    <div className="h-4 w-3/4 rounded bg-gray-700" />
+                    <div className="h-3 w-1/3 rounded bg-gray-700" />
+                </div>
+                <div className="h-4 w-12 rounded bg-gray-700" />
+            </div>
+        </div>
+    )
+}
+
+
+export function CheckoutTotal({ totalItems, subtotal, shippingCost = DEFAULT_SHIPPING_PRICE, isLoading = false }: { totalItems: number, subtotal: number, shippingCost?: number, isLoading?: boolean }) {
     const { t } = useTranslation();
     // Convert to number to ensure proper calculation
     const subtotalValue = Number(subtotal);
@@ -39,8 +62,8 @@ export function CheckoutTotal({ totalItems, subtotal, shippingCost = 30 }: { tot
     return (
         <div className="space-y-4">
             <div className="flex justify-between text-sm">
-                <span>{t('cart_subtotal')} • {totalItems} {t('checkout_items')}</span>
-                <span>{subtotalValue.toFixed(0)} DH</span>
+                <span>{t('cart_subtotal')}{isLoading ? '' : ` • ${totalItems} ${t('checkout_items')}`}</span>
+                {isLoading ? <AmountSkeleton /> : <span>{subtotalValue.toFixed(0)} DH</span>}
             </div>
             <div className="flex justify-between text-sm">
                 <span>{t('cart_shipping')}</span>
@@ -48,14 +71,15 @@ export function CheckoutTotal({ totalItems, subtotal, shippingCost = 30 }: { tot
             </div>
             <div className="flex justify-between text-lg font-semibold">
                 <span>{t('cart_total')}</span>
-                <span>{totalValue.toFixed(0)} DH</span>
+                {isLoading ? <AmountSkeleton className="h-6 w-20" /> : <span>{totalValue.toFixed(0)} DH</span>}
             </div>
         </div>
     )
 }
 
 
-export function OrderItems({ items }: { items: CartItemType[] }) {
+export function OrderItems({ items, isLoading = false }: { items: CartItemType[], isLoading?: boolean }) {
+    if (isLoading) return <OrderItemsSkeleton />;
     return (
         <div className="pb-4 space-y-4">
             {items.map((item, index) => (
@@ -70,12 +94,15 @@ export function OrderSummary({
     items,
     totalItems,
     subtotal,
-    shippingCost = 30
+    shippingCost = DEFAULT_SHIPPING_PRICE,
+    isLoading = false
 }: {
     items: CartItemType[],
     totalItems: number,
     subtotal: number,
-    shippingCost?: number
+    shippingCost?: number,
+    // True while the checkout is still fetching its items: amounts show placeholders, not 0
+    isLoading?: boolean
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const totalValue = Number(subtotal) + shippingCost;
@@ -90,15 +117,16 @@ export function OrderSummary({
                     className='flex text-greny'>
                     {t('checkout_order_summary')} {isOpen ? <ChevronUp className='mt-1' /> : <ChevronDown className='mt-1' />}
                 </div>
-                <div>{totalValue.toFixed(0)} DH</div>
+                <div>{isLoading ? <AmountSkeleton className="h-6 w-20" /> : `${totalValue.toFixed(0)} DH`}</div>
             </div>
             {isOpen &&
                 <div className="p-6 border-b border-secondary">
-                    <OrderItems items={items} />
+                    <OrderItems items={items} isLoading={isLoading} />
                     <CheckoutTotal
                         totalItems={totalItems}
                         subtotal={subtotal}
-                        shippingCost={shippingCost} />
+                        shippingCost={shippingCost}
+                        isLoading={isLoading} />
                 </div>
             }
         </div>
@@ -110,12 +138,15 @@ export function OrderSummarySide({
     items,
     totalItems,
     subtotal,
-    shippingCost = 30
+    shippingCost = DEFAULT_SHIPPING_PRICE,
+    isLoading = false
 }: {
     items: CartItemType[],
     totalItems: number,
     subtotal: number,
-    shippingCost?: number
+    shippingCost?: number,
+    // True while the checkout is still fetching its items: amounts show placeholders, not 0
+    isLoading?: boolean
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const subtotalValue = Number(subtotal);
@@ -141,17 +172,18 @@ export function OrderSummarySide({
             </div>
             {isOpen &&
                 <div className='lg:hidden'>
-                    <OrderItems items={items} />
+                    <OrderItems items={items} isLoading={isLoading} />
                 </div>
             }
             <div className='hidden lg:block'>
-                <OrderItems items={items} />
+                <OrderItems items={items} isLoading={isLoading} />
             </div>
 
             <CheckoutTotal
                 subtotal={subtotalValue}
                 totalItems={totalItems}
-                shippingCost={shippingCost} />
+                shippingCost={shippingCost}
+                isLoading={isLoading} />
         </div>
     )
 }
