@@ -4,6 +4,7 @@ import ProductModal from "@/components/modal/product-modal";
 import { useState, useEffect, useRef } from "react";
 import QuickAddModal from "@/components/modal/quick-add-modal";
 import Link from "next/link";
+import Image from "next/image";
 import Product from "@/types/product";
 import { useWishlist } from "@/contexts/wishlist-context";
 import { useCartModal } from "@/contexts/cart-modal-context";
@@ -144,13 +145,14 @@ export default function ProductCard({
             href={`/products/${product.id}`}
             className="cursor-pointer block relative z-10"
           >
-            <div className="overflow-hidden rounded-lg" style={{ aspectRatio: '1000/1500' }}>
+            <div className="relative overflow-hidden rounded-lg" style={{ aspectRatio: '1000/1500' }}>
               {currentImagePath ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={currentImagePath}
                   alt={product.name}
-                  className={`w-full h-full object-cover rounded-lg transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className={`object-cover rounded-lg transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
                 />
               ) : (
                 <div className="w-full h-full bg-gray-800" />

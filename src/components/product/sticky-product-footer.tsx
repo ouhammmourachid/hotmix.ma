@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React,{useState,useEffect} from 'react';
 import { Button } from '@/components/ui/button';
 import { QuantityChanger } from '@/components/small-pieces';
@@ -57,9 +58,11 @@ export default function StickyProductFooter({                                  p
     return (
       <div className={styles.sticky_product_footer + " sticky-product-footer"}>
         <div className='items-center gap-4 hidden md:flex'>
-          <img
+          <Image
             src={product.images[0].path}
             alt={product.name}
+            width={80}
+            height={80}
             className="w-20 h-20 object-cover rounded-full"
           />
           <span className={styles.sticky_product_footer_name}>

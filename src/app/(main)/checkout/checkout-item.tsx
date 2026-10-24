@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CartItemType from '@/types/cart-item';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -10,7 +11,7 @@ export default function CheckoutItem({ item }: { item: CartItemType }) {
     return (
         <div className="flex gap-4 items-center">
             <div className="relative w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
-                <img src={item.product.images[0].path} alt={item.product.name} className="max-h-full max-w-full" />
+                <Image src={item.product.images[0].path} alt={item.product.name} fill sizes="64px" className="object-contain" />
                 <span
                     className="absolute -top-2 -right-2 bg-white text-black font-semibold text-sm rounded-full w-6 h-6 flex items-center justify-center bg-opacity-60">
                     {item.quantity}

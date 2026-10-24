@@ -1,14 +1,12 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { ThreeButtons, Size, QuantityChanger } from '@/components/small-pieces';
-import ImageMagnifier from '@/components/image-magnifier';
 import ProductDetails from '@/components/product/product-details';
 import RecommendedProducts from '@/components/product/recommended-products';
 import StickyProductFooter from '@/components/product/sticky-product-footer';
 import { useCart } from '@/contexts/cart-context';
 import SizeType from '@/types/size';
-import { motion } from 'framer-motion';
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import { useApiService } from '@/services/api.service';
@@ -23,6 +21,7 @@ import { useRecentlyViewed } from '@/contexts/recently-viewed-context';
 import RecentlyViewedProducts from '@/components/product/recently-viewed-products';
 
 import ProductImageLightbox from '@/components/product/product-image-lightbox';
+import ProductGallery from '@/components/product/product-gallery';
 import { Maximize2 } from 'lucide-react';
 
 // Returns the index of the image that best matches the given color, or -1 if none
@@ -207,63 +206,13 @@ export default function ProductPageClient({ params, initialProduct }: {
     <div>
       <div className="product">
         {/* Left side - Image gallery */}
-        <div className="flex gap-4 lg:w-[55%] ml-0 flex-col-reverse md:flex-row">
-          <div className="flex flex-row md:flex-col gap-2">
-            {product.images.map((img, index) => (
-              <motion.button
-                key={index}
-                initial={{
-                  rotate: 60,
-                  scale: 0.9,
-                  opacity: 0
-                }}
-                animate={{
-                  rotate: 0,
-                  scale: 1,
-                  opacity: 1
-                }}
-                transition={{
-                  duration: 0.3,
-                  delay: (index + 1) * 0.4
-                }}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`w-20 h-fit rounded-lg overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-greny' : ''
-                  }`}
-              >
-                {/* Aspect-ratio container keeps thumbnail proportional and prevents CLS */}
-                <div style={{ aspectRatio: '1000/1500' }} className="w-full overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.path}
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </motion.button>
-            ))}
-          </div>
-
-          <div className="relative w-full group">
-            <div
-              className="relative w-full h-full overflow-hidden rounded-lg cursor-pointer"
-              onClick={() => setIsLightboxOpen(true)}
-            >
-              <ImageMagnifier src={product.images[currentImageIndex].path} />
-            </div>
-            <button
-              onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : prev)}
-              className="product_image_skip left-4 top-1/2"
-              disabled={currentImageIndex === 0}>
-              <ChevronLeft className="text-black" />
-            </button>
-            <button
-              onClick={() => setCurrentImageIndex(prev => prev < product.images.length - 1 ? prev + 1 : prev)}
-              className="product_image_skip right-4 top-1/2"
-              disabled={currentImageIndex === product.images.length - 1}>
-              <ChevronRight className="text-black" />
-            </button>
-          </div>
-        </div>
+        <ProductGallery
+          images={product.images}
+          alt={product.name}
+          currentIndex={currentImageIndex}
+          onIndexChange={setCurrentImageIndex}
+          onOpenLightbox={() => setIsLightboxOpen(true)}
+        />
 
         {/* Right side - Product info with sticky positioning */}
         <div className="lg:sticky lg:top-4 lg:w-[45%] w-full h-fit">
