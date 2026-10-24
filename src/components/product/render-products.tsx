@@ -107,7 +107,7 @@ export default function RenderProducts({
               ref={index === products.length - 1 ? ref : null}
               product={product}
               key={index}
-              delay={0.4 * (index + 1)}
+              delay={0.05 * Math.min(index, 8)}
             />
           );
         })

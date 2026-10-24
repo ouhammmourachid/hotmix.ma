@@ -3,6 +3,7 @@ import ProductModal from "@/components/modal/product-modal";
 import { useState, useEffect, useRef } from "react";
 import QuickAddModal from "@/components/modal/quick-add-modal";
 import Link from "next/link";
+import Image from "next/image";
 import Product from "@/types/product";
 import { useWishlist } from "@/contexts/wishlist-context";
 import { useCartModal } from "@/contexts/cart-modal-context";
@@ -149,13 +150,14 @@ export default function HorizontalProductCard({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <Link href={`/products/${product.id}`}>
-              <div style={{ aspectRatio: '1000/1500' }} className="w-full overflow-hidden rounded-lg">
+              <div style={{ aspectRatio: '1000/1500' }} className="relative w-full overflow-hidden rounded-lg">
                 {currentImagePath ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={currentImagePath}
                     alt={product.name}
-                    className={`w-full h-full object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 33vw"
+                    className={`object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-800" />
