@@ -29,6 +29,8 @@ import Tag from '@/types/tag';
 import Category from '@/types/category';
 import { formatPrice } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
+import { saveBuyNowProduct } from '@/lib/buy-now';
+import Product from '@/types/product';
 
 export function Size({ size, selectedSize, onClick, className, isArchived }: { size: SizeType, selectedSize?: SizeType, onClick?: () => void, className?: string, isArchived?: boolean }) {
   return (
@@ -64,6 +66,7 @@ export function ThreeButtons({
   selectedColor,
   quantity,
   isArchived,
+  product,
 }: {
   price: number,
   className?: string,
@@ -74,6 +77,8 @@ export function ThreeButtons({
   selectedColor?: Color,
   quantity: number,
   isArchived?: boolean,
+  // Handed to the checkout so Buy now opens it instantly
+  product?: Product,
 }) {
   const { addToWithList, isInWithList, removeFromWithList } = useWishlist();
   const { t, language } = useTranslation();
@@ -123,6 +128,7 @@ export function ThreeButtons({
       {!isArchived && (
         <Link
           href={`/checkout?${buyNowParams.toString()}`}
+          onClick={() => product && saveBuyNowProduct(product)}
           data-button-tracker
           className={styles.three_buttons_quick_buy}
         >

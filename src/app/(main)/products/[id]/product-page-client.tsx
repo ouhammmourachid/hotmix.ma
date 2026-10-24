@@ -295,6 +295,7 @@ export default function ProductPageClient({ params, initialProduct }: {
             <ThreeButtons
               quantity={quantity}
               productId={product.id}
+              product={product}
               price={price * quantity}
               selectedSize={selectedSize}
               selectedColor={selectedColor}

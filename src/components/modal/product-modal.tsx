@@ -208,6 +208,7 @@ const ProductModal = ({
             <ThreeButtons
               quantity={1}
               productId={product.id}
+              product={product}
               price={price}
               selectedSize={selectedSize}
               selectedColor={selectedColor}

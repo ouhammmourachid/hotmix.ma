@@ -12,12 +12,16 @@ import CartItem from '@/types/cart-item';
 import { useApiService } from '@/services/api.service';
 import Size from '@/types/size';
 import Color from '@/types/color';
+import Product from '@/types/product';
 import SuccessModal from '@/components/modal/success-modal';
 import { useTranslation } from '@/lib/i18n-utils';
 import { trackPurchase } from '@/lib/pixel';
 import posthog from 'posthog-js';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
 import { getShippingPrice, DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
+import { readBuyNowProduct } from '@/lib/buy-now';
+import EmptyCartPage from '@/components/cart/empty-cart-page';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
@@ -36,12 +40,11 @@ function FieldError({ message }: { message?: string }) {
 
 export default function CheckoutForm() {
   const router = useRouter();
-  const { cartItems, totalItems, subtotal, clearCart } = useCart();
+  const { cartItems, totalItems, subtotal, clearCart, isInitialized: isCartLoaded } = useCart();
   const api = useApiService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const { t } = useTranslation();
 
-  // Initialize state directly from URL params if they exist
   const [checkoutState, setCheckoutState] = useState<{
     items: CartItem[],
     totalItems: number,
@@ -51,6 +54,13 @@ export default function CheckoutForm() {
     totalItems: 0,
     subtotal: 0
   });
+  // 'loading' until the items are known, so the summary never shows a made-up empty order
+  const [loadStatus, setLoadStatus] = useState<'loading' | 'ready' | 'empty' | 'error'>('loading');
+  // Read from the URL after mount: the Buy now product, or null for a checkout of the cart
+  const [buyNowProductId, setBuyNowProductId] = useState<string | null | undefined>(undefined);
+  const [reloadKey, setReloadKey] = useState(0);
+  // The cart is cleared once the order is placed; don't switch to the empty-cart screen while redirecting
+  const isOrderPlaced = useRef(false);
 
   const fetchProduct = async (productId: string) => {
     try {
@@ -63,48 +73,65 @@ export default function CheckoutForm() {
   };
 
   useEffect(() => {
-    const loadProductData = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get('productId') || '';
-      const sizeId = urlParams.get('sizeId') || '';
-      const colorId = urlParams.get('colorId') || '';
-      const rawQuantity = parseInt(urlParams.get('quantity') || '1', 10);
-      const quantity = isNaN(rawQuantity) || rawQuantity < 1 ? 1 : rawQuantity;
+    setBuyNowProductId(new URLSearchParams(window.location.search).get('productId'));
+  }, []);
 
-      if (productId) {
-        try {
-          const product = await fetchProduct(productId);
-          const size = product?.sizes?.find((size: Size) => size.id === sizeId);
-          const color = product?.colors?.find((color: Color) => color.id === colorId);
-          if (product) {
-            const price = product.sale_price || product.price;
-            setCheckoutState({
-              items: [{
-                id: Date.now(),
-                product,
-                size,
-                color,
-                quantity: quantity,
-                price
-              }],
-              totalItems: quantity,
-              subtotal: price * quantity
-            });
-          }
-        } catch (error) {
-          console.error("Error loading product:", error);
-        }
-      } else {
-        setCheckoutState({
-          items: cartItems,
-          totalItems,
-          subtotal
-        });
-      }
+  // Buy now: shown instantly when the product page handed the product over, then refreshed
+  // from the API so price and options are current. Runs once, not again when the cart loads.
+  useEffect(() => {
+    if (!buyNowProductId) return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const sizeId = urlParams.get('sizeId') || '';
+    const colorId = urlParams.get('colorId') || '';
+    const rawQuantity = parseInt(urlParams.get('quantity') || '1', 10);
+    const quantity = isNaN(rawQuantity) || rawQuantity < 1 ? 1 : rawQuantity;
+
+    const showProduct = (product: Product) => {
+      const size = product.sizes?.find((size: Size) => size.id === sizeId);
+      const color = product.colors?.find((color: Color) => color.id === colorId);
+      const price = product.sale_price || product.price;
+      setCheckoutState({
+        items: [{
+          id: Date.now(),
+          product,
+          size,
+          color,
+          quantity: quantity,
+          price
+        }],
+        totalItems: quantity,
+        subtotal: price * quantity
+      });
+      setLoadStatus('ready');
     };
 
-    loadProductData();
-  }, [cartItems, totalItems, subtotal]);
+    const handedOver = readBuyNowProduct(buyNowProductId);
+    if (handedOver) showProduct(handedOver);
+    else setLoadStatus('loading');
+
+    let cancelled = false;
+    fetchProduct(buyNowProductId).then((product) => {
+      if (cancelled) return;
+      if (product) showProduct(product);
+      // Only an error when there is nothing to show; a failed refresh keeps the handed-over product
+      else if (!handedOver) setLoadStatus('error');
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [buyNowProductId, reloadKey]);
+
+  // Cart checkout: wait until the cart has been read from storage before deciding it's empty
+  useEffect(() => {
+    if (buyNowProductId !== null || !isCartLoaded || isOrderPlaced.current) return;
+    setCheckoutState({
+      items: cartItems,
+      totalItems,
+      subtotal
+    });
+    setLoadStatus(cartItems.length > 0 ? 'ready' : 'empty');
+  }, [buyNowProductId, isCartLoaded, cartItems, totalItems, subtotal]);
 
   // Fire checkout_started once, as soon as the checkout has items to show
   const hasTrackedCheckoutStart = useRef(false);
@@ -347,6 +374,7 @@ export default function CheckoutForm() {
         total_items: checkoutState.totalItems,
         product_ids: productIds,
       });
+      isOrderPlaced.current = true;
       clearCart();
       router.push('/?orderSuccess=true');
     } catch (error) {
@@ -364,6 +392,36 @@ export default function CheckoutForm() {
     router.push('/');
   }
 
+  if (loadStatus === 'empty') {
+    return (
+      <div className="min-h-screen bg-primary px-6 py-16">
+        <EmptyCartPage />
+      </div>
+    );
+  }
+
+  if (loadStatus === 'error') {
+    return (
+      <div className="min-h-screen bg-primary flex items-start justify-center px-6 py-16">
+        <div role="alert" className="max-w-md w-full text-center space-y-6">
+          <p className="text-lg">{t('checkout_err_load')}</p>
+          <div className="flex flex-col gap-3">
+            <Button onClick={() => setReloadKey((key) => key + 1)} className="complete_order_button">
+              {t('checkout_try_again')}
+            </Button>
+            <Link
+              href={`/products/${buyNowProductId}`}
+              className="h-12 flex items-center justify-center rounded-sm border border-white/20 hover:bg-white/10 transition-colors">
+              {t('checkout_back_to_product')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const isLoadingItems = loadStatus === 'loading';
+
   return (
     <div className="min-h-screen bg-primary">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -371,7 +429,8 @@ export default function CheckoutForm() {
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
           shippingCost={formData.shipping_price}
-          items={checkoutState.items} />
+          items={checkoutState.items}
+          isLoading={isLoadingItems} />
 
         <div className="lg:col-span-2 space-y-6 lg:sticky lg:top-4 lg:h-fit p-6 pt-0 lg:pt-6 lg:border-r-2 lg:border-secondary lg:pr-12">
           {/* Delivery Section */}
@@ -459,7 +518,7 @@ export default function CheckoutForm() {
             )}
             <Button
               onClick={handlesubmit}
-              disabled={isSubmitting}
+              disabled={isSubmitting || loadStatus !== 'ready'}
               className="complete_order_button flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
               {isSubmitting ? (
                 <>
@@ -477,7 +536,8 @@ export default function CheckoutForm() {
           totalItems={checkoutState.totalItems}
           subtotal={checkoutState.subtotal}
           shippingCost={formData.shipping_price}
-          items={checkoutState.items} />
+          items={checkoutState.items}
+          isLoading={isLoadingItems} />
       </div>
 
       {/* Success Modal */}
