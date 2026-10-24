@@ -20,6 +20,7 @@ interface CitySelectProps {
   placeholder?: string;
   searchPlaceholder?: string;
   className?: string;
+  invalid?: boolean;
 }
 
 export function CitySelect({
@@ -28,6 +29,7 @@ export function CitySelect({
   placeholder = "Sélectionnez votre ville",
   searchPlaceholder = "Rechercher une ville...",
   className = "",
+  invalid = false,
 }: CitySelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -81,7 +83,8 @@ export function CitySelect({
       {/* Input Trigger Box matching checkout_input_with_icon */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="checkout_input_with_icon cursor-pointer select-none items-center justify-between min-h-[50px] px-3 transition-colors"
+        aria-invalid={invalid || undefined}
+        className={`checkout_input_with_icon cursor-pointer select-none items-center justify-between min-h-[50px] px-3 transition-colors ${invalid ? '!border-red-500' : ''}`}
       >
         <div className="flex items-center gap-2 overflow-hidden flex-1">
           <MapPin size={18} className="text-gray-400 shrink-0" />

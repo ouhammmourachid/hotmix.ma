@@ -84,6 +84,10 @@ export function ThreeButtons({
       addToWithList(productId);
     }
   };
+  // Only send the size/color the product actually has, so the URL never carries "undefined"
+  const buyNowParams = new URLSearchParams({ productId, quantity: String(quantity) });
+  if (selectedSize?.id) buyNowParams.set('sizeId', selectedSize.id);
+  if (selectedColor?.id) buyNowParams.set('colorId', selectedColor.id);
   return (
     <div className={`flex flex-col gap-4 ${className || ''}`}>
       <div className="flex items-center gap-2">
@@ -118,7 +122,7 @@ export function ThreeButtons({
       </div>
       {!isArchived && (
         <Link
-          href={`/checkout?productId=${productId}&sizeId=${selectedSize?.id}&colorId=${selectedColor?.id}&quantity=${quantity}`}
+          href={`/checkout?${buyNowParams.toString()}`}
           data-button-tracker
           className={styles.three_buttons_quick_buy}
         >
@@ -525,18 +529,21 @@ export function CustomInput({
   placeholder,
   type,
   children,
+  invalid,
 }: {
   value: string,
   onChange: (e: any) => void,
   placeholder: string,
   type: string,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  invalid?: boolean
 }) {
   return (
-    <div className='checkout_input_with_icon'>
+    <div className={`checkout_input_with_icon ${invalid ? '!border-red-500' : ''}`}>
       <Input
         type={type}
         placeholder={placeholder}
+        aria-invalid={invalid || undefined}
         className="checkout_input_with_icon_input focus-visible:ring-0"
         value={value}
         onChange={onChange} />
