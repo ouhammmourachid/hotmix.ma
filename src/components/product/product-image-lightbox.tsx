@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import ImageType from '@/types/image';
+import ZoomableImage from '@/components/product/zoomable-image';
 
 interface ProductImageLightboxProps {
   isOpen: boolean;
@@ -13,8 +14,6 @@ interface ProductImageLightboxProps {
   onIndexChange: (index: number) => void;
 }
 
-const SWIPE_THRESHOLD = 40;
-
 export default function ProductImageLightbox({
   isOpen,
   onClose,
@@ -22,54 +21,69 @@ export default function ProductImageLightbox({
   currentIndex,
   onIndexChange,
 }: ProductImageLightboxProps) {
-  const [direction, setDirection] = useState(0);
-  const [zoomScale, setZoomScale] = useState(1);
-  const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
+  const [isZoomed, setIsZoomed] = useState(false);
 
-  const modalRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  // Slide the track is showing, so a scroll we started ourselves doesn't report back as a swipe
+  const visibleIndexRef = useRef(currentIndex);
+  const scrollSettleTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  const isZoomed = zoomScale > 1;
+  const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior) => {
+    const track = trackRef.current;
+    if (!track) return;
+    // In RTL the track scrolls towards negative scrollLeft
+    const direction = getComputedStyle(track).direction === 'rtl' ? -1 : 1;
+    track.scrollTo({ left: direction * index * track.clientWidth, behavior });
+  }, []);
 
-  // Reset zoom state when image changes
+  // Open directly on the image that was tapped, without animating through the others
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+    setIsZoomed(false);
+    visibleIndexRef.current = currentIndex;
+    scrollToIndex(currentIndex, 'instant');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  // Follow index changes made by the arrows or keyboard
   useEffect(() => {
-    setZoomScale(1);
-    setZoomOrigin({ x: 50, y: 50 });
-  }, [currentIndex]);
+    if (!isOpen || visibleIndexRef.current === currentIndex) return;
+    visibleIndexRef.current = currentIndex;
+    scrollToIndex(currentIndex, 'smooth');
+  }, [currentIndex, isOpen, scrollToIndex]);
 
-  // Image pagination helper (prev / next)
+  useEffect(() => () => clearTimeout(scrollSettleTimer.current), []);
+
+  // Report a swipe only once the snap has settled, so a smooth scroll across several slides
+  // doesn't emit the intermediate indexes
+  const handleScroll = () => {
+    clearTimeout(scrollSettleTimer.current);
+    scrollSettleTimer.current = setTimeout(() => {
+      const track = trackRef.current;
+      if (!track) return;
+      const index = Math.round(Math.abs(track.scrollLeft) / track.clientWidth);
+      if (index !== visibleIndexRef.current && index < images.length) {
+        visibleIndexRef.current = index;
+        onIndexChange(index);
+      }
+    }, 100);
+  };
+
+  const handleZoomChange = useCallback((zoomed: boolean) => {
+    setIsZoomed(zoomed);
+    // A pinch can start while the swipe is mid-way; settle on the current image before locking the track
+    if (zoomed) scrollToIndex(visibleIndexRef.current, 'instant');
+  }, [scrollToIndex]);
+
   const paginate = useCallback(
-    (newDirection: number) => {
-      if (!images || images.length <= 1) return;
-      let nextIndex = currentIndex + newDirection;
-      if (nextIndex < 0) {
-        nextIndex = images.length - 1;
-      } else if (nextIndex >= images.length) {
-        nextIndex = 0;
-      }
-      setDirection(newDirection);
-      onIndexChange(nextIndex);
-      setZoomScale(1);
-      setZoomOrigin({ x: 50, y: 50 });
+    (step: number) => {
+      const nextIndex = Math.min(Math.max(currentIndex + step, 0), images.length - 1);
+      if (nextIndex !== currentIndex) onIndexChange(nextIndex);
     },
-    [currentIndex, images, onIndexChange]
+    [currentIndex, images.length, onIndexChange]
   );
-
-  // Preload adjacent images for smooth fast switching
-  useEffect(() => {
-    if (!isOpen || !images || images.length === 0) return;
-    const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    const nextIndex = (currentIndex + 1) % images.length;
-
-    [images[prevIndex]?.path, images[nextIndex]?.path].forEach((src) => {
-      if (src) {
-        const img = new window.Image();
-        img.src = src;
-      }
-    });
-  }, [currentIndex, images, isOpen]);
 
   // Keyboard navigation & focus trap
   useEffect(() => {
@@ -88,12 +102,11 @@ export default function ProductImageLightbox({
       if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         e.preventDefault();
-        paginate(-1);
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        paginate(1);
+        // In RTL the next image sits to the left
+        const isRtl = document.documentElement.dir === 'rtl';
+        paginate((e.key === 'ArrowRight') !== isRtl ? 1 : -1);
       }
     };
 
@@ -106,65 +119,14 @@ export default function ProductImageLightbox({
     };
   }, [isOpen, onClose, paginate]);
 
-  // Drag & swipe gesture navigation when not zoomed
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (isZoomed) return;
-    if (info.offset.x < -SWIPE_THRESHOLD) {
-      paginate(1);
-    } else if (info.offset.x > SWIPE_THRESHOLD) {
-      paginate(-1);
-    }
-  };
-
-  // Handle tap on image to toggle zoom targeted at click position
-  const handleImageTap = (_: any, info: any) => {
-    if (isZoomed) {
-      setZoomScale(1);
-      setZoomOrigin({ x: 50, y: 50 });
-    } else if (imgRef.current) {
-      const rect = imgRef.current.getBoundingClientRect();
-      const xPercent = Math.max(0, Math.min(100, ((info.point.x - rect.left) / rect.width) * 100));
-      const yPercent = Math.max(0, Math.min(100, ((info.point.y - rect.top) / rect.height) * 100));
-      setZoomOrigin({ x: xPercent, y: yPercent });
-      setZoomScale(2.5);
-    }
-  };
-
-  // Smooth mouse move panning when zoomed
-  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (!isZoomed || !imgRef.current) return;
-    const rect = imgRef.current.getBoundingClientRect();
-    const xPercent = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
-    const yPercent = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
-    setZoomOrigin({ x: xPercent, y: yPercent });
-  };
-
   if (!isOpen || !images || images.length === 0) return null;
 
-  const currentImgSrc = images[currentIndex]?.path;
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? '100%' : dir < 0 ? '-100%' : 0,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      zIndex: 0,
-      x: dir < 0 ? '100%' : dir > 0 ? '-100%' : 0,
-      opacity: 0,
-    }),
-  };
+  const arrowClassName = "hidden md:flex absolute top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-black/50 hover:bg-white hover:text-black text-white backdrop-blur-md transition-all duration-200 focus:outline-none shadow-2xl items-center justify-center disabled:opacity-0 disabled:pointer-events-none";
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          ref={modalRef}
           role="dialog"
           aria-modal="true"
           aria-label="Image Gallery"
@@ -177,7 +139,7 @@ export default function ProductImageLightbox({
           {/* Header Bar Overlay */}
           <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-6 pt-6 pb-4 z-50 bg-gradient-to-b from-black/70 to-transparent pointer-events-none">
             {/* Counter */}
-            <div className="text-sm md:text-base font-medium text-white/90 tracking-widest pl-2 pointer-events-auto">
+            <div dir="ltr" className="text-sm md:text-base font-medium text-white/90 tracking-widest pl-2 pointer-events-auto tabular-nums">
               {currentIndex + 1} / {images.length}
             </div>
 
@@ -196,76 +158,48 @@ export default function ProductImageLightbox({
             </div>
           </div>
 
-          {/* Main Full-Height Gallery Container */}
-          <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-            {/* Left Chevron Button (Hidden on small screens) */}
-            {images.length > 1 && (
+          {/* Swipe track: native scroll-snap, locked while an image is zoomed so pans don't change image */}
+          <div
+            ref={trackRef}
+            onScroll={handleScroll}
+            style={{ overflowX: isZoomed ? 'hidden' : undefined }}
+            className="flex h-full w-full overflow-x-auto snap-x snap-mandatory overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none]"
+          >
+            {images.map((img, index) => (
+              <div key={index} className="relative h-full w-full shrink-0 snap-start snap-always">
+                <ZoomableImage
+                  src={img.path}
+                  alt={`Product view ${index + 1}`}
+                  active={index === currentIndex}
+                  eager={Math.abs(index - currentIndex) <= 1}
+                  onZoomChange={handleZoomChange}
+                />
+              </div>
+            ))}
+          </div>
+
+          {images.length > 1 && (
+            <>
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  paginate(-1);
-                }}
-                className="hidden md:flex absolute left-3 md:left-8 z-40 p-3 rounded-full bg-black/50 hover:bg-white hover:text-black text-white backdrop-blur-md transition-all duration-200 transform hover:scale-110 focus:outline-none shadow-2xl items-center justify-center"
+                onClick={() => paginate(-1)}
+                disabled={currentIndex === 0}
+                className={`${arrowClassName} start-3 md:start-8`}
                 aria-label="Previous Image"
               >
-                <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+                <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 rtl:-scale-x-100" strokeWidth={2} />
               </button>
-            )}
-
-            {/* Center Slide Container taking 100% height */}
-            <div className="w-full h-full flex items-center justify-center p-0 relative overflow-hidden">
-              <AnimatePresence initial={false} custom={direction} mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{
-                    x: { type: 'spring', stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
-                  }}
-                  drag={isZoomed ? false : 'x'}
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.2}
-                  onDragEnd={handleDragEnd}
-                  className="w-full h-full flex items-center justify-center overflow-hidden"
-                >
-                  <motion.img
-                    ref={imgRef}
-                    src={currentImgSrc}
-                    alt={`Product view ${currentIndex + 1}`}
-                    onTap={handleImageTap}
-                    onMouseMove={handleMouseMove}
-                    style={{
-                      transform: isZoomed ? `scale(${zoomScale})` : 'scale(1)',
-                      transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
-                    }}
-                    className={`h-full max-h-screen w-auto max-w-full object-contain transition-transform duration-200 ease-out will-change-transform ${
-                      isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'
-                    }`}
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Right Chevron Button (Hidden on small screens) */}
-            {images.length > 1 && (
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  paginate(1);
-                }}
-                className="hidden md:flex absolute right-3 md:right-8 z-40 p-3 rounded-full bg-black/50 hover:bg-white hover:text-black text-white backdrop-blur-md transition-all duration-200 transform hover:scale-110 focus:outline-none shadow-2xl items-center justify-center"
+                onClick={() => paginate(1)}
+                disabled={currentIndex === images.length - 1}
+                className={`${arrowClassName} end-3 md:end-8`}
                 aria-label="Next Image"
               >
-                <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+                <ChevronRight className="w-8 h-8 md:w-10 md:h-10 rtl:-scale-x-100" strokeWidth={2} />
               </button>
-            )}
-          </div>
+            </>
+          )}
         </motion.div>
       )}
     </AnimatePresence>
