@@ -11,6 +11,21 @@ interface RecentlyViewedContextType {
 
 const RecentlyViewedContext = createContext<RecentlyViewedContextType | undefined>(undefined);
 
+const STORAGE_KEY = "recently_viewed_ids";
+
+function readStoredIds(): string[] {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return [];
+    try {
+        const parsed = JSON.parse(stored);
+        // Basic validation to ensure it's an array of strings
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        console.error("Failed to parse recently viewed products", e);
+        return [];
+    }
+}
+
 export function RecentlyViewedProvider({ children }: { children: React.ReactNode }) {
     const [recentlyViewedIds, setRecentlyViewedIds] = useState<string[]>([]);
     const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
@@ -18,18 +33,8 @@ export function RecentlyViewedProvider({ children }: { children: React.ReactNode
 
     // Load IDs from local storage (client-side only)
     useEffect(() => {
-        const stored = localStorage.getItem("recently_viewed_ids");
-        if (stored) {
-            try {
-                const parsed = JSON.parse(stored);
-                if (Array.isArray(parsed)) {
-                    // Basic validation to ensure it's an array of strings
-                    setRecentlyViewedIds(parsed);
-                }
-            } catch (e) {
-                console.error("Failed to parse recently viewed products", e);
-            }
-        }
+        const storedIds = readStoredIds();
+        if (storedIds.length > 0) setRecentlyViewedIds(storedIds);
     }, []);
 
     // Fetch products when IDs change
@@ -60,12 +65,15 @@ export function RecentlyViewedProvider({ children }: { children: React.ReactNode
 
     const addToRecentlyViewed = useCallback((product: Product) => {
         setRecentlyViewedIds((prev) => {
+            // A product page adds itself in its own mount effect, which runs before the load effect
+            // above (child effects run first), so fall back to storage instead of overwriting it
+            const current = prev.length > 0 ? prev : readStoredIds();
             // Remove current product id if it exists
-            const filtered = prev.filter((id) => id !== product.id);
+            const filtered = current.filter((id) => id !== product.id);
             // Add to front and limit to 10
             const updated = [product.id, ...filtered].slice(0, 10);
 
-            localStorage.setItem("recently_viewed_ids", JSON.stringify(updated));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
             return updated;
         });
     }, []);
