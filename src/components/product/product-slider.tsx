@@ -91,11 +91,11 @@ export default function ProductSlider({ products, resetKey }: {
   };
 
   const hasOverflow = canGoPrev || canGoNext;
+  // z-20 keeps the arrows above the cards, whose links sit at z-10 and would otherwise cover
+  // the "previous" arrow (it comes first in the DOM). A disabled arrow is hidden outright;
+  // `invisible` wins over the hover opacity rules on desktop.
   const arrowClassName = (enabled: boolean) =>
-    `product_image_skip border-2 ${imageCenter == null ? 'top-1/2' : ''} z-10 opacity-100 lg:opacity-0 lg:group-hover/slider:opacity-100 transition-opacity duration-300 ${enabled
-      ? '!bg-primary border-greny hover:!bg-greny cursor-pointer'
-      : '!bg-gray-300 border-gray-300 cursor-not-allowed'
-    }`;
+    `product_image_skip border-2 ${imageCenter == null ? 'top-1/2' : ''} z-20 opacity-100 lg:opacity-0 lg:group-hover/slider:opacity-100 transition-opacity duration-300 !bg-primary border-greny hover:!bg-greny cursor-pointer ${enabled ? '' : 'invisible'}`;
 
   return (
     <div ref={sliderRef} className="relative group/slider">
@@ -108,7 +108,7 @@ export default function ProductSlider({ products, resetKey }: {
           style={imageCenter != null ? { top: `${imageCenter}px` } : undefined}
           className={`${arrowClassName(canGoPrev)} start-2`}
         >
-          <ChevronLeft className={`rtl:-scale-x-100 ${canGoPrev ? 'text-white' : 'text-gray-400'}`} />
+          <ChevronLeft className="text-white rtl:-scale-x-100" />
         </button>
       )}
 
@@ -133,7 +133,7 @@ export default function ProductSlider({ products, resetKey }: {
           style={imageCenter != null ? { top: `${imageCenter}px` } : undefined}
           className={`${arrowClassName(canGoNext)} end-2`}
         >
-          <ChevronRight className={`rtl:-scale-x-100 ${canGoNext ? 'text-white' : 'text-gray-400'}`} />
+          <ChevronRight className="text-white rtl:-scale-x-100" />
         </button>
       )}
     </div>
