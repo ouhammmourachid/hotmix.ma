@@ -95,6 +95,20 @@ const createProductService = () => ({
         // Let's rely on the client to sort if needed, or just return the list.
         return { data: result.items.map(mapProduct) };
     },
+    getRandom: async (count, excludeIds = []) => {
+        if (count <= 0) return { data: [] };
+
+        const filter = ["status='published'", ...excludeIds.map(id => `id!='${id}'`)].join(" && ");
+
+        const result = await pb.collection('products').getList(1, count, {
+            filter,
+            expand: 'category,sizes,colors,tags',
+            sort: '@random',
+            requestKey: null
+        });
+
+        return { data: result.items.map(mapProduct) };
+    },
 })
 
 const createOrderService = (axiosPrivate, axiosPublic) => ({

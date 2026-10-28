@@ -70,7 +70,7 @@ export default async function Page({ params }: PageProps) {
             priceCurrency: "MAD",
             price,
             availability:
-              product.status === "archived"
+              product.status === "archived" || product.status === "draft"
                 ? "https://schema.org/OutOfStock"
                 : "https://schema.org/InStock",
           },

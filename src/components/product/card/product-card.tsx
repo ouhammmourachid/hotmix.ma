@@ -121,7 +121,7 @@ export default function ProductCard({
 
   // Current image to display
   const currentImagePath = product.images?.[currentImageIndex]?.path || product.images?.[0]?.path;
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+  const isArchived = product.status === "archived" || product.status === "draft" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <motion.div

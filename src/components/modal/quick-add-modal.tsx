@@ -34,7 +34,7 @@ export default function QuickAddModal({
   const { addToCart } = useCart();
   const [isMobile, setIsMobile] = useState(false);
 
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+  const isArchived = product.status === "archived" || product.status === "draft" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   const handleColorSelect = (color: Color) => {
     if (isArchived) return;

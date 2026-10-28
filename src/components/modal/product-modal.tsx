@@ -35,7 +35,7 @@ const ProductModal = ({
   const modalRef = useRef(null);
   const price = product.sale_price ? product.sale_price : product.price;
 
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+  const isArchived = product.status === "archived" || product.status === "draft" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   const handleColorSelect = (color: Color) => {
     if (isArchived) return;

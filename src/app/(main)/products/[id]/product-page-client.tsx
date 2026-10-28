@@ -17,8 +17,6 @@ import { useTranslation } from '@/lib/i18n-utils';
 import { useCartModal } from '@/contexts/cart-modal-context';
 import filterStyles from '@/styles/filter.module.css';
 import Color from '@/types/color';
-import { useRecentlyViewed } from '@/contexts/recently-viewed-context';
-import RecentlyViewedProducts from '@/components/product/recently-viewed-products';
 
 import ProductImageLightbox from '@/components/product/product-image-lightbox';
 import ProductGallery from '@/components/product/product-gallery';
@@ -69,11 +67,9 @@ export default function ProductPageClient({ params, initialProduct }: {
   const [selectedSize, setSelectedSize] = useState<SizeType | undefined>(initialProduct?.sizes?.[0]);
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(initialProduct?.colors?.[0]);
   const [price, setPrice] = useState<number>(initialProduct ? (initialProduct.sale_price || initialProduct.price) : 0);
-  const { addToRecentlyViewed } = useRecentlyViewed();
   // Fetch product data from API
   useEffect(() => {
     if (initialProduct && String(initialProduct.id) === productId) {
-      addToRecentlyViewed(initialProduct);
       // The URL is only readable after mount, so apply ?color= here instead of during render
       const colorParam = new URLSearchParams(window.location.search).get('color');
       const urlColor = colorParam
@@ -93,7 +89,6 @@ export default function ProductPageClient({ params, initialProduct }: {
         const response = await api.product.get(productId);
         if (response.data) {
           setProduct(response.data);
-          addToRecentlyViewed(response.data);
           setPrice(response.data.sale_price ? response.data.sale_price : response.data.price);
 
           // Initialize selected size with the first available size
@@ -200,7 +195,7 @@ export default function ProductPageClient({ params, initialProduct }: {
   }  // Prepare meta description from product description
 
 
-  const isArchived = product.status === "archived" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
+  const isArchived = product.status === "archived" || product.status === "draft" || Boolean((product as any).is_archived) || Boolean((product as any).isArchived);
 
   return (
     <div>
@@ -308,7 +303,6 @@ export default function ProductPageClient({ params, initialProduct }: {
       </div>
       <ProductDetails product={product} />
       <RecommendedProducts currentProductId={product.id} />
-      <RecentlyViewedProducts currentProductId={product.id} />
       <StickyProductFooter
         product={product}
         quantity={quantity}
