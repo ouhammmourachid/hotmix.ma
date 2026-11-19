@@ -287,6 +287,7 @@
   "checkout_err_phone": "Please enter your phone number",
   "checkout_err_empty": "Your order is empty",
   "checkout_err_submit": "There was a problem submitting your order. Please try again.",
+  "checkout_err_unavailable": "Some items are no longer available. Please remove them from your cart and try again.",
   "checkout_city": "City",
   "checkout_select_city": "Select your city",
   "checkout_search_city": "Search city...",

@@ -20,6 +20,7 @@ import posthog from 'posthog-js';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
 import { getShippingPrice, DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
 import { readBuyNowProduct } from '@/lib/buy-now';
+import { readOpenOrderId, rememberOpenOrder } from '@/lib/open-order';
 import { isValidMoroccanPhone, toLocalPhone } from '@/lib/phone';
 import EmptyCartPage from '@/components/cart/empty-cart-page';
 import Link from 'next/link';
@@ -336,17 +337,26 @@ export default function CheckoutForm() {
 
     const orderData = {
       ...formData,
-      phone_number: toLocalPhone(formData.phone_number)
+      phone_number: toLocalPhone(formData.phone_number),
+      // An order placed in the last 5 minutes: the server adds these items to it instead
+      merge_order_id: readOpenOrderId() ?? undefined
     };
 
     const orderValue = checkoutState.subtotal + formData.shipping_price;
     const productIds = checkoutState.items.map(item => String(item.product.id));
 
     try {
-      await api.order.create(orderData);
+      const response = await api.order.create(orderData);
+      const orderId: string | undefined = response?.order_id;
+      const merged = Boolean(response?.merged);
+      // Only a new order opens the 5-minute window; a merge keeps the original order's expiry,
+      // matching the server, which counts the window from when the order was created
+      if (orderId && !merged) rememberOpenOrder(orderId);
       // Only report the purchase once the order is actually saved
       trackPurchase(orderValue, 'MAD', productIds);
       posthog.capture('order_completed', {
+        order_id: orderId,
+        merged_into_previous_order: merged,
         value: orderValue,
         subtotal: checkoutState.subtotal,
         shipping_price: formData.shipping_price,
@@ -361,9 +371,15 @@ export default function CheckoutForm() {
       // replace, not push: otherwise Back returns to this pre-filled checkout and one tap re-orders
       router.replace('/?orderSuccess=true');
     } catch (error) {
-      posthog.capture('order_failed', { value: orderValue });
+      // The server answers 400 with the products it refused (e.g. archived but still in the cart)
+      const body = (error as { response?: { code?: string; products?: { name?: string }[] } })?.response;
+      const isUnavailable = body?.code === 'products_unavailable' || body?.code === 'item_invalid';
+      const names = (body?.products ?? []).map(p => p.name).filter(Boolean).join(', ');
+      posthog.capture('order_failed', { value: orderValue, reason: body?.code });
       setIsSubmitting(false);
-      setFormError(t('checkout_err_submit'));
+      setFormError(isUnavailable
+        ? `${t('checkout_err_unavailable')}${names ? ` (${names})` : ''}`
+        : t('checkout_err_submit'));
     }
   }
 

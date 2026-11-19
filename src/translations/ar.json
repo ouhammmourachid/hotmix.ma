@@ -287,6 +287,7 @@
   "checkout_err_phone": "يرجى إدخال رقم هاتفك",
   "checkout_err_empty": "سلة الطلب فارغة",
   "checkout_err_submit": "حدثت مشكلة أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.",
+  "checkout_err_unavailable": "بعض المنتجات لم تعد متوفرة. يرجى إزالتها من سلتك والمحاولة مرة أخرى.",
   "checkout_city": "المدينة",
   "checkout_select_city": "اختر مدينتك",
   "checkout_search_city": "البحث عن مدينة...",
