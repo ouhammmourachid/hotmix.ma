@@ -20,6 +20,7 @@ import posthog from 'posthog-js';
 import { CitySelect, CityItem } from '@/components/ui/city-select';
 import { getShippingPrice, DEFAULT_SHIPPING_PRICE } from '@/lib/shipping';
 import { readBuyNowProduct } from '@/lib/buy-now';
+import { isValidMoroccanPhone, toLocalPhone } from '@/lib/phone';
 import EmptyCartPage from '@/components/cart/empty-cart-page';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -242,9 +243,8 @@ export default function CheckoutForm() {
 
   // Handle phone input change to accept ONLY phone numbers starting with 0, +212, or 212
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    // Allow leading + and digits only
-    let sanitized = val.replace(/(?!^\+)[^\d]/g, '');
+    // Autofill may paste a full international number ("00212…", "+212 06…"); fold it to local form first
+    let sanitized = toLocalPhone(e.target.value);
 
     if (!sanitized) {
       setPhoneError('');
@@ -305,18 +305,7 @@ export default function CheckoutForm() {
     if (!formData.phone_number.trim()) {
       errors.phone_number = t('checkout_err_phone');
     } else {
-      // Phone validation (must start with 0, +212, or 212 followed by 9 digits)
-      let isValidPhone = false;
-
-      if (formData.phone_number.startsWith('0')) {
-        isValidPhone = /^0\d{9}$/.test(formData.phone_number);
-      } else if (formData.phone_number.startsWith('+212')) {
-        isValidPhone = /^\+212\d{9}$/.test(formData.phone_number);
-      } else if (formData.phone_number.startsWith('212')) {
-        isValidPhone = /^212\d{9}$/.test(formData.phone_number);
-      }
-
-      if (!isValidPhone) {
+      if (!isValidMoroccanPhone(formData.phone_number)) {
         trackValidationError('phone_number_format');
         errors.phone_number = t('checkout_err_invalid_phone');
       }
@@ -345,17 +334,9 @@ export default function CheckoutForm() {
     setFormError('');
     setIsSubmitting(true);
 
-    // Normalize phone number (replace leading +212 or 212 with 0)
-    let normalizedPhone = formData.phone_number;
-    if (normalizedPhone.startsWith('+212')) {
-      normalizedPhone = '0' + normalizedPhone.slice(4);
-    } else if (normalizedPhone.startsWith('212')) {
-      normalizedPhone = '0' + normalizedPhone.slice(3);
-    }
-
     const orderData = {
       ...formData,
-      phone_number: normalizedPhone
+      phone_number: toLocalPhone(formData.phone_number)
     };
 
     const orderValue = checkoutState.subtotal + formData.shipping_price;
