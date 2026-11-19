@@ -375,8 +375,10 @@ export default function CheckoutForm() {
         product_ids: productIds,
       });
       isOrderPlaced.current = true;
-      clearCart();
-      router.push('/?orderSuccess=true');
+      // A Buy now order is a single product outside the cart, so leave the shopper's cart alone
+      if (!buyNowProductId) clearCart();
+      // replace, not push: otherwise Back returns to this pre-filled checkout and one tap re-orders
+      router.replace('/?orderSuccess=true');
     } catch (error) {
       posthog.capture('order_failed', { value: orderValue });
       setIsSubmitting(false);
