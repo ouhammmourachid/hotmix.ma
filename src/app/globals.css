@@ -21,23 +21,66 @@ html[lang="ar"] {
   font-family: 'Amiri', 'Noto Sans Arabic', var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* RTL Support for Arabic language */
-html[dir="rtl"] body {
-  text-align: right;
-}
-
-/* Utility classes for multi-language support */
-.rtl-flip {
-  @apply rtl:scale-x-[-1];
-}
-
 .rtl-mirror {
   @apply ltr:ml-auto rtl:mr-auto;
 }
 
-/* Languages specific font adjustments */
-html[lang="ar"] {
-  font-family: 'Amiri', 'Noto Sans Arabic', var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+/* ------------------------------------------------------------------
+   Apple-style foundations, inside the Hotmix teal/lime identity
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scrollbar-color: rgb(216 232 221 / 0.25) #09282e;
+  }
+
+  ::selection {
+    background: rgb(134 223 14 / 0.35);
+    color: #eef6f1;
+  }
+
+  /* One focus language everywhere: a soft lime ring, only for keyboard users */
+  :focus-visible {
+    outline: 2px solid rgb(134 223 14 / 0.8);
+    outline-offset: 2px;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(216 232 221 / 0.2);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(216 232 221 / 0.35);
+  }
+
+  input, textarea {
+    caret-color: #86df0e;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @layer base {
@@ -108,7 +151,7 @@ html[lang="ar"] {
 }
 
 .filter_button {
-  @apply px-4 py-3 border text-xs font-semibold border-gray-600 hover:border-white rounded-sm flex items-center gap-2;
+  @apply h-11 px-4 bg-fill hover:bg-fill-2 text-subhead font-medium text-label rounded-full flex items-center gap-2 transition-colors duration-200 active:scale-[0.97];
 }
 
 .product {
@@ -116,15 +159,15 @@ html[lang="ar"] {
 }
 
 .product_price {
-  @apply text-2xl text-gray-500 line-through;
+  @apply text-title-3 text-label-3 line-through tnum;
 }
 
 .product_sale_price {
-  @apply text-3xl font-bold text-greny;
+  @apply text-title-1 font-semibold text-greny tnum;
 }
 
 .product_image_skip {
-  @apply absolute -translate-y-1/2 bg-whity p-2 rounded-full hover:bg-greny;
+  @apply absolute -translate-y-1/2 material-thin text-label p-2.5 rounded-full shadow-float hover:bg-primary/70 transition-colors;
 }
 
 .product_discount {
@@ -134,7 +177,7 @@ html[lang="ar"] {
 
 /* checkout page */
 .complete_order_button {
-  @apply w-full h-14 bg-secondary hover:bg-secondary/100 text-white text-xl font-semibold rounded-sm;
+  @apply w-full h-14 bg-greny hover:bg-greny/90 text-primary text-body font-semibold rounded-full transition-[transform,background-color] duration-200 active:scale-[0.98] disabled:opacity-60;
 }
 
 .checkout_radio {
@@ -154,7 +197,7 @@ html[lang="ar"] {
 }
 
 .checkout_input_with_icon {
-  @apply flex p-2 py-1 rounded-md border-gray-500 border-2 space-x-8 focus-within:border-greny transition-colors;
+  @apply flex p-2 py-1 rounded-xl bg-fill border border-separator space-x-8 focus-within:border-greny transition-colors;
 }
 
 .checkout_input_with_icon_input {
@@ -162,7 +205,7 @@ html[lang="ar"] {
 }
 
 .select_trigger {
-  @apply w-full py-6 border-gray-500 ring-1 ring-gray-500 focus:ring-1 focus-visible:ring-greny focus:ring-greny;
+  @apply w-full py-6 rounded-xl bg-fill border-separator ring-0 focus:ring-1 focus-visible:ring-greny focus:ring-greny;
 }
 
 .select_content {

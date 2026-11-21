@@ -18,13 +18,14 @@ export default function ProductDescriptionModal({ isOpen, onClose, description }
 
   const transitionConfig = {
     enter: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
+      type: "spring" as const,
+      stiffness: 380,
+      damping: 38,
       duration: 0.5
     },
     exit: {
-      duration: 0.5
+      duration: 0.3,
+      ease: [0.32, 0.72, 0, 1] as const
     }
   };
 

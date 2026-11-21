@@ -166,24 +166,24 @@ export default function ProductPageClient({ params, initialProduct }: {
           {/* Thumbnails */}
           <div className="flex flex-row md:flex-col gap-2">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="w-20 rounded-lg bg-gray-700" style={{ aspectRatio: '1000/1500' }} />
+              <div key={i} className="w-20 rounded-lg bg-fill" style={{ aspectRatio: '1000/1500' }} />
             ))}
           </div>
           {/* Main image */}
-          <div className="relative w-full rounded-lg bg-gray-700" style={{ aspectRatio: '1000/1500' }} />
+          <div className="relative w-full rounded-lg bg-fill" style={{ aspectRatio: '1000/1500' }} />
         </div>
         {/* Product info skeleton */}
         <div className="lg:w-[45%] space-y-6">
-          <div className="h-8 bg-gray-700 rounded w-3/4" />
-          <div className="h-4 bg-gray-700 rounded w-1/4" />
-          <div className="h-10 bg-gray-700 rounded w-1/3" />
+          <div className="h-8 bg-fill rounded w-3/4" />
+          <div className="h-4 bg-fill rounded w-1/4" />
+          <div className="h-10 bg-fill rounded w-1/3" />
           <div className="flex gap-2">
-            {[0, 1, 2, 3].map((i) => <div key={i} className="w-8 h-8 rounded-full bg-gray-700" />)}
+            {[0, 1, 2, 3].map((i) => <div key={i} className="w-8 h-8 rounded-full bg-fill" />)}
           </div>
           <div className="flex gap-2">
-            {[0, 1, 2].map((i) => <div key={i} className="w-12 h-10 bg-gray-700 rounded" />)}
+            {[0, 1, 2].map((i) => <div key={i} className="w-12 h-10 bg-fill rounded" />)}
           </div>
-          <div className="h-14 bg-gray-700 rounded" />
+          <div className="h-14 bg-fill rounded" />
         </div>
       </div>
     );
@@ -210,13 +210,13 @@ export default function ProductPageClient({ params, initialProduct }: {
         />
 
         {/* Right side - Product info with sticky positioning */}
-        <div className="lg:sticky lg:top-4 lg:w-[45%] w-full h-fit">
+        <div className="lg:sticky lg:top-24 lg:w-[45%] w-full h-fit">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-white">{product.name}</h1>
+              <h1 className="text-title-1 lg:text-large-title font-semibold text-label">{product.name}</h1>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-baseline flex-wrap gap-x-3 gap-y-2">
               <span className="product_sale_price">
                 {formatPrice(product.sale_price ? product.sale_price : product.price)} DH
               </span>
@@ -238,11 +238,11 @@ export default function ProductPageClient({ params, initialProduct }: {
               {product.colors && product.colors.length > 0 && (
                 <div className="mb-4">
                   <div className="flex justify-between mb-2">
-                    <span className="font-medium">
+                    <span className="text-subhead font-medium text-label-2">
                       {t('color')}: {selectedColor?.name}
                     </span>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-3 p-[3px]">
                     {product.colors.map(color => (
                       <div
                         key={color.id}
@@ -270,11 +270,11 @@ export default function ProductPageClient({ params, initialProduct }: {
                 </div>
               )}
               <div className="flex justify-between mb-2">
-                <span className="font-medium">
+                <span className="text-subhead font-medium text-label-2">
                   {t('size')}: {selectedSize?.name}
                 </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {product.sizes?.map(size => (
                   <Size
                     key={size.id}

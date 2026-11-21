@@ -16,20 +16,21 @@ export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolea
 
 
   const animationConfig = {
-    initial: { x: 1700, opacity: 1 },
+    initial: { x: '100%', opacity: 1 },
     animate: { x: 0, opacity: 1 },
-    exit: { x: 600, opacity: 1 },
+    exit: { x: '100%', opacity: 1 },
   };
 
   const transitionConfig = {
     enter: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
+      type: "spring" as const,
+      stiffness: 380,
+      damping: 38,
       duration: 0.5
     },
     exit: {
-      duration: 0.5
+      duration: 0.3,
+      ease: [0.32, 0.72, 0, 1] as const
     }
   };
   return (
@@ -47,10 +48,10 @@ export default function CartModal({ isOpen, onClose }: Readonly<{ isOpen: boolea
         className={styles.cart}>
         {/* Header */}
         <div className={styles.cart_header}>
-          <h2 className="text-2xl font-medium">{t('cart_modal_title')}</h2>
+          <h2 className="text-title-2 font-semibold">{t('cart_modal_title')}</h2>
           <XButton
             onClick={onClose}
-            className='top-6' />
+            className='top-4' />
         </div>
 
         <RenderCartItems

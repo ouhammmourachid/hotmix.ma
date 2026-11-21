@@ -33,8 +33,8 @@ export function Discount({
   
   // Position classes
   const positionClasses = {
-    'top-left': 'top-2 left-2',
-    'top-right': 'top-2 right-2',
+    'top-left': 'top-2.5 left-2.5',
+    'top-right': 'top-2.5 right-2.5',
     'bottom-left': 'bottom-2 left-2',
     'bottom-right': 'bottom-2 right-2',
   };
@@ -42,13 +42,13 @@ export function Discount({
   // Size classes
   const sizeClasses = {
     sm: 'text-xs py-0.5 px-1.5',
-    md: 'text-xs sm:text-sm py-1 px-2',
+    md: 'text-caption py-0.5 px-2',
     lg: 'text-sm sm:text-base py-1.5 px-2.5',
   };
   
   // Variant classes
   const variantClasses = {
-    default: 'bg-[#d8e8dd] text-black font-semibold',
+    default: 'bg-whity text-primary font-semibold',
     outline: 'bg-transparent border border-[#d8e8dd] text-[#d8e8dd]', 
     filled: 'bg-green-500 text-white',
   };

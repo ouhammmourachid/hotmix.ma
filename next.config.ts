@@ -3,7 +3,12 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  // Dev only: let Cloudflare quick tunnels (cloudflared --url) load dev assets / HMR
+  allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
+    // Local dev (WSL): the optimizer can't fetch from S3 (DNS64 "private IP" / timeouts),
+    // so let the browser load originals directly. Production still optimizes.
+    unoptimized: process.env.NODE_ENV === 'development',
     remotePatterns: [
       {
         protocol: 'https',

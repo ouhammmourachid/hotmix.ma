@@ -31,10 +31,13 @@ export default function MainLayout({ children }: Readonly<{ children: React.Reac
     )
 }
 
-const HEADER_HEIGHT = 40;
+// Promo bar + nav bar: below this the nav may tuck away while reading
+const HIDE_AFTER = 120;
+// Ignore tiny scroll jitters (momentum, address-bar resizes)
+const SCROLL_DELTA = 6;
 
 function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
-    const [showFixedNav, setShowFixedNav] = useState(false);
+    const [navHidden, setNavHidden] = useState(false);
     const lastScrollY = useRef(0);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
@@ -43,21 +46,15 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>
     useEffect(() => {
         const controlNavbar = () => {
             const currentScrollY = window.scrollY;
-            const isScrollingUp = currentScrollY < lastScrollY.current;
+            const delta = currentScrollY - lastScrollY.current;
+            if (Math.abs(delta) < SCROLL_DELTA) return;
 
-            // Show fixed nav ONLY if we are scrolled past the header AND scrolling up
-            if (currentScrollY > HEADER_HEIGHT && isScrollingUp) {
-                setShowFixedNav(true);
-            } else {
-                setShowFixedNav(false);
-            }
-
+            // Scrolling down past the top: get out of the way. Scrolling up: come back.
+            setNavHidden(delta > 0 && currentScrollY > HIDE_AFTER);
             lastScrollY.current = currentScrollY;
         };
 
-        window.addEventListener('scroll', controlNavbar);
-
-        // Cleanup
+        window.addEventListener('scroll', controlNavbar, { passive: true });
         return () => {
             window.removeEventListener('scroll', controlNavbar);
         };
@@ -65,30 +62,20 @@ function MainLayoutContent({ children }: Readonly<{ children: React.ReactNode }>
 
     return (
         <>
-            {/* Header: Relative positioning so it scrolls away naturally */}
+            {/* Promo bar scrolls away naturally */}
             <div className="relative z-50">
                 <Header />
             </div>
 
-            {/* Original Navigation: Relative, scrolls away naturally */}
-            <div className="relative z-40">
+            {/* One frosted nav bar: sticky, slides away on scroll down and back on scroll up */}
+            <div
+                className={`sticky top-0 z-40 transition-transform duration-400 ease-apple will-change-transform ${navHidden ? '-translate-y-full' : 'translate-y-0'}`}>
                 <Navigation
                     onCartClick={() => setIsCartOpen(true)}
                     onSearchClick={() => setIsSearchOpen(true)}
                     onMenuClick={() => setIsSideNavOpen(true)}
                 />
             </div>
-
-            {/* Fixed Navigation: Only mounted when scrolling up past header */}
-            {showFixedNav && (
-              <div className="fixed top-0 left-0 right-0 z-50 translate-y-0">
-                <Navigation
-                  onCartClick={() => setIsCartOpen(true)}
-                  onSearchClick={() => setIsSearchOpen(true)}
-                  onMenuClick={() => setIsSideNavOpen(true)}
-                />
-              </div>
-            )}
 
             {/* Main Content */}
             <div>

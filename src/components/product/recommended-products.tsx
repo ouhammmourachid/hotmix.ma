@@ -72,26 +72,26 @@ export default function RecommendedProducts({ currentProductId }: RecommendedPro
   }
 
   return (
-    <section className="py-10 md:py-16">
+    <section className="pt-14 pb-20 md:pt-20 md:pb-28">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">{t('recommended_products_title')}</h2>
+          <h2 className="text-title-1 md:text-large-title font-semibold text-label">{t('recommended_products_title')}</h2>
         </div>
 
         {loading ? (
           /* Skeleton grid — same dimensions as real grid, prevents CLS */
-          <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-4 animate-pulse">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 items-start gap-x-3 gap-y-10 sm:gap-x-5 lg:gap-x-6 animate-pulse">
             {Array.from({ length: MAX_PRODUCTS }, (_, i) => (
               <div key={i} className={`space-y-3 ${visibilityClass(i)}`}>
-                <div className="w-full bg-gray-700 rounded-lg" style={{ aspectRatio: '1000/1500' }} />
-                <div className="h-4 bg-gray-700 rounded w-3/4" />
-                <div className="h-4 bg-gray-700 rounded w-1/3" />
+                <div className="w-full bg-fill rounded-card" style={{ aspectRatio: '1000/1500' }} />
+                <div className="h-4 bg-fill rounded-md w-3/4" />
+                <div className="h-4 bg-fill rounded-md w-1/3" />
               </div>
             ))}
           </div>
         ) : (
-          <div className="w-full gap-4 sm:gap-5 md:gap-7 grid grid-cols-2 lg:grid-cols-4">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 items-start gap-x-3 gap-y-10 sm:gap-x-5 lg:gap-x-6">
             {products.map((product, index) => (
               <div key={product.id} className={visibilityClass(index)}>
                 <ProductCard product={product} delay={0.05 * Math.min(index, 8)} />

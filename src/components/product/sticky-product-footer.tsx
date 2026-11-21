@@ -63,7 +63,7 @@ export default function StickyProductFooter({                                  p
             alt={product.name}
             width={80}
             height={80}
-            className="w-20 h-20 object-cover rounded-full"
+            className="w-12 h-12 object-cover rounded-xl"
           />
           <span className={styles.sticky_product_footer_name}>
             {product.name}
@@ -83,8 +83,8 @@ export default function StickyProductFooter({                                  p
                 onCartOpen?.();
               }
             }}
-            className={`${styles.sticky_product_footer_button} text-xs sm:text-base flex-1 sm:flex-initial min-w-0 ${
-              isArchived ? 'bg-[#526365]/90 border-[#607375] text-white/90 cursor-not-allowed hover:bg-[#526365]/90' : ''
+            className={`${styles.sticky_product_footer_button} text-subhead sm:text-body flex-1 sm:flex-initial min-w-0 ${
+              isArchived ? '!bg-fill !text-label-2 cursor-not-allowed' : ''
             }`}>
             {isArchived
               ? `${t('sold_out')} - ${formatPrice(product.sale_price || product.price, 'DH', language)}`

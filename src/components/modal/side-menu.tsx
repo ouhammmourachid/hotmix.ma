@@ -49,20 +49,21 @@ export default function SideMenu({ isOpen, onClose, onSearchClick }: Readonly<{ 
   ];
 
   const animationConfig = {
-    initial: { x: -1000, opacity: 0 },
+    initial: { x: '-100%', opacity: 1 },
     animate: { x: 0, opacity: 1 },
-    exit: { x: -1000, opacity: 0 },
+    exit: { x: '-100%', opacity: 1 },
   };
 
   const transitionConfig = {
     enter: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
+      type: "spring" as const,
+      stiffness: 380,
+      damping: 38,
       duration: 0.5
     },
     exit: {
-      duration: 0.5
+      duration: 0.3,
+      ease: [0.32, 0.72, 0, 1] as const
     }
   };
 

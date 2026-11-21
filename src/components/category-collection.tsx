@@ -61,10 +61,12 @@ export default function CategoryCollection() {
             );
           });
 
+          // Tile image: the LAST image of the category's first product
+          const lastImagePath = (p?: Product) => p?.images?.[p.images.length - 1]?.path;
+          const firstProductImage = lastImagePath(matchingProduct);
           // Fallback image if category has no product yet in the pool
-          const firstProductImage = matchingProduct?.images[0]?.path;
           const fallbackImage =
-            productsData.find((p) => p.images && p.images.length > 0)?.images[0]?.path ||
+            lastImagePath(productsData.find((p) => p.images && p.images.length > 0)) ||
             "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop";
 
           return {
@@ -100,20 +102,20 @@ export default function CategoryCollection() {
   }
 
   return (
-    <section className="pt-16 pb-12 md:pt-24 md:pb-16 bg-background relative">
+    <section className="pt-14 pb-4 md:pt-24 md:pb-8 relative">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 12, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-8 md:mb-12"
         >
-          <h2 className="font-outfit text-3xl md:text-4xl font-bold mb-3 tracking-tight">
+          <h2 className="text-title-1 md:text-large-title font-semibold text-label">
             {t("our_collections_title")}
           </h2>
-          <p className="font-outfit text-muted-foreground text-base md:text-lg max-w-xl mx-auto">
+          <p className="mt-2 md:mt-3 text-body md:text-title-3 text-label-2 max-w-xl mx-auto">
             {t("our_collections_subtitle")}
           </p>
         </motion.div>
@@ -123,7 +125,7 @@ export default function CategoryCollection() {
           <button
             onClick={() => scroll("left")}
             aria-label="Scroll left"
-            className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 sm:-translate-x-5 z-10 p-2.5 sm:p-3 rounded-full border border-gray-300 dark:border-gray-700 bg-background/90 backdrop-blur-sm hover:bg-secondary hover:text-white transition-all duration-200 shadow-md opacity-0 group-hover/scroll:opacity-100 focus:outline-none"
+            className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 sm:-translate-x-5 z-10 w-11 h-11 items-center justify-center rounded-full material-thin text-label hover:bg-primary/70 shadow-float transition-[opacity,background-color] duration-200 opacity-0 group-hover/scroll:opacity-100 focus-visible:opacity-100"
           >
             <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
           </button>
@@ -131,50 +133,50 @@ export default function CategoryCollection() {
           <button
             onClick={() => scroll("right")}
             aria-label="Scroll right"
-            className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 sm:translate-x-5 z-10 p-2.5 sm:p-3 rounded-full border border-gray-300 dark:border-gray-700 bg-background/90 backdrop-blur-sm hover:bg-secondary hover:text-white transition-all duration-200 shadow-md opacity-0 group-hover/scroll:opacity-100 focus:outline-none"
+            className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 sm:translate-x-5 z-10 w-11 h-11 items-center justify-center rounded-full material-thin text-label hover:bg-primary/70 shadow-float transition-[opacity,background-color] duration-200 opacity-0 group-hover/scroll:opacity-100 focus-visible:opacity-100"
           >
             <ChevronRight className="w-5 h-5 rtl:rotate-180" />
           </button>
 
           <div
             ref={scrollRef}
-            className="flex flex-nowrap overflow-x-auto gap-2 sm:gap-4 md:gap-6 pb-6 pt-1 scroll-smooth snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
+            className="flex flex-nowrap overflow-x-auto gap-3 sm:gap-4 md:gap-6 -mx-4 px-4 scroll-px-4 md:mx-0 md:px-0 md:scroll-px-0 pb-6 pt-1 scroll-smooth snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
           >
             {loading
               ? Array.from({ length: 4 }).map((_, index) => (
                   <div
                     key={index}
-                    className="w-[calc((100%-1.25rem)/3.2)] sm:w-[calc((100%-2rem)/4)] md:w-[260px] lg:w-[300px] flex-shrink-0 snap-start aspect-[3/4.2] rounded-sm bg-gray-200 dark:bg-gray-800 animate-pulse"
+                    className="w-[calc((100%-0.75rem)/2.3)] sm:w-[calc((100%-2rem)/3.4)] md:w-[260px] lg:w-[300px] flex-shrink-0 snap-start aspect-[3/4.2] rounded-card bg-fill animate-pulse"
                   />
                 ))
               : categoriesWithImages.map((category, index) => (
                   <motion.div
                     key={category.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.08 }}
-                    className="w-[calc((100%-1.25rem)/3.2)] sm:w-[calc((100%-2rem)/4)] md:w-[260px] lg:w-[300px] flex-shrink-0 snap-start"
+                    transition={{ duration: 0.6, delay: Math.min(index, 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-[calc((100%-0.75rem)/2.3)] sm:w-[calc((100%-2rem)/3.4)] md:w-[260px] lg:w-[300px] flex-shrink-0 snap-start"
                   >
                     <Link
                       href={`/collections/${category.slug}`}
-                      className="group relative block aspect-[3/4.2] w-full overflow-hidden rounded-sm bg-secondary shadow-sm transition-all duration-300 hover:shadow-xl"
+                      className="group relative block aspect-[3/4.2] w-full overflow-hidden rounded-card bg-surface transition-transform duration-300 ease-apple active:scale-[0.98] [transform:translateZ(0)]"
                     >
                       {/* Category Image */}
                       {category.imageUrl && (
                         <img
                           src={category.imageUrl}
                           alt={category.name}
-                          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                          className="h-full w-full object-cover object-top transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
                         />
                       )}
 
                       {/* Dark Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent transition-opacity duration-300 group-hover:from-black/90 group-hover:via-black/45" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
                       {/* Text Label */}
-                      <div className="absolute bottom-0 left-0 right-0 p-2.5 sm:p-4 md:p-6 flex items-end">
-                        <h3 className="text-white font-outfit font-bold text-[11px] sm:text-sm md:text-lg tracking-tight sm:tracking-wider leading-tight text-left rtl:text-right group-hover:text-greny transition-colors duration-300 drop-shadow-md">
+                      <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 md:p-5 flex items-end">
+                        <h3 className="text-white font-semibold text-subhead md:text-title-3 text-start [text-shadow:0_1px_8px_rgb(0_0_0/0.35)]">
                           {category.name}
                         </h3>
                       </div>

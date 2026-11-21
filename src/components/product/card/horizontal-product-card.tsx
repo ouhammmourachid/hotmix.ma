@@ -160,7 +160,7 @@ export default function HorizontalProductCard({
                     className={`object-cover transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-800" />
+                  <div className="w-full h-full bg-surface" />
                 )}
               </div>
             </Link>

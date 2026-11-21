@@ -1,38 +1,38 @@
 /* bottom nav */
 .bottom_nav {
-    @apply fixed bottom-0 left-0 right-0 bg-primary text-white py-2 z-40 lg:hidden max-w-screen-xl mx-auto px-4 flex justify-between items-center h-16;
+    @apply fixed bottom-0 inset-x-0 material-bar text-label z-40 lg:hidden px-1 flex justify-around items-stretch box-content h-16 pb-safe shadow-[0_-0.5px_0_0_rgb(216_232_221/0.16)];
 }
 
 .bottom_nav_button {
-    @apply flex flex-col items-center relative;
+    @apply flex flex-1 flex-col items-center justify-center gap-1 relative text-label-2 transition-[color,transform] duration-200 active:scale-95;
 }
 
 .bottom_nav_button_span {
-    @apply absolute bg-greny text-xs rounded-full h-4 w-4 flex items-center justify-center;
+    @apply absolute bg-greny text-primary text-[10px] font-semibold tnum rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center ring-2 ring-primary;
 }
 
 /* footer */
 
 .social_media {
-    @apply p-2 border border-gray-600 rounded-full transition-colors;
+    @apply w-11 h-11 flex items-center justify-center rounded-full bg-fill text-label-2 hover:bg-fill-2 hover:text-label transition-colors duration-200;
 }
 
 .footer_subscribe_input {
-    @apply border-none flex items-center focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none bg-white text-[#527692] placeholder:text-[#527692];
+    @apply border-none flex items-center focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none bg-transparent text-label placeholder:text-label-3 text-subhead px-0;
 }
 
 .footer_subscribe_button {
-    @apply rounded-sm h-10 bg-secondary hover:bg-secondary/70;
+    @apply rounded-full h-10 px-5 bg-greny text-primary font-semibold hover:bg-greny/90;
 }
 
 .footer_copyright {
-    @apply border-t-2 mx-4 sm:mx-10 border-secondary flex lg:flex-row flex-col justify-between items-center gap-4 pt-6;
+    @apply container mx-auto px-4 lg:px-12;
 }
 
 /* hero section */
 
 .hero_section_button {
-    @apply bg-secondary hover:bg-secondary/90 px-8 py-6 text-lg border border-greny rounded-sm;
+    @apply bg-greny text-primary hover:bg-greny/90 h-[52px] px-8 text-body font-semibold rounded-full shadow-float;
 }
 
 .hero_section_content {
@@ -56,7 +56,7 @@
 }
 
 .nav {
-    @apply bg-primary  py-4 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between;
+    @apply material-bar py-2 lg:py-3 w-full flex flex-col lg:flex-row lg:items-center lg:justify-between shadow-[0_0.5px_0_0_rgb(216_232_221/0.12)];
 }
 
 .nav_logo {
@@ -64,7 +64,7 @@
 }
 
 .nav_span {
-    @apply absolute -top-2 -right-2 bg-greny text-white text-xs rounded-full w-4 h-4 flex items-center justify-center;
+    @apply absolute top-1 right-0.5 bg-greny text-primary text-[10px] font-semibold tnum rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center ring-2 ring-primary pointer-events-none;
 }
 
 /* sign-up form */
@@ -84,15 +84,15 @@
 /* main pages */
 
 .main_pages_title {
-    @apply text-4xl font-semibold;
+    @apply text-title-1 md:text-large-title font-semibold text-label;
 }
 
 .main_pages_filter {
-    @apply flex justify-between items-center mt-16 w-full;
+    @apply flex justify-between items-center mt-8 md:mt-12 w-full;
 }
 
 .main_pages_no_more_products {
-    @apply text-center mt-4 text-gray-500;
+    @apply text-center mt-6 text-footnote text-label-3;
 }
 
 .main_pages_header {

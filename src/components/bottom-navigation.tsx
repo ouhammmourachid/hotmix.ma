@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LayoutGrid, User, Heart, Filter } from 'lucide-react';
 import Basket from '@/components/icon/basket';
 import { useCart } from '@/contexts/cart-context';
@@ -8,6 +9,17 @@ import { useFilter } from '@/contexts/filter-context';
 import styles from '@/styles/main.module.css';
 import { useTranslation } from '@/lib/i18n-utils';
 
+const ICON = 'h-6 w-6';
+const LABEL = 'text-[10.5px] leading-none font-medium tracking-[0.01em]';
+
+function Badge({ count }: { count: number }) {
+  if (!count) return null;
+  return (
+    <span className={styles.bottom_nav_button_span + ' top-1.5 start-1/2 ms-2.5'}>
+      {count}
+    </span>
+  );
+}
 
 export default function BottomNavigation({
   onCartClick,
@@ -18,53 +30,55 @@ export default function BottomNavigation({
   const { totalWishList } = useWishlist();
   const { isFilterOpen, setIsFilterOpen } = useFilter();
   const { t } = useTranslation();
+  const pathname = usePathname() || '';
+
+  const isActive = (prefix: string) => pathname.startsWith(prefix);
+  const tone = (active: boolean) => (active ? ' !text-greny' : '');
+
   return (
-    <div className={styles.bottom_nav + " bottom-nav"}>
-      {/* Shop */}
+    <nav aria-label="Primary" className={styles.bottom_nav + " bottom-nav"}>
       <Link
         href="/products"
-        className={styles.bottom_nav_button}>
-        <LayoutGrid className="h-6 w-6" />
-        <span className="text-sm mt-1">{t('bottom_nav_shop')}</span>
+        aria-current={isActive('/products') ? 'page' : undefined}
+        className={styles.bottom_nav_button + tone(isActive('/products'))}>
+        <LayoutGrid className={ICON} strokeWidth={1.75} />
+        <span className={LABEL}>{t('bottom_nav_shop')}</span>
       </Link>
 
-      {/* Filter */}
       <button
+        type="button"
         onClick={() => setIsFilterOpen(!isFilterOpen)}
-        className={styles.bottom_nav_button}>
-        <Filter className="h-6 w-6" />
-        <span className="text-sm mt-1">{t('bottom_nav_filter')}</span>
+        aria-pressed={isFilterOpen}
+        className={styles.bottom_nav_button + tone(isFilterOpen)}>
+        <Filter className={ICON} strokeWidth={1.75} />
+        <span className={LABEL}>{t('bottom_nav_filter')}</span>
       </button>
 
-      {/* Account */}
       <Link
         href="/account"
-        className={styles.bottom_nav_button}>
-        <User className="h-6 w-6" />
-        <span className="text-sm mt-1">{t('bottom_nav_account')}</span>
+        aria-current={isActive('/account') ? 'page' : undefined}
+        className={styles.bottom_nav_button + tone(isActive('/account'))}>
+        <User className={ICON} strokeWidth={1.75} />
+        <span className={LABEL}>{t('bottom_nav_account')}</span>
       </Link>
 
-      {/* Wishlist */}
       <Link
         href="/wishlist"
-        className={styles.bottom_nav_button}>
-        <Heart className="h-6 w-6" />
-        <span className="text-sm mt-1">{t('bottom_nav_wishlist')}</span>
-        <span className={styles.bottom_nav_button_span + ' top-0 right-0'}>
-          {totalWishList}
-        </span>
+        aria-current={isActive('/wishlist') ? 'page' : undefined}
+        className={styles.bottom_nav_button + tone(isActive('/wishlist'))}>
+        <Heart className={ICON} strokeWidth={1.75} />
+        <span className={LABEL}>{t('bottom_nav_wishlist')}</span>
+        <Badge count={totalWishList} />
       </Link>
 
-      {/* Cart */}
       <button
+        type="button"
         onClick={onCartClick}
         className={styles.bottom_nav_button}>
-        <Basket className="h-6 w-6" />
-        <span className="text-sm mt-1">{t('bottom_nav_cart')}</span>
-        <span className={styles.bottom_nav_button_span + ' -top-1 -right-1'}>
-          {totalItems}
-        </span>
+        <Basket className={ICON} />
+        <span className={LABEL}>{t('bottom_nav_cart')}</span>
+        <Badge count={totalItems} />
       </button>
-    </div>
+    </nav>
   );
 };

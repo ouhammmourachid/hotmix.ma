@@ -95,16 +95,19 @@ export default function ModalLayout({
     const stickyProduct = document.querySelector('.sticky-product-footer') as HTMLElement;
     const ButtomNav = document.querySelector('.bottom-nav') as HTMLElement;
     if (isOpen) {
-      nav.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth + 10}px`;
-      if (stickyProduct) stickyProduct.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
-      if (ButtomNav) ButtomNav.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth + 15}px`;
-      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+      // Compensate for the scrollbar that disappears while scrolling is locked
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      if (nav) nav.style.paddingRight = `${scrollbarWidth}px`;
+      if (stickyProduct) stickyProduct.style.paddingRight = `${scrollbarWidth}px`;
+      if (ButtomNav) ButtomNav.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = "hidden";
     } else {
-      nav.style.paddingRight = "10px";
-      if (stickyProduct) stickyProduct.style.paddingRight = "0px";
-      if (ButtomNav) ButtomNav.style.paddingRight = "15px";
-      document.body.style.paddingRight = "0px";
+      // Hand padding back to the stylesheet instead of pinning a value
+      if (nav) nav.style.paddingRight = "";
+      if (stickyProduct) stickyProduct.style.paddingRight = "";
+      if (ButtomNav) ButtomNav.style.paddingRight = "";
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "auto";
     }
 
@@ -204,7 +207,7 @@ export default function ModalLayout({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
         >
           <XCursor
             mousePosition={mousePosition}

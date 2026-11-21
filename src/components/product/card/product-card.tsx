@@ -125,9 +125,10 @@ export default function ProductCard({
 
   return (
     <motion.div
-      initial={{ y: 50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay: delay }}
+      initial={{ y: 16, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.6, delay: Math.min(delay ?? 0, 0.3), ease: [0.16, 1, 0.3, 1] }}
       ref={ref}
       className={styles.product_card + " group"}>      {/* Discount Badge - using the new Discount component */}
       <Discount
@@ -145,17 +146,17 @@ export default function ProductCard({
             href={`/products/${product.id}`}
             className="cursor-pointer block relative z-10"
           >
-            <div className="relative overflow-hidden rounded-lg" style={{ aspectRatio: '1000/1500' }}>
+            <div className="relative overflow-hidden rounded-card bg-surface [transform:translateZ(0)]" style={{ aspectRatio: '1000/1500' }}>
               {currentImagePath ? (
                 <Image
                   src={currentImagePath}
                   alt={product.name}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className={`object-cover rounded-lg transition-all duration-700 ${zoomActive ? 'scale-110' : 'scale-100'}`}
+                  className={`object-cover transition-transform duration-700 ease-apple ${zoomActive ? 'scale-[1.03]' : 'scale-100'}`}
                 />
               ) : (
-                <div className="w-full h-full bg-gray-800" />
+                <div className="w-full h-full bg-surface" />
               )}
             </div>
           </Link>
@@ -177,11 +178,11 @@ export default function ProductCard({
 
           {/* Image indicator dots for multiple images - placed outside Link to prevent navigation conflicts */}
           {product.images && product.images.length > 1 && isHovered && (
-            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
+            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1 z-20">
               {product.images.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentImageIndex === index ? 'bg-white scale-110' : 'bg-gray-400/70'}`}
+                  className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ease-apple ${currentImageIndex === index ? 'w-4 bg-white' : 'w-1.5 bg-white/55'}`}
                   onClick={(e) => handleImageChange(index, e)}
                   style={{ cursor: 'pointer' }}
                 />
@@ -199,7 +200,7 @@ export default function ProductCard({
                 type="button"
                 onClick={handleClickHeart}
                 aria-label="Wishlist"
-                className="w-10 h-10 rounded-full bg-secondary text-white hover:bg-whity hover:text-primary flex items-center justify-center cursor-pointer shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:scale-110 active:scale-95"
+                className="w-11 h-11 rounded-full material-thin text-label hover:bg-primary/70 flex items-center justify-center cursor-pointer shadow-float transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-apple active:scale-95"
               >
                 {!isInWithList(product.id) ? (
                   <Heart size={20} />
@@ -212,7 +213,7 @@ export default function ProductCard({
                 type="button"
                 onClick={() => setIsModalOpen(true)}
                 aria-label="Quick View"
-                className="w-10 h-10 rounded-full bg-secondary text-white hover:bg-whity hover:text-primary flex items-center justify-center cursor-pointer shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-75 ease-out hover:scale-110 active:scale-95"
+                className="w-11 h-11 rounded-full material-thin text-label hover:bg-primary/70 flex items-center justify-center cursor-pointer shadow-float transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-75 ease-apple active:scale-95"
               >
                 <Eye size={20} />
               </button>
@@ -234,7 +235,7 @@ export default function ProductCard({
           </div>
         )}
       </div>      {/* Product Info */}
-      <div className="pt-3 space-y-4">
+      <div className="pt-3 space-y-1">
         <Link href={`/products/${product.id}`}>
           <h3 className={styles.product_card_name}>
             {product.name}
@@ -255,16 +256,16 @@ export default function ProductCard({
       </div>
       {/* Quick Add / View Product Button */}
       {isArchived ? (
-        <Link href={`/products/${product.id}`} className="block">
-          <Button className={styles.product_card_quick_add + " group-hover:opacity-100"}>
-            {t('view_product').toUpperCase()}
-          </Button>
-        </Link>
+        <Button asChild className={styles.product_card_quick_add + " group-hover:opacity-100"}>
+          <Link href={`/products/${product.id}`}>
+            {t('view_product')}
+          </Link>
+        </Button>
       ) : (
         <Button
           className={styles.product_card_quick_add + " group-hover:opacity-100"}
           onClick={() => setIsQuickAddOpen(true)}>
-          QUICK ADD
+          {t('quick_add')}
         </Button>
       )}
       <ProductModal

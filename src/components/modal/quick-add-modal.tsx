@@ -10,7 +10,7 @@ import SizeType from '@/types/size';
 import { useCart } from '@/contexts/cart-context';
 import styles from '@/styles/modal.module.css';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, type PanInfo } from 'framer-motion';
 import { formatPrice, isLightColor } from '@/lib/utils';
 import { useTranslation } from '@/lib/i18n-utils';
 
@@ -30,6 +30,7 @@ export default function QuickAddModal({
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(product.colors?.[0]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalRef = useRef(null);
+  const wasDragged = useRef(false);
   const price = product.sale_price ? product.sale_price : product.price;
   const { addToCart } = useCart();
   const [isMobile, setIsMobile] = useState(false);
@@ -79,25 +80,26 @@ export default function QuickAddModal({
 
   const animationConfig = isMobile
     ? {
-      initial: { y: 100, opacity: 0 },
+      initial: { y: '100%', opacity: 1 },
       animate: { y: 0, opacity: 1 },
-      exit: { y: 100, opacity: 0 },
+      exit: { y: '100%', opacity: 1 },
     }
     : {
-      initial: { x: -100, opacity: 1 },
-      animate: { x: 0, opacity: 1 },
-      exit: { x: 100, opacity: 1 },
+      initial: { y: 24, scale: 0.98, opacity: 0 },
+      animate: { y: 0, scale: 1, opacity: 1 },
+      exit: { y: 12, scale: 0.98, opacity: 0 },
     };
 
   const transitionConfig = {
     enter: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
+      type: "spring" as const,
+      stiffness: 380,
+      damping: 38,
       duration: 0.5
     },
     exit: {
-      duration: 0.5
+      duration: 0.3,
+      ease: [0.32, 0.72, 0, 1] as const
     }
   };
   const handleClickAddToCart = () => {
@@ -113,6 +115,17 @@ export default function QuickAddModal({
     onCartOpen?.();
   }
 
+  // Swipe down to dismiss (phones): close past this distance or on a quick flick
+  const DISMISS_DISTANCE = 120;
+  const DISMISS_VELOCITY = 500;
+  const handleDragEnd = (_: unknown, info: PanInfo) => {
+    if (info.offset.y > DISMISS_DISTANCE || info.velocity.y > DISMISS_VELOCITY) {
+      onClose();
+    }
+    // Clear after the click that may follow this pointerup has been swallowed
+    setTimeout(() => { wasDragged.current = false; }, 0);
+  };
+
   return (
     <ModalLayout
       modalRef={modalRef}
@@ -124,15 +137,30 @@ export default function QuickAddModal({
         {...animationConfig}
         transition={isOpen ? transitionConfig.enter : transitionConfig.exit}
         ref={modalRef}
+        drag={isMobile ? 'y' : false}
+        dragDirectionLock
+        // Can't be pulled up; follows the finger 1:1 downward, springs back if not dismissed
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 1 }}
+        dragMomentum={false}
+        onDragStart={() => { wasDragged.current = true; }}
+        onDragEnd={handleDragEnd}
+        // A swipe that starts on a button must not also press it
+        onClickCapture={(e) => {
+          if (wasDragged.current) {
+            e.preventDefault();
+            e.stopPropagation();
+            wasDragged.current = false;
+          }
+        }}
         className={styles.quick_add}>
         {/* Close Button */}
         <XButton
-          className='hover:text-greny'
           onClick={onClose} />
         {/* Product Details */}
         <div className="flex items-center gap-4">
           {/* Product Image */}
-          <div className="w-20 h-28 bg-gray-200 rounded-sm overflow-hidden flex-shrink-0 relative">
+          <div className="w-20 h-28 bg-surface-2 rounded-xl overflow-hidden flex-shrink-0 relative">
             <img
               src={product.images?.[currentImageIndex]?.path || product.images?.[0]?.path}
               alt={product.name}

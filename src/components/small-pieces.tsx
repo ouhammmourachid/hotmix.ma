@@ -40,14 +40,14 @@ export function Size({ size, selectedSize, onClick, className, isArchived }: { s
       className={`${styles.size} ${
         isArchived
           ? selectedSize?.id === size.id
-            ? 'border-gray-500 bg-[#57686a] text-gray-200 cursor-not-allowed'
-            : 'border-gray-700/80 bg-transparent text-gray-400/70 cursor-not-allowed'
+            ? 'border-label-3 bg-fill text-label-2 cursor-not-allowed'
+            : 'border-separator bg-transparent text-label-3 cursor-not-allowed'
           : selectedSize?.id === size.id
-            ? 'border-greny bg-secondary text-white'
-            : 'border-secondary text-white'
+            ? 'border-greny bg-greny/10 text-label shadow-[inset_0_0_0_1px_rgb(134_223_14)]'
+            : 'border-separator text-label hover:border-label-3'
       } ${className || ''}`}
       onClick={!isArchived ? onClick : undefined}>
-      <span className={isArchived ? "line-through decoration-1 text-gray-300" : ""}>
+      <span className={isArchived ? "line-through decoration-1" : ""}>
         {size.name}
       </span>
     </button>
@@ -107,7 +107,7 @@ export function ThreeButtons({
           }}
           className={`${styles.three_buttons_add_to_cart} ${
             isArchived
-              ? 'bg-[#526365]/90 border-[#607375] text-white/90 cursor-not-allowed opacity-90 hover:bg-[#526365]/90 hover:text-white/90'
+              ? 'bg-fill text-label-2 cursor-not-allowed hover:bg-fill hover:text-label-2'
               : ''
           }`}>
           {isArchived
@@ -117,7 +117,8 @@ export function ThreeButtons({
         <Button
           variant="ghost"
           onClick={handleClickHeart}
-          className="h-12 w-12 p-0 border border-white/20 rounded-sm">
+          aria-label="Wishlist"
+          className="h-12 w-12 p-0 shrink-0 rounded-full bg-fill hover:bg-fill-2 text-label [&_svg]:size-5">
           {!isInWithList(productId) ? (
             <Heart size={20} />
           ) : (
@@ -160,9 +161,10 @@ export function XButton({ onClick, className }: { onClick: () => void, className
       onClick={handleClick}
       onMouseDown={handleMouseDown}
       data-close="true"
-      className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-4 text-white hover:opacity-75 z-50 ${className}`}
+      aria-label="Close"
+      className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-3 w-9 h-9 flex items-center justify-center rounded-full bg-fill text-label hover:bg-fill-2 transition-colors z-50 ${className}`}
     >
-      <X className='w-6 h-6' />
+      <X className='w-[18px] h-[18px]' strokeWidth={2.25} />
     </button>
   )
 }
@@ -210,17 +212,19 @@ export function QuantityChanger({
     }
   };
   if (small) return (
-    <div className="flex items-center gap-2 bg-[#004750] w-fit rounded-sm p-0.5">
+    <div className="flex items-center gap-1 bg-fill w-fit rounded-full p-0.5">
       <button
         onClick={() => handleQuantityChange('decrease')}
-        className="w-5 h-5 flex items-center justify-center"
+        aria-label="Decrease quantity"
+        className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-fill-2 transition-colors"
       >
         <Minus size={12} />
       </button>
-      <span className="w-4 text-center text-xs">{quantity}</span>
+      <span className="w-5 text-center text-footnote font-medium tnum">{quantity}</span>
       <button
         onClick={() => handleQuantityChange('increase')}
-        className="w-5 h-5 flex items-center justify-center"
+        aria-label="Increase quantity"
+        className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-fill-2 transition-colors"
       >
         <Plus size={12} />
       </button>
@@ -229,20 +233,22 @@ export function QuantityChanger({
 
   return (
     <div className={`${className || 'mb-4'} ${className?.includes('sticky-footer') ? 'flex items-center' : 'flex flex-col gap-1'}`}>
-      {withLabel && <label className="block mb-2">{t('quantity')}</label>}
-      <div className="flex items-center gap-2 bg-[#004750] w-fit rounded-sm">
+      {withLabel && <label className="block mb-2 text-subhead text-label-2">{t('quantity')}</label>}
+      <div className="flex items-center bg-fill w-fit rounded-full">
         <button
           onClick={() => handleQuantityChange('decrease')}
-          className="w-12 h-12 flex items-center justify-center"
+          aria-label="Decrease quantity"
+          className="w-12 h-12 rounded-full flex items-center justify-center hover:bg-fill-2 transition-colors active:scale-95"
         >
-          <Minus size={20} />
+          <Minus size={18} />
         </button>
-        <span className="w-12 text-center">{quantity}</span>
+        <span className="w-8 text-center text-body font-medium tnum">{quantity}</span>
         <button
           onClick={() => handleQuantityChange('increase')}
-          className="w-12 h-12 flex items-center justify-center"
+          aria-label="Increase quantity"
+          className="w-12 h-12 rounded-full flex items-center justify-center hover:bg-fill-2 transition-colors active:scale-95"
         >
-          <Plus size={20} />
+          <Plus size={18} />
         </button>
       </div>
     </div>
@@ -277,6 +283,7 @@ export function ScrollArrow() {
   return isVisible ? (
     <Button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="Back to top"
       className={`${styles.scroll_arrow} ${isProductPage ? '!bottom-36 md:!bottom-28' : ''}`}>
       <ChevronUp className='w-5 h-5' />
     </Button>

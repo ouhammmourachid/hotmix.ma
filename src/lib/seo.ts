@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://www.hotmix.ma";
 export const SITE_NAME = "Hotmix";
-export const DEFAULT_OG_IMAGE = "/banner-16-9.png";
-export const DEFAULT_OG_IMAGE_WIDTH = 1672;
-export const DEFAULT_OG_IMAGE_HEIGHT = 941;
+// Brand share card (logo on teal), used when a page has no image of its own
+export const DEFAULT_OG_IMAGE = "/og-image.png";
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
 
 export function absoluteUrl(path: string): string {
   const url = new URL(path, SITE_URL);

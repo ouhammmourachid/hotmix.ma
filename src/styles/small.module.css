@@ -1,13 +1,13 @@
 .size {
-    @apply w-fit h-6 text-sm lg:h-10 lg:px-4 px-2 border rounded flex items-center justify-center;
+    @apply min-w-11 h-11 px-3.5 text-subhead font-medium tnum border rounded-xl flex items-center justify-center transition-colors duration-200;
 }
 
 .three_buttons_add_to_cart {
-    @apply flex-1 h-12 bg-secondary rounded-sm text-white border border-greny hover:bg-secondary/70 transition-colors;
+    @apply flex-1 h-12 bg-fill rounded-full text-label text-subhead font-semibold border-0 hover:bg-fill-2 hover:text-label;
 }
 
 .three_buttons_quick_buy {
-    @apply w-full h-12 text-center items-center flex justify-center bg-greny hover:bg-greny/80 text-black font-medium rounded-sm;
+    @apply w-full h-[52px] text-center items-center flex justify-center bg-greny hover:bg-greny/90 text-primary text-body font-semibold rounded-full transition-[background-color,transform] duration-200 active:scale-[0.98];
 }
 
 .x_cursor {
@@ -19,11 +19,11 @@
 }
 
 .discount_badge {
-    @apply bg-[#d8e8dd] px-2 py-1 rounded-full text-xs sm:text-sm text-black font-semibold;
+    @apply bg-whity rounded-full text-primary font-semibold tnum;
 }
 
 .scroll_arrow {
-    @apply fixed z-30 bottom-28 right-8 bg-white text-teal-950 rounded-sm lg:w-10 lg:h-10 h-8 w-5 shadow-lg hover:bg-gray-100;
+    @apply fixed z-30 bottom-24 lg:bottom-8 right-5 material-thin text-label rounded-full w-11 h-11 p-0 shadow-float hover:bg-primary/70;
 }
 
 .grid_group {

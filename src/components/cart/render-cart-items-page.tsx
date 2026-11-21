@@ -115,7 +115,7 @@ const CheckoutSubtotal = () => {
       </div>
       <div className="text-gray-300 text-sm mb-6">
         {t('cart_tax_included')} {' '}
-        <Link href="/shipping" className="underline hover:text-white">
+        <Link href="/shipping-delivery" className="underline underline-offset-2 hover:text-label">
           {t('cart_shipping')}
         </Link>
         {' '}{t('cart_calculate_shipping')}.

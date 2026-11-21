@@ -44,15 +44,15 @@ export default function NewsletterForm() {
     };
 
     return (
-        <div className="space-y-6">
-            <h3 className="text-2xl font-semibold">
+        <div className="space-y-4">
+            <h3 className="text-subhead font-semibold text-label">
                 {t('footer_newsletter_title')}
             </h3>
-            <p className="text-gray-300">
+            <p className="text-footnote text-label-2">
                 {t('footer_newsletter_description')}
             </p>
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
-                <div className="flex bg-white p-2 rounded-sm items-center">
+                <div className="flex bg-fill p-1.5 ps-4 rounded-full items-center focus-within:ring-1 focus-within:ring-greny/60 transition-shadow">
                     <Input
                         type="email"
                         placeholder={t('footer_email_placeholder')}

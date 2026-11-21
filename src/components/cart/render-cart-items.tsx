@@ -39,15 +39,15 @@ export const CheckoutSubtotal = ({ className, onClose }: { className?: string, o
   return (
     <div className={styles.cart_checkout + ' ' + className}>
       <div className="mb-4 flex justify-between items-center">
-        <h2 className="text-2xl font-semibold mb-1">{t('cart_subtotal')}</h2>
-        <div className="text-2xl font-bold">
+        <h2 className="text-body font-medium text-label-2">{t('cart_subtotal')}</h2>
+        <div className="text-title-2 font-semibold tnum">
           {formatPrice(subtotal)} DH
         </div>
       </div>
 
-      <div className="text-gray-300 text-sm mb-6">
+      <div className="text-label-3 text-footnote mb-5">
         {t('cart_tax_included')}. {' '}
-        <Link href="/shipping" className="underline hover:text-white">
+        <Link href="/shipping-delivery" className="underline underline-offset-2 hover:text-label">
           {t('cart_shipping')}
         </Link>
         {' '}{t('cart_calculate_shipping')}.
@@ -95,7 +95,7 @@ function CartItem({
     updateQuantity(item.id, quantity)
   }, [quantity])
   return (
-    <div className={`flex items-center gap-4 p-4 ${!isLast && "border-b"} border-teal-800 mx-7`}>
+    <div className={`flex items-center gap-4 p-4 ${!isLast && "border-b"} border-separator mx-5`}>
       <Link
         onClick={onClose}
         href={`/products/${product.id}`}>

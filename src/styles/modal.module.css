@@ -4,11 +4,11 @@
 }
 
 .cart {
-    @apply fixed right-0 top-0 h-full w-full max-w-md bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+    @apply fixed right-0 top-0 h-full w-full max-w-md bg-surface text-label shadow-float sm:rounded-l-sheet flex flex-col overflow-hidden;
 }
 
 .cart_header {
-    @apply flex items-center justify-between p-4 mx-7 border-b border-secondary;
+    @apply flex items-center justify-between py-4 px-1 mx-5 border-b border-separator;
 }
 
 /* filter modal */
@@ -17,11 +17,11 @@
 }
 
 .filter {
-    @apply fixed left-0 top-0 h-full w-full max-w-md bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+    @apply fixed left-0 top-0 h-full w-full max-w-md bg-surface text-label shadow-float sm:rounded-r-sheet flex flex-col overflow-hidden;
 }
 
 .filter_header {
-    @apply flex items-center h-14 gap-2 text-sm bg-secondary px-3;
+    @apply flex items-center h-14 gap-2 text-subhead font-medium border-b border-separator px-4;
 }
 
 /* product modal */
@@ -30,23 +30,23 @@
 }
 
 .product {
-    @apply bg-primary text-white rounded-sm max-w-4xl w-full flex overflow-hidden relative;
+    @apply bg-surface text-label rounded-sheet shadow-float max-w-4xl w-full flex overflow-hidden relative;
 }
 
 .product_header {
-    @apply text-2xl font-bold mb-2 hover:text-greny;
+    @apply text-title-2 font-semibold mb-2 hover:text-greny transition-colors;
 }
 
 .product_link_detail {
-    @apply text-white text-sm hover:text-greny underline text-left flex gap-1;
+    @apply text-label-2 text-subhead hover:text-greny underline underline-offset-4 text-left flex gap-1;
 }
 
 .product_price {
-    @apply text-gray-400 line-through;
+    @apply text-label-3 line-through tnum;
 }
 
 .product_sale_price {
-    @apply text-greny text-2xl font-bold;
+    @apply text-greny text-title-2 font-semibold tnum;
 }
 
 .product_prices {
@@ -64,7 +64,7 @@
 }
 
 .quick_add {
-    @apply bg-primary text-white rounded-sm max-w-lg w-full p-6 relative;
+    @apply bg-surface text-label rounded-sheet shadow-float max-w-lg w-full p-6 relative;
 }
 
 @media (max-width: 768px) {
@@ -73,12 +73,19 @@
     }
 
     .quick_add {
-        @apply max-w-full rounded-t-lg rounded-b-none;
+        @apply max-w-full rounded-t-sheet rounded-b-none pt-8 shadow-sheet;
+        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* sheet grabber */
+    .quick_add::before {
+        content: '';
+        @apply absolute top-2 left-1/2 -translate-x-1/2 w-9 h-[5px] rounded-full bg-fill-2;
     }
 }
 
 .quick_add_header {
-    @apply text-xl font-medium mb-2 hover:text-greny;
+    @apply text-title-3 font-semibold mb-1 hover:text-greny transition-colors;
 }
 
 .quick_add_prices {
@@ -86,11 +93,11 @@
 }
 
 .quick_add_price {
-    @apply text-gray-400 line-through text-sm flex-shrink-0;
+    @apply text-label-3 line-through text-footnote flex-shrink-0 tnum;
 }
 
 .quick_add_sale_price {
-    @apply text-greny font-bold flex-shrink-0;
+    @apply text-greny text-body font-semibold flex-shrink-0 tnum;
 }
 
 .quick_add_discount {
@@ -103,19 +110,19 @@
 }
 
 .side_menu {
-    @apply fixed left-0 top-0 h-full w-[85%] max-w-md bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+    @apply fixed left-0 top-0 h-full w-[85%] max-w-md bg-surface text-label shadow-float rounded-r-sheet flex flex-col overflow-hidden;
 }
 
 .side_menu_button {
-    @apply flex-1 h-10 flex items-center justify-center gap-2 py-2 px-3 border border-greny rounded-sm hover:bg-white hover:bg-opacity-10 hover:text-whity transition-colors duration-200 bg-secondary;
+    @apply flex-1 h-11 flex items-center justify-center gap-2 px-3 rounded-full bg-fill hover:bg-fill-2 text-label text-subhead font-medium transition-colors duration-200;
 }
 
 .side_menu_account_button {
-    @apply w-full flex items-center justify-center gap-2 py-2 px-4 border border-greny rounded-sm hover:bg-white hover:bg-opacity-10 bg-secondary;
+    @apply w-full h-11 flex items-center justify-center gap-2 px-4 rounded-full bg-fill hover:bg-fill-2 text-label text-subhead font-medium transition-colors duration-200;
 }
 
 .side_menu_link {
-    @apply block text-white text-sm hover:text-gray-300 border-b border-secondary pb-3;
+    @apply block text-label text-body hover:text-greny transition-colors border-b border-separator pb-3;
 }
 
 /* product description & details modals */
@@ -124,15 +131,15 @@
 }
 
 .product_info {
-    @apply fixed top-0 h-full w-full md:max-w-xl bg-primary text-white shadow-lg flex flex-col overflow-hidden;
+    @apply fixed top-0 h-full w-full md:max-w-xl bg-surface text-label shadow-float flex flex-col overflow-hidden;
 }
 
 .product_info_header {
-    @apply relative flex items-center justify-center px-14 py-5 border-b border-secondary;
+    @apply relative flex items-center justify-center px-14 py-5 border-b border-separator;
 }
 
 .product_info_title {
-    @apply text-sm font-bold uppercase tracking-wide text-center;
+    @apply text-body font-semibold text-center;
 }
 
 .product_info_body {
@@ -140,7 +147,7 @@
 }
 
 .product_info_heading {
-    @apply text-base font-bold uppercase tracking-wide mb-4;
+    @apply text-body font-semibold mb-3;
 }
 
 .product_info_sizes {
@@ -149,7 +156,7 @@
 
 /* matches the size chips on the product page (small.module.css .size), but static */
 .product_info_size {
-    @apply min-w-12 h-10 px-4 border border-secondary rounded flex items-center justify-center text-sm text-white;
+    @apply min-w-11 h-11 px-3.5 border border-separator rounded-xl flex items-center justify-center text-subhead text-label;
 }
 
 /* search modal */
@@ -162,9 +169,9 @@
 }
 
 .search_header {
-    @apply text-2xl text-white font-medium mb-6;
+    @apply text-title-1 text-label font-semibold mb-6;
 }
 
 .search_input {
-    @apply h-11 bg-teal-800/50 text-white placeholder-gray-400 py-4 px-12 rounded-sm border border-teal-700 focus:outline-none focus:border-teal-600 text-lg w-full max-w-md;
+    @apply h-12 bg-fill text-label placeholder:text-label-3 px-12 rounded-xl border border-transparent focus:outline-none focus:border-greny/60 text-body w-full max-w-md transition-colors;
 }

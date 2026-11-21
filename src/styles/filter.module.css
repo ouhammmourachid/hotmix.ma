@@ -1,7 +1,7 @@
 
 
 .filter_radio {
-  @apply w-5 h-5 appearance-none rounded-full border-2 border-[#527692]
+  @apply w-5 h-5 appearance-none rounded-full border-2 border-label-3
   bg-transparent
   relative
   checked:bg-greny
@@ -19,15 +19,15 @@
 }
 
 .filter_checkbox {
-    @apply border border-[#014751] data-[state=checked]:bg-greny rounded-none w-5 h-5;
+    @apply border border-label-3 data-[state=checked]:bg-greny data-[state=checked]:border-greny data-[state=checked]:text-primary rounded-[6px] w-5 h-5;
 }
 
 .filter_checkbox_label {
-    @apply flex items-center gap-3 mb-3 cursor-pointer;
+    @apply flex items-center gap-3 mb-3 min-h-[28px] text-subhead text-label cursor-pointer;
 }
 
 .filter_color_ring {
-    @apply absolute inset-0 w-8 h-8 rounded-full border-[#014751];
+    @apply absolute -inset-[2px] rounded-full border-label transition-[border-width] duration-150;
 }
 
 .filter_color_circle {

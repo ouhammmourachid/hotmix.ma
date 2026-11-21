@@ -15,19 +15,15 @@ import { useApiService } from '@/services/api.service';
 import { createCategorySlug } from '@/lib/utils';
 import Category from '@/types/category';
 
-function NavLink({
-  href,
-  name
-}: {
-  href: string,
-  name: string
-}) {
-  return (
-    <a href={href} className={styles.nav_link + " group"}>
-      {name}
-      <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out  group-hover:w-full' />
-    </a>
-  )
+const linkClass =
+  'text-subhead text-label/80 hover:text-label transition-colors duration-200';
+
+const iconButtonClass =
+  'relative w-11 h-11 flex items-center justify-center rounded-full text-label hover:bg-fill transition-[background-color,transform] duration-200 active:scale-95';
+
+function CountBadge({ count }: { count: number }) {
+  if (!count) return null;
+  return <span className={styles.nav_span}>{count}</span>;
 }
 
 export default function Navigation({
@@ -40,8 +36,7 @@ export default function Navigation({
   }>) {
   const { totalItems } = useCart()
   const { totalWishList } = useWishlist()
-  // const { auth } = useAuth(); // Access authentication state
-  const { t } = useTranslation(); // Translation hook
+  const { t } = useTranslation();
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const api = useApiService();
@@ -68,57 +63,54 @@ export default function Navigation({
   return (
     <nav
       className={styles.nav + " navigation"}>
-      <div className="container mx-auto flex items-center justify-between w-full px-4 md:px-6 lg:px-12">
+      <div className="container mx-auto flex items-center justify-between w-full px-2 md:px-6 lg:px-12">
         {/* Mobile menu button - only visible on small screens */}
         <div className="flex items-center lg:hidden">
-          <Menu
+          <button
+            type="button"
             onClick={() => onMenuClick()}
-            className="text-white cursor-pointer" />
+            aria-label="Menu"
+            className={iconButtonClass}>
+            <Menu className="w-[22px] h-[22px]" strokeWidth={1.75} />
+          </button>
         </div>
 
-        {/* Logo - left aligned on large screens */}
+        {/* Logo */}
         <Link
           href="/"
+          aria-label="Hotmix"
           className={styles.nav_logo}>
-          <HotmixLogo className="h-7 text-greny w-auto" />
-        </Link>            {/* Desktop navigation links - centered on large screens */}
+          <HotmixLogo className="h-6 lg:h-7 text-greny w-auto" />
+        </Link>
+
+        {/* Desktop navigation links */}
         <NavigationMenu.Root className="hidden lg:flex">
-          <NavigationMenu.List className="flex gap-8 text-white items-center">
-            {/* Home Link */}
+          <NavigationMenu.List className="flex gap-8 items-center">
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
-                <a href="/" className={styles.nav_link + " group"}>
-                  {t('nav_home')}
-                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
-                </a>
+                <a href="/" className={linkClass}>{t('nav_home')}</a>
               </NavigationMenu.Link>
             </NavigationMenu.Item>
 
-            {/* All Products Link */}
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
-                <a href="/products/" className={styles.nav_link + " group"}>
-                  {t('nav_all_products')}
-                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
-                </a>
+                <a href="/products/" className={linkClass}>{t('nav_all_products')}</a>
               </NavigationMenu.Link>
             </NavigationMenu.Item>
 
-            {/* Winter Collection Dropdown */}
             <NavigationMenu.Item>
-              <NavigationMenu.Trigger className={styles.nav_link + " group flex items-center gap-1 cursor-pointer bg-transparent border-0 text-white"}>
+              <NavigationMenu.Trigger className={linkClass + " group flex items-center gap-1 cursor-pointer bg-transparent border-0"}>
                 {t('nav_our_collection')}
-                <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]:rotate-180" aria-hidden />
-                <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 ease-apple group-data-[state=open]:rotate-180" aria-hidden />
               </NavigationMenu.Trigger>
 
-              <NavigationMenu.Content className="absolute top-11 w-72 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:slide-out-to-bottom-2 data-[state=open]:slide-in-from-bottom-2">
-                <div className="bg-primary shadow-lg  py-4 px-6 ">
+              <NavigationMenu.Content className="absolute top-10 w-72 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:slide-out-to-top-1 data-[state=open]:slide-in-from-top-1">
+                <div className="bg-surface-2 rounded-card shadow-float p-2">
                   {categories.map((item, index) => (
                     <NavigationMenu.Link key={index} asChild>
                       <a
                         href={`/collections/${createCategorySlug(item.name)}/`}
-                        className="block py-2 text-white hover:text-greny transition-colors duration-200"
+                        className="block px-3 py-2.5 rounded-xl text-subhead text-label hover:bg-fill transition-colors duration-200"
                       >
                         {item.name}
                       </a>
@@ -128,61 +120,61 @@ export default function Navigation({
               </NavigationMenu.Content>
             </NavigationMenu.Item>
 
-
-
-            {/* Sale Link */}
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild>
-                <a href="/sale/" className={styles.nav_link + " group"}>
-                  {t('nav_sale')}
-                  <div className='absolute group-hover:left-0 bottom-0 right-0 h-0.5 bg-whity w-0 transition-all duration-400 ease-in-out group-hover:w-full' />
-                </a>
+                <a href="/sale/" className={linkClass}>{t('nav_sale')}</a>
               </NavigationMenu.Link>
             </NavigationMenu.Item>
           </NavigationMenu.List>
         </NavigationMenu.Root>
 
-        {/* Right section with icons */}
-        <div className="flex items-center gap-4">
-          <Search
-            className="w-5 h-5 cursor-pointer hover:text-greny text-white"
-            onClick={() => onSearchClick()} />
-          <div className='hidden lg:flex gap-4'>
-            <div
-              className='relative'>
-              <User
+        {/* Icons */}
+        <div className="flex items-center">
+          <button
+            type="button"
+            aria-label="Search"
+            onClick={() => onSearchClick()}
+            className={iconButtonClass}>
+            <Search className="w-5 h-5" strokeWidth={1.75} />
+          </button>
+          <div className='hidden lg:flex'>
+            <div className='relative'>
+              <button
+                type="button"
+                aria-label={t('nav_account')}
                 onClick={() => clickAccount()}
-                className="w-5 h-5 hover:text-greny cursor-pointer text-white" />                  {isAccountMenuOpen && (
-                  <div
-                    onClick={() => setIsAccountMenuOpen(false)}
-                    className="absolute z-50 bg-secondary top-8 right-0 p-4 pt-2 shadow-lg rounded-md min-w-[150px]">
-                    <Link href="/account" className="block py-2 text-white">
-                      {t('nav_account')}
-                    </Link>
-                    <div>
-                      <LogoutButton />
-                    </div>
+                className={iconButtonClass}>
+                <User className="w-5 h-5" strokeWidth={1.75} />
+              </button>
+              {isAccountMenuOpen && (
+                <div
+                  onClick={() => setIsAccountMenuOpen(false)}
+                  className="absolute z-50 bg-surface-2 top-12 right-0 p-2 shadow-float rounded-card min-w-[180px]">
+                  <Link href="/account" className="block px-3 py-2.5 rounded-xl text-subhead text-label hover:bg-fill transition-colors">
+                    {t('nav_account')}
+                  </Link>
+                  <div className="px-3 py-1">
+                    <LogoutButton />
                   </div>
-                )}
+                </div>
+              )}
             </div>
             <a
               href="/wishlist/"
-              className="relative cursor-pointer hover:text-greny">
-              <Heart className="w-5 h-5 text-white" />
-              <span className={styles.nav_span}>
-                {totalWishList}
-              </span>
+              aria-label="Wishlist"
+              className={iconButtonClass}>
+              <Heart className="w-5 h-5" strokeWidth={1.75} />
+              <CountBadge count={totalWishList} />
             </a>
           </div>
-          <div
-            className="relative cursor-pointer hover:text-greny"
+          <button
+            type="button"
+            aria-label="Cart"
+            className={iconButtonClass}
             onClick={() => onCartClick()}>
-            <Basket className='w-4 sm:w-4 text-white' />
-            <span
-              className={styles.nav_span + " scale-75 sm:scale-100"}>
-              {totalItems}
-            </span>
-          </div>
+            <Basket className='w-[18px] text-label' />
+            <CountBadge count={totalItems} />
+          </button>
         </div>
       </div>
     </nav>

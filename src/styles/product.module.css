@@ -1,15 +1,15 @@
 
 /* horizontal product */
 .horizontal_product {
-    @apply p-4 sm:p-6 h-fit border-b-2 border-secondary;
+    @apply p-4 sm:p-6 h-fit border-b border-separator;
 }
 
 .horizontal_product_button {
-    @apply p-2 bg-secondary rounded-sm hover:bg-whity hover:text-secondary transition-colors;
+    @apply p-2.5 bg-fill rounded-full hover:bg-fill-2 text-label transition-colors;
 }
 
 .horizontal_product_description {
-    @apply text-gray-300 w-3/4 hidden md:block;
+    @apply text-label-2 w-3/4 hidden md:block;
 }
 
 .horizontal_product_prices {
@@ -17,44 +17,42 @@
 }
 
 .horizontal_product_price {
-    @apply text-gray-400 text-sm sm:text-xl line-through whitespace-nowrap;
+    @apply text-label-3 text-footnote sm:text-title-3 line-through whitespace-nowrap tnum;
 }
 
 .horizontal_product_sale_price {
-    @apply text-greny text-sm sm:text-xl font-bold whitespace-nowrap;
+    @apply text-greny text-subhead sm:text-title-3 font-semibold whitespace-nowrap tnum;
 }
 
 .horizontal_product_header {
-    @apply text-sm sm:text-base lg:text-2xl font-bold hover:text-greny cursor-pointer truncate overflow-hidden text-ellipsis w-full;
+    @apply text-subhead sm:text-body lg:text-title-3 font-semibold hover:text-greny transition-colors cursor-pointer truncate overflow-hidden text-ellipsis w-full;
 }
 
 /* product card */
 .product_card {
-    @apply relative overflow-hidden rounded-sm w-full bg-transparent shadow-none border-0;
+    @apply relative w-full bg-transparent shadow-none border-0;
 }
 
 
 
 .product_card_quick_add {
-    @apply w-full h-10 border-2 border-[#708885] text-xs font-semibold rounded-sm
-     bg-secondary hover:bg-whity hover:text-secondary hover:border-secondary
-    text-white mt-2 opacity-100 transition-all duration-300 lg:opacity-0;
+    @apply w-full h-11 mt-3 rounded-full border-0 bg-fill hover:bg-fill-2 text-label text-subhead font-medium opacity-100 lg:opacity-0 transition-[opacity,background-color,transform] duration-300 ease-apple;
 }
 
 .product_card_prices {
-    @apply flex flex-row items-center gap-2;
+    @apply flex flex-row items-baseline gap-2;
 }
 
 .product_card_price {
-    @apply text-gray-500 line-through whitespace-nowrap text-base;
+    @apply text-label-3 line-through whitespace-nowrap text-footnote tnum;
 }
 
 .product_card_sale_price {
-    @apply text-greny font-bold whitespace-nowrap text-base;
+    @apply text-greny font-semibold whitespace-nowrap text-body tnum;
 }
 
 .product_card_sizes {
-    @apply flex justify-center bg-primary w-full h-8 opacity-80 rounded-b-lg gap-2 pt-2 shadow-none;
+    @apply flex justify-center items-center gap-3 material-thin w-fit mx-auto mb-3 h-7 px-3.5 rounded-full;
 }
 
 .product_card_quick_actions {
@@ -63,25 +61,24 @@
 }
 
 .product_card_quick_actions_button {
-    @apply w-10 h-10 rounded-full bg-secondary hover:bg-whity hover:text-primary flex
-    items-center justify-center cursor-pointer transition-colors;
+    @apply w-10 h-10 rounded-full material-thin text-label hover:bg-primary/70 flex items-center justify-center cursor-pointer transition-colors;
 }
 
 .product_card_name {
-    @apply text-base sm:text-lg font-medium text-white hover:text-greny line-clamp-2 leading-snug max-w-full;
+    @apply text-subhead sm:text-body font-medium text-label hover:text-greny transition-colors line-clamp-2 max-w-full;
 }
 
 /* sticky product footer */
 .sticky_product_footer {
-    @apply fixed bottom-16 lg:bottom-0 text-white left-0 right-0 bg-primary py-2 px-3 sm:px-4 lg:pl-14 flex items-center justify-between shadow-[0_-4px_12px_rgba(0,0,0,0.5)] z-40;
+    @apply fixed bottom-16 lg:bottom-0 inset-x-0 material-bar text-label py-2.5 px-4 lg:px-14 flex items-center justify-between gap-4 shadow-[0_-0.5px_0_0_rgb(216_232_221/0.16)] z-40;
 }
 
 .sticky_product_footer_button {
-    @apply h-12 w-full md:w-fit px-3 sm:px-6 md:px-14 rounded-sm font-semibold bg-secondary text-white border border-greny hover:bg-green-600 hover:text-white transition-colors flex items-center justify-center;
+    @apply h-12 w-full md:w-fit px-6 md:px-14 rounded-full font-semibold bg-greny text-primary hover:bg-greny/90 flex items-center justify-center;
 }
 
 .sticky_product_footer_name {
-    @apply text-lg font-semibold hidden lg:block;
+    @apply text-body font-semibold hidden lg:block;
 }
 
 /* product details */
@@ -92,15 +89,15 @@
 }
 
 .product_details_list {
-    @apply w-full border-t border-secondary;
+    @apply w-full border-t border-separator;
 }
 
 .product_details_row {
-    @apply border-b border-secondary;
+    @apply border-b border-separator;
 }
 
 .product_details_button {
-    @apply w-full flex items-center justify-between py-4 lg:py-5 text-xs lg:text-[13px] font-semibold uppercase tracking-wider text-white/90 hover:text-greny transition-colors;
+    @apply w-full flex items-center justify-between min-h-[52px] py-3.5 text-body font-medium text-label hover:text-greny transition-colors;
 }
 
 .product_details_icon {
